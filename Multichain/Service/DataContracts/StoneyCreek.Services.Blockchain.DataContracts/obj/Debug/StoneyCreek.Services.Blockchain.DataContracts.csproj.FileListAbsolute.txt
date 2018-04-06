@@ -1,0 +1,11 @@
+C:\BlockChainHackaton\Multichain\Service\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\bin\Debug\StoneyCreek.Services.Blockchain.DataContracts.dll
+C:\BlockChainHackaton\Multichain\Service\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\bin\Debug\StoneyCreek.Services.Blockchain.DataContracts.pdb
+C:\BlockChainHackaton\Multichain\Service\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\obj\Debug\StoneyCreek.Services.Blockchain.DataContracts.csprojResolveAssemblyReference.cache
+C:\BlockChainHackaton\Multichain\Service\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\obj\Debug\StoneyCreek.Services.Blockchain.DataContracts.csproj.CoreCompileInputs.cache
+C:\BlockChainHackaton\Multichain\Service\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\obj\Debug\StoneyCreek.Services.Blockchain.DataContracts.dll
+C:\BlockChainHackaton\Multichain\Service\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\obj\Debug\StoneyCreek.Services.Blockchain.DataContracts.pdb
+C:\Users\johnny\Documents\BlockChainHackaton\Multichain\Service\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\bin\Debug\StoneyCreek.Services.Blockchain.DataContracts.dll
+C:\Users\johnny\Documents\BlockChainHackaton\Multichain\Service\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\bin\Debug\StoneyCreek.Services.Blockchain.DataContracts.pdb
+C:\Users\johnny\Documents\BlockChainHackaton\Multichain\Service\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\obj\Debug\StoneyCreek.Services.Blockchain.DataContracts.csproj.CoreCompileInputs.cache
+C:\Users\johnny\Documents\BlockChainHackaton\Multichain\Service\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\obj\Debug\StoneyCreek.Services.Blockchain.DataContracts.dll
+C:\Users\johnny\Documents\BlockChainHackaton\Multichain\Service\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\obj\Debug\StoneyCreek.Services.Blockchain.DataContracts.pdb

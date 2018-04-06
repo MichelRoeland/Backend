@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BlockChainModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="ClientId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClientKeypairs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="PublicKey" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CommunicationSubscription">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SignalRIdentification" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="SubscriptionTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="SubscriptionDate" Type="date" Nullable="false" />
+          <Property Name="SubscriptionTimeOut" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="KeyIdentifier" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="TransactionId" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Signature" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="TransactionTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="TransactionDate" Type="date" Nullable="false" />
+          <Property Name="StreamId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Streams">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Streamname" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="StreamIdentifier" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_ClientKeypairs_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ClientKeypairs" Type="Self.ClientKeypairs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ClientKeypairs">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommunicationSubscription_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="CommunicationSubscription" Type="Self.CommunicationSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CommunicationSubscription">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_Streams">
+          <End Role="Streams" Type="Self.Streams" Multiplicity="1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Streams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="StreamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BlockChainModelStoreContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientKeypairs" EntityType="Self.ClientKeypairs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommunicationSubscription" EntityType="Self.CommunicationSubscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Streams" EntityType="Self.Streams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ClientKeypairs_Client" Association="Self.FK_ClientKeypairs_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientKeypairs" EntitySet="ClientKeypairs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommunicationSubscription_Client" Association="Self.FK_CommunicationSubscription_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="CommunicationSubscription" EntitySet="CommunicationSubscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_Client" Association="Self.FK_Messages_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_Streams" Association="Self.FK_Messages_Streams">
+            <End Role="Streams" EntitySet="Streams" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BlockChainModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client1" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ClientKeypairs" Relationship="Self.FK_ClientKeypairs_Client" FromRole="Client" ToRole="ClientKeypairs" />
+          <NavigationProperty Name="CommunicationSubscription" Relationship="Self.FK_CommunicationSubscription_Client" FromRole="Client" ToRole="CommunicationSubscription" />
+          <NavigationProperty Name="Messages" Relationship="BlockChainModel.FK_Messages_Client" FromRole="Client" ToRole="Messages" />
+        </EntityType>
+        <EntityType Name="ClientKeypairs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PublicKey" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_ClientKeypairs_Client" FromRole="ClientKeypairs" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="CommunicationSubscription">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SignalRIdentification" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SubscriptionTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="SubscriptionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SubscriptionTimeOut" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_CommunicationSubscription_Client" FromRole="CommunicationSubscription" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_ClientKeypairs_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ClientKeypairs" Type="Self.ClientKeypairs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ClientKeypairs">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommunicationSubscription_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="CommunicationSubscription" Type="Self.CommunicationSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CommunicationSubscription">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BlockChainEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="ClientKeypairs" EntityType="Self.ClientKeypairs" />
+          <EntitySet Name="CommunicationSubscription" EntityType="Self.CommunicationSubscription" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_ClientKeypairs_Client" Association="Self.FK_ClientKeypairs_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientKeypairs" EntitySet="ClientKeypairs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommunicationSubscription_Client" Association="Self.FK_CommunicationSubscription_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="CommunicationSubscription" EntitySet="CommunicationSubscription" />
+          </AssociationSet>
+          <EntitySet Name="Messages" EntityType="BlockChainModel.Messages" />
+          <AssociationSet Name="FK_Messages_Client" Association="BlockChainModel.FK_Messages_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <EntitySet Name="Streams" EntityType="BlockChainModel.Streams" />
+          <AssociationSet Name="FK_Messages_Streams" Association="BlockChainModel.FK_Messages_Streams">
+            <End Role="Streams" EntitySet="Streams" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="KeyIdentifier" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Signature" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StreamId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="Client" Relationship="BlockChainModel.FK_Messages_Client" FromRole="Messages" ToRole="Client" />
+          <NavigationProperty Name="Streams" Relationship="BlockChainModel.FK_Messages_Streams" FromRole="Messages" ToRole="Streams" />
+        </EntityType>
+        <Association Name="FK_Messages_Client">
+          <End Type="BlockChainModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="BlockChainModel.Messages" Role="Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Streams">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Streamname" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="StreamIdentifier" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Messages" Relationship="BlockChainModel.FK_Messages_Streams" FromRole="Streams" ToRole="Messages" />
+        </EntityType>
+        <Association Name="FK_Messages_Streams">
+          <End Type="BlockChainModel.Streams" Role="Streams" Multiplicity="1" />
+          <End Type="BlockChainModel.Messages" Role="Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Streams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="StreamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BlockChainModelStoreContainer" CdmEntityContainer="BlockChainEntities">
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="BlockChainModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Client1" ColumnName="Client" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientKeypairs">
+            <EntityTypeMapping TypeName="BlockChainModel.ClientKeypairs">
+              <MappingFragment StoreEntitySet="ClientKeypairs">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PublicKey" ColumnName="PublicKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommunicationSubscription">
+            <EntityTypeMapping TypeName="BlockChainModel.CommunicationSubscription">
+              <MappingFragment StoreEntitySet="CommunicationSubscription">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="SignalRIdentification" ColumnName="SignalRIdentification" />
+                <ScalarProperty Name="SubscriptionTime" ColumnName="SubscriptionTime" />
+                <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
+                <ScalarProperty Name="SubscriptionTimeOut" ColumnName="SubscriptionTimeOut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BlockChainModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="BlockChainModel.Messages">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="StreamId" ColumnName="StreamId" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
+                <ScalarProperty Name="Signature" ColumnName="Signature" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="KeyIdentifier" ColumnName="KeyIdentifier" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Streams">
+            <EntityTypeMapping TypeName="BlockChainModel.Streams">
+              <MappingFragment StoreEntitySet="Streams">
+                <ScalarProperty Name="StreamIdentifier" ColumnName="StreamIdentifier" />
+                <ScalarProperty Name="Streamname" ColumnName="Streamname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

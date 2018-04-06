@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BlockChainModelStoreContainer" CdmEntityContainer="BlockChainEntities">
+    <EntitySetMapping Name="Client">
+      <EntityTypeMapping TypeName="BlockChainModel.Client">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Client1" ColumnName="Client" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClientKeypairs">
+      <EntityTypeMapping TypeName="BlockChainModel.ClientKeypairs">
+        <MappingFragment StoreEntitySet="ClientKeypairs">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PublicKey" ColumnName="PublicKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommunicationSubscription">
+      <EntityTypeMapping TypeName="BlockChainModel.CommunicationSubscription">
+        <MappingFragment StoreEntitySet="CommunicationSubscription">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="SignalRIdentification" ColumnName="SignalRIdentification" />
+          <ScalarProperty Name="SubscriptionTime" ColumnName="SubscriptionTime" />
+          <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
+          <ScalarProperty Name="SubscriptionTimeOut" ColumnName="SubscriptionTimeOut" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="BlockChainModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="BlockChainModel.Messages">
+        <MappingFragment StoreEntitySet="Messages">
+          <ScalarProperty Name="StreamId" ColumnName="StreamId" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+          <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
+          <ScalarProperty Name="Signature" ColumnName="Signature" />
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="KeyIdentifier" ColumnName="KeyIdentifier" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Streams">
+      <EntityTypeMapping TypeName="BlockChainModel.Streams">
+        <MappingFragment StoreEntitySet="Streams">
+          <ScalarProperty Name="StreamIdentifier" ColumnName="StreamIdentifier" />
+          <ScalarProperty Name="Streamname" ColumnName="Streamname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

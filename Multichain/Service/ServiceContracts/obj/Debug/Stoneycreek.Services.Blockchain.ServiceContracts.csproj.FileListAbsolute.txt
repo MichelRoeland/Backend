@@ -1,0 +1,16 @@
+C:\BlockChainHackaton\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.csprojResolveAssemblyReference.cache
+C:\BlockChainHackaton\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.csproj.CoreCompileInputs.cache
+C:\Users\johnny\Documents\BlockChainHackaton\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.csprojResolveAssemblyReference.cache
+C:\Users\johnny\Documents\BlockChainHackaton\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.csproj.CoreCompileInputs.cache
+C:\Users\johnny\Documents\BlockChainHackaton\Deployment\Suntech.Services.WcfPushRequestService\Application\bin\Stoneycreek.Services.Blockchain.ServiceContracts.dll
+C:\Users\johnny\Documents\BlockChainHackaton\Deployment\Suntech.Services.WcfPushRequestService\Application\bin\Stoneycreek.Services.Blockchain.ServiceContracts.pdb
+C:\Users\johnny\Documents\BlockChainHackaton\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.csproj.CopyComplete
+C:\Users\johnny\Documents\BlockChainHackaton\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.dll
+C:\Users\johnny\Documents\BlockChainHackaton\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.pdb
+E:\Temp\Transfer\Deployment\Suntech.Services.WcfPushRequestService\Application\bin\Stoneycreek.Services.Blockchain.ServiceContracts.dll
+E:\Temp\Transfer\Deployment\Suntech.Services.WcfPushRequestService\Application\bin\Stoneycreek.Services.Blockchain.ServiceContracts.pdb
+E:\Temp\Transfer\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.csprojResolveAssemblyReference.cache
+E:\Temp\Transfer\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.csproj.CoreCompileInputs.cache
+E:\Temp\Transfer\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.csproj.CopyComplete
+E:\Temp\Transfer\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.dll
+E:\Temp\Transfer\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.pdb

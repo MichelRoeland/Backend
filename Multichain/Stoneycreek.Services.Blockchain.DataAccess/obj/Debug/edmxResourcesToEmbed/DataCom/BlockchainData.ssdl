@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BlockChainModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Client" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="ClientId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClientKeypairs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="PublicKey" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CommunicationSubscription">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="SignalRIdentification" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="SubscriptionTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="SubscriptionDate" Type="date" Nullable="false" />
+    <Property Name="SubscriptionTimeOut" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Messages">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="KeyIdentifier" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="TransactionId" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Signature" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="TransactionTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="TransactionDate" Type="date" Nullable="false" />
+    <Property Name="StreamId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Streams">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Streamname" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="StreamIdentifier" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_ClientKeypairs_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="ClientKeypairs" Type="Self.ClientKeypairs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ClientKeypairs">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CommunicationSubscription_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="CommunicationSubscription" Type="Self.CommunicationSubscription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CommunicationSubscription">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messages_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messages_Streams">
+    <End Role="Streams" Type="Self.Streams" Multiplicity="1" />
+    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Streams">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="StreamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BlockChainModelStoreContainer">
+    <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientKeypairs" EntityType="Self.ClientKeypairs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CommunicationSubscription" EntityType="Self.CommunicationSubscription" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Streams" EntityType="Self.Streams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ClientKeypairs_Client" Association="Self.FK_ClientKeypairs_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="ClientKeypairs" EntitySet="ClientKeypairs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CommunicationSubscription_Client" Association="Self.FK_CommunicationSubscription_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="CommunicationSubscription" EntitySet="CommunicationSubscription" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messages_Client" Association="Self.FK_Messages_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messages_Streams" Association="Self.FK_Messages_Streams">
+      <End Role="Streams" EntitySet="Streams" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
