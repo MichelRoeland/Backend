@@ -45,7 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KeyPairs.cs" />
+    <Compile Include="PatientPhysicians.cs" />
     <Compile Include="Permissions.cs" />
+    <Compile Include="Physician.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StreamItem.cs" />
     <Compile Include="StreamKeys.cs" />

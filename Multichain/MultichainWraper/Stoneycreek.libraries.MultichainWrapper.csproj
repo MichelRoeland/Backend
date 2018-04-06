@@ -52,6 +52,7 @@
     <Compile Include="MultiChain.cs" />
     <Compile Include="MultichainClientCommands.cs" />
     <Compile Include="MultichainUtilParameters.cs" />
+    <Compile Include="PatientChain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RSACrypt.cs" />
   </ItemGroup>

@@ -283,7 +283,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
 
-        public string GetStreamKeys(string streamname)
+        public StreamKey GetStreamKeys(string streamname)
         {
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
@@ -292,7 +292,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
             result = "{\"streamkeys\" : " + result + "}";
             var tmp = JsonConvert.DeserializeObject<StreamKey>(result);
-            return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
+            return tmp;
         }
 
         //Multichain-cli.exe mytestchain liststreamkeys pinjo
@@ -318,8 +318,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         public string SignMessage(string privatekey, string message)
         {
-            var commandtext = ChainLocation + ClientName + " " + Chainname + " "
-                              + string.Format(MultichainClientCommands.Signmessage, privatekey, "\"" + message + "\"");
+            var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(MultichainClientCommands.Signmessage, privatekey, "\"" + message + "\"");
             var result = ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
@@ -332,7 +331,6 @@ namespace Stoneycreek.libraries.MultichainWrapper
             var result = ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
-            ;
         }
 
         public string ImportPrivateKey(string privatekey)

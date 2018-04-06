@@ -14,3 +14,10 @@ E:\Temp\Transfer\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Servi
 E:\Temp\Transfer\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.csproj.CopyComplete
 E:\Temp\Transfer\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.dll
 E:\Temp\Transfer\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.pdb
+E:\Temp\Transfer\Hackaton\Backend\Deployment\Suntech.Services.WcfPushRequestService\Application\bin\Stoneycreek.Services.Blockchain.ServiceContracts.dll
+E:\Temp\Transfer\Hackaton\Backend\Deployment\Suntech.Services.WcfPushRequestService\Application\bin\Stoneycreek.Services.Blockchain.ServiceContracts.pdb
+E:\Temp\Transfer\Hackaton\Backend\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.csprojResolveAssemblyReference.cache
+E:\Temp\Transfer\Hackaton\Backend\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.csproj.CoreCompileInputs.cache
+E:\Temp\Transfer\Hackaton\Backend\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.csproj.CopyComplete
+E:\Temp\Transfer\Hackaton\Backend\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.dll
+E:\Temp\Transfer\Hackaton\Backend\Multichain\Service\ServiceContracts\obj\Debug\Stoneycreek.Services.Blockchain.ServiceContracts.pdb

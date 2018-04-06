@@ -22,3 +22,15 @@ C:\Users\johnny\Documents\BlockChainHackaton\Multichain\MultichainWraper\obj\Deb
 C:\Users\johnny\Documents\BlockChainHackaton\Multichain\MultichainWraper\obj\Debug\Stoneycreek.libraries.MultichainWrapper.csproj.CopyComplete
 C:\Users\johnny\Documents\BlockChainHackaton\Multichain\MultichainWraper\obj\Debug\Stoneycreek.libraries.MultichainWrapper.dll
 C:\Users\johnny\Documents\BlockChainHackaton\Multichain\MultichainWraper\obj\Debug\Stoneycreek.libraries.MultichainWrapper.pdb
+E:\Temp\Transfer\Hackaton\Backend\Multichain\MultichainWraper\bin\Debug\Stoneycreek.libraries.MultichainWrapper.dll.config
+E:\Temp\Transfer\Hackaton\Backend\Multichain\MultichainWraper\bin\Debug\Stoneycreek.libraries.MultichainWrapper.dll
+E:\Temp\Transfer\Hackaton\Backend\Multichain\MultichainWraper\bin\Debug\Stoneycreek.libraries.MultichainWrapper.pdb
+E:\Temp\Transfer\Hackaton\Backend\Multichain\MultichainWraper\bin\Debug\Newtonsoft.Json.dll
+E:\Temp\Transfer\Hackaton\Backend\Multichain\MultichainWraper\bin\Debug\StoneyCreek.Services.Blockchain.DataContracts.dll
+E:\Temp\Transfer\Hackaton\Backend\Multichain\MultichainWraper\bin\Debug\StoneyCreek.Services.Blockchain.DataContracts.pdb
+E:\Temp\Transfer\Hackaton\Backend\Multichain\MultichainWraper\bin\Debug\Newtonsoft.Json.xml
+E:\Temp\Transfer\Hackaton\Backend\Multichain\MultichainWraper\obj\Debug\Stoneycreek.libraries.MultichainWrapper.csprojResolveAssemblyReference.cache
+E:\Temp\Transfer\Hackaton\Backend\Multichain\MultichainWraper\obj\Debug\Stoneycreek.libraries.MultichainWrapper.csproj.CoreCompileInputs.cache
+E:\Temp\Transfer\Hackaton\Backend\Multichain\MultichainWraper\obj\Debug\Stoneycreek.libraries.MultichainWrapper.csproj.CopyComplete
+E:\Temp\Transfer\Hackaton\Backend\Multichain\MultichainWraper\obj\Debug\Stoneycreek.libraries.MultichainWrapper.dll
+E:\Temp\Transfer\Hackaton\Backend\Multichain\MultichainWraper\obj\Debug\Stoneycreek.libraries.MultichainWrapper.pdb
