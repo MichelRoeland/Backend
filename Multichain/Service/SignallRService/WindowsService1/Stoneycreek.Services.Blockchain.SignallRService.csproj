@@ -73,12 +73,6 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Stoneycreek.Libraries.Blockchain.SignallR\Stoneycreek.Libraries.Blockchain.SignallR.csproj">
-      <Project>{91bdcfab-ad66-4a0d-a3f1-3ce76e9e0011}</Project>
-      <Name>Stoneycreek.Libraries.Blockchain.SignallR</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

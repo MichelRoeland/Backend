@@ -68,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBlockChainApi.cs" />
-    <Compile Include="IBlockChainService.cs" />
     <Compile Include="Model\AddDataRequest.cs" />
     <Compile Include="BlockChainApi.svc.cs">
       <DependentUpon>BlockChainApi.svc</DependentUpon>
