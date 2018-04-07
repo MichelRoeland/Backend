@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Stoneycreek.libraries.MultichainWrapper;
-using static Stoneycreek.libraries.MultichainWrapper.MultichainClientCommands;
 
 namespace Unit_Tests.MultichainWrapper
 {

@@ -1,0 +1,444 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="GetBlockChainParams" xml:space="preserve">
+    <value>getblockchainparams</value>
+  </data>
+  <data name="Getruntimeparams" xml:space="preserve">
+    <value>getruntimeparams</value>
+  </data>
+  <data name="Setruntimeparam" xml:space="preserve">
+    <value>setruntimeparam</value>
+  </data>
+  <data name="Getinfo" xml:space="preserve">
+    <value>getinfo</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>stop</value>
+  </data>
+  <data name="Addmultisigaddress" xml:space="preserve">
+    <value>addmultisigaddress {0}</value>
+  </data>
+  <data name="Getaddresses" xml:space="preserve">
+    <value>getaddresses verbose={0}</value>
+  </data>
+  <data name="Getnewaddress" xml:space="preserve">
+    <value>getnewaddress</value>
+  </data>
+  <data name="Importaddress" xml:space="preserve">
+    <value>importaddress {0} rescan={1}</value>
+  </data>
+  <data name="Listaddresses" xml:space="preserve">
+    <value>listaddresses addresses={0} verbose={1} count={2} start={3}</value>
+  </data>
+  <data name="Createkeypairs" xml:space="preserve">
+    <value>createkeypairs</value>
+  </data>
+  <data name="Createmultisig" xml:space="preserve">
+    <value>createmultisig</value>
+  </data>
+  <data name="Validateaddress" xml:space="preserve">
+    <value>validateaddress</value>
+  </data>
+  <data name="Grant" xml:space="preserve">
+    <value>grant {0} {1} {2} {3} {4} {5} {6}</value>
+  </data>
+  <data name="Grantfrom" xml:space="preserve">
+    <value>grantfrom</value>
+  </data>
+  <data name="Grantwithdata" xml:space="preserve">
+    <value>grantwithdata</value>
+  </data>
+  <data name="Grantwithmetadata" xml:space="preserve">
+    <value>grantwithmetadata</value>
+  </data>
+  <data name="Grantwithdatafrom" xml:space="preserve">
+    <value>grantwithdatafrom</value>
+  </data>
+  <data name="Grantwithmetadatafrom" xml:space="preserve">
+    <value>grantwithmetadatafrom</value>
+  </data>
+  <data name="Listpermissions" xml:space="preserve">
+    <value>listpermissions</value>
+  </data>
+  <data name="Revoke" xml:space="preserve">
+    <value>revoke {0} {2}</value>
+  </data>
+  <data name="Revokefrom" xml:space="preserve">
+    <value>revokefrom</value>
+  </data>
+  <data name="Issue" xml:space="preserve">
+    <value>issue</value>
+  </data>
+  <data name="Issuefrom" xml:space="preserve">
+    <value>issuefrom</value>
+  </data>
+  <data name="Issuemore" xml:space="preserve">
+    <value>issuemore</value>
+  </data>
+  <data name="Issuemorefrom" xml:space="preserve">
+    <value>issuemorefrom</value>
+  </data>
+  <data name="Listassets" xml:space="preserve">
+    <value>listassets</value>
+  </data>
+  <data name="Getaddressbalances" xml:space="preserve">
+    <value>getaddressbalances</value>
+  </data>
+  <data name="Getaddresstransaction" xml:space="preserve">
+    <value>getaddresstransaction</value>
+  </data>
+  <data name="Getmultibalances" xml:space="preserve">
+    <value>getmultibalances</value>
+  </data>
+  <data name="Gettotalbalances" xml:space="preserve">
+    <value>gettotalbalances</value>
+  </data>
+  <data name="Getwallettransaction" xml:space="preserve">
+    <value>getwallettransaction</value>
+  </data>
+  <data name="Listaddresstransactions" xml:space="preserve">
+    <value>listaddresstransactions</value>
+  </data>
+  <data name="Listwallettransactions" xml:space="preserve">
+    <value>listwallettransactions</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>send</value>
+  </data>
+  <data name="Sendasset" xml:space="preserve">
+    <value>sendasset</value>
+  </data>
+  <data name="Sendassetfrom" xml:space="preserve">
+    <value>sendassetfrom</value>
+  </data>
+  <data name="Sendfrom" xml:space="preserve">
+    <value>sendfrom</value>
+  </data>
+  <data name="Sendwithdata" xml:space="preserve">
+    <value>sendwithdata</value>
+  </data>
+  <data name="Sendwithdatafrom" xml:space="preserve">
+    <value>sendwithdatafrom</value>
+  </data>
+  <data name="Appendrawexchange" xml:space="preserve">
+    <value>appendrawexchange</value>
+  </data>
+  <data name="Completerawexchange" xml:space="preserve">
+    <value>completerawexchange</value>
+  </data>
+  <data name="Createrawexchange" xml:space="preserve">
+    <value>createrawexchange</value>
+  </data>
+  <data name="Decoderawexchange" xml:space="preserve">
+    <value>decoderawexchange</value>
+  </data>
+  <data name="Disablerawtransaction" xml:space="preserve">
+    <value>disablerawtransaction</value>
+  </data>
+  <data name="Preparelockunspent" xml:space="preserve">
+    <value>preparelockunspent</value>
+  </data>
+  <data name="Preparelockunspentfrom" xml:space="preserve">
+    <value>preparelockunspentfrom</value>
+  </data>
+  <data name="CreateStream" xml:space="preserve">
+    <value>create {0} {1} {2}</value>
+  </data>
+  <data name="CreateStreamfrom" xml:space="preserve">
+    <value>createfrom</value>
+  </data>
+  <data name="Liststreams" xml:space="preserve">
+    <value>liststreams</value>
+  </data>
+  <data name="Publish" xml:space="preserve">
+    <value>publish {0} {1} {2}</value>
+  </data>
+  <data name="Publishfrom" xml:space="preserve">
+    <value>publishfrom {0} {1} {2} {3}</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>subscribe {0} {1}</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>unsubscribe {0}</value>
+  </data>
+  <data name="Getassettransaction" xml:space="preserve">
+    <value>getassettransaction</value>
+  </data>
+  <data name="Listassettransactions" xml:space="preserve">
+    <value>listassettransactions</value>
+  </data>
+  <data name="Getstreamitem" xml:space="preserve">
+    <value>getstreamitem {0} {1}</value>
+  </data>
+  <data name="Gettxoutdata" xml:space="preserve">
+    <value>gettxoutdata</value>
+  </data>
+  <data name="Liststreamblockitems" xml:space="preserve">
+    <value>liststreamblockitems</value>
+  </data>
+  <data name="Liststreamkeyitems" xml:space="preserve">
+    <value>liststreamkeyitems {0} {1}</value>
+  </data>
+  <data name="Liststreamkeys" xml:space="preserve">
+    <value>liststreamkeys {0}</value>
+  </data>
+  <data name="Liststreamitems" xml:space="preserve">
+    <value>liststreamitems</value>
+  </data>
+  <data name="Liststreampublisheritems" xml:space="preserve">
+    <value>liststreampublisheritems</value>
+  </data>
+  <data name="Liststreampublishers" xml:space="preserve">
+    <value>liststreampublishers</value>
+  </data>
+  <data name="Combineunspent" xml:space="preserve">
+    <value>combineunspent</value>
+  </data>
+  <data name="Listlockunspent" xml:space="preserve">
+    <value>listlockunspent</value>
+  </data>
+  <data name="Listunspent" xml:space="preserve">
+    <value>listunspent</value>
+  </data>
+  <data name="Lockunspent" xml:space="preserve">
+    <value>lockunspent</value>
+  </data>
+  <data name="Appendrawchange" xml:space="preserve">
+    <value>appendrawchange</value>
+  </data>
+  <data name="Appendrawdata" xml:space="preserve">
+    <value>appendrawdata</value>
+  </data>
+  <data name="Appendrawtransaction" xml:space="preserve">
+    <value>appendrawtransaction</value>
+  </data>
+  <data name="Createrawtransaction" xml:space="preserve">
+    <value>createrawtransaction</value>
+  </data>
+  <data name="Createrawsendfrom" xml:space="preserve">
+    <value>createrawsendfrom</value>
+  </data>
+  <data name="Decoderawtransaction" xml:space="preserve">
+    <value>decoderawtransaction</value>
+  </data>
+  <data name="Sendrawtransaction" xml:space="preserve">
+    <value>sendrawtransaction</value>
+  </data>
+  <data name="Signrawtransaction" xml:space="preserve">
+    <value>signrawtransaction</value>
+  </data>
+  <data name="Addnode" xml:space="preserve">
+    <value>addnode</value>
+  </data>
+  <data name="Getaddednodeinfo" xml:space="preserve">
+    <value>getaddednodeinfo</value>
+  </data>
+  <data name="Getnetworkinfo" xml:space="preserve">
+    <value>getnetworkinfo</value>
+  </data>
+  <data name="Getpeerinfo" xml:space="preserve">
+    <value>getpeerinfo</value>
+  </data>
+  <data name="Ping" xml:space="preserve">
+    <value>ping</value>
+  </data>
+  <data name="Signmessage" xml:space="preserve">
+    <value>signmessage {0} {1}</value>
+  </data>
+  <data name="Verifymessage" xml:space="preserve">
+    <value>verifymessage {0} {1} {2}</value>
+  </data>
+  <data name="Getblock" xml:space="preserve">
+    <value>getblock</value>
+  </data>
+  <data name="Getblockchaininfo" xml:space="preserve">
+    <value>getblockchaininfo</value>
+  </data>
+  <data name="Getblockhash" xml:space="preserve">
+    <value>getblockhash</value>
+  </data>
+  <data name="Getmempoolinfo" xml:space="preserve">
+    <value>getmempoolinfo</value>
+  </data>
+  <data name="Getrawmempool" xml:space="preserve">
+    <value>getrawmempool</value>
+  </data>
+  <data name="Getrawtransaction" xml:space="preserve">
+    <value>getrawtransaction</value>
+  </data>
+  <data name="Gettxout" xml:space="preserve">
+    <value>gettxout</value>
+  </data>
+  <data name="Listblocks" xml:space="preserve">
+    <value>listblocks</value>
+  </data>
+  <data name="Backupwallet" xml:space="preserve">
+    <value>backupwallet</value>
+  </data>
+  <data name="Dumpprivkey" xml:space="preserve">
+    <value>dumpprivkey</value>
+  </data>
+  <data name="Dumpwallet" xml:space="preserve">
+    <value>dumpwallet</value>
+  </data>
+  <data name="Encryptwallet" xml:space="preserve">
+    <value>encryptwallet</value>
+  </data>
+  <data name="Getwalletinfo" xml:space="preserve">
+    <value>getwalletinfo</value>
+  </data>
+  <data name="Importprivkey" xml:space="preserve">
+    <value>importprivkey {0}</value>
+  </data>
+  <data name="Walletlock" xml:space="preserve">
+    <value>walletlock</value>
+  </data>
+  <data name="Walletpassphrase" xml:space="preserve">
+    <value>walletpassphrase</value>
+  </data>
+  <data name="Walletpassphrasechange" xml:space="preserve">
+    <value>walletpassphrasechange</value>
+  </data>
+  <data name="Approvefrom" xml:space="preserve">
+    <value>approvefrom</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>create</value>
+  </data>
+  <data name="Createfrom" xml:space="preserve">
+    <value>createfrom</value>
+  </data>
+  <data name="Listupgrades" xml:space="preserve">
+    <value>listupgrades</value>
+  </data>
+  <data name="Clearmempool" xml:space="preserve">
+    <value>clearmempool</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>pause</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>resume</value>
+  </data>
+  <data name="Setlastblock" xml:space="preserve">
+    <value>setlastblock</value>
+  </data>
+</root>
