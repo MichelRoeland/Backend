@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="MultichainWrapper\MultiChainTests.cs" />
     <Compile Include="MultichainWrapper\Encryption\EncryptStreamTests.cs" />
+    <Compile Include="MultichainWrapper\MultichainUtilParametersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
