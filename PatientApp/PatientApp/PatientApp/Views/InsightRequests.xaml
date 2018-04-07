@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PatientApp.Views.InsightRequests"
+             Title="Home">
+    <StackLayout Padding="20" HorizontalOptions="Center">
+        <Grid x:Name="pendingRequests">
+            <Label Grid.Column="0" Text="Pending Insight Requests" Font="Bold,20" Margin="0,0,0,15"/>
+        </Grid>
+        <Grid x:Name="headersPendingRequests">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Doctor Name" Font="Bold"/>
+            <Label Grid.Column="1" Text="Date" Font="Bold"/>
+            <Label Grid.Column="2" Text="Request approved?" Font="Bold"/>
+            <Label Grid.Column="3" Text="Approve/deny" Font="Bold"/>
+        </Grid>
+        <ScrollView Margin="0,0,0,40">
+            <Grid x:Name="PendingData"/>
+        </ScrollView>
+
+        <Grid x:Name="approvedRequests">
+            <Label Grid.Column="0" Text="Approved Insight Requests" Font="Bold,20" Margin="0,0,0,15"/>
+        </Grid>
+        <Grid x:Name="headersApprovedRequests">
+            <Label Grid.Column="0" Text="Doctor Name" Font="Bold"/>
+            <Label Grid.Column="1" Text="Date" Font="Bold"/>
+            <Label Grid.Column="2" Text="Request approved?" Font="Bold"/>
+            <Label Grid.Column="3" Text="Approve/deny" Font="Bold"/>
+        </Grid>
+        <ScrollView Margin="0,0,0,40">
+            <Grid x:Name="ApprovedData"/>
+        </ScrollView>
+
+        <Grid x:Name="deniedRequests">
+            <Label Grid.Column="0" Text="Denied Insight Requests" Font="Bold,20" Margin="0,0,0,15"/>
+        </Grid>
+        <Grid x:Name="headersDeniedRequests">
+            <Label Grid.Column="0" Text="Doctor Name" Font="Bold"/>
+            <Label Grid.Column="1" Text="Date" Font="Bold"/>
+            <Label Grid.Column="2" Text="Request approved?" Font="Bold"/>
+            <Label Grid.Column="3" Text="Approve/deny" Font="Bold"/>
+        </Grid>
+        <ScrollView Margin="0,0,0,40">
+            <Grid x:Name="DeniedData"/>
+        </ScrollView>
+        <Button Text="Save Changes" />
+    </StackLayout>
+</ContentPage>
