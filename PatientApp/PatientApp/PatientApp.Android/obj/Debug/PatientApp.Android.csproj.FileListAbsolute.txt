@@ -70,6 +70,11 @@ C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp\PatientApp.An
 C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp\PatientApp.Android\obj\Debug\android\assets\System.ServiceModel.Internals.pdb
 C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp\PatientApp.Android\obj\Debug\android\assets\System.Xml.Linq.pdb
 C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp\PatientApp.Android\obj\Debug\android\assets\System.Xml.pdb
+C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\bin\Debug\PatientApp.Android.dll
+C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\bin\Debug\PatientApp.Android.pdb
+C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\bin\Debug\com.companyname.PatientApp.apk
+C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\bin\Debug\com.companyname.PatientApp-Signed.apk
+C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\obj\Debug\PatientApp.Android.csprojResolveAssemblyReference.cache
 C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\obj\Debug\PatientApp.Android.csproj.CoreCompileInputs.cache
 C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\obj\Debug\PatientApp.Droid.App.xaml.g.cs
 C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\obj\Debug\PatientApp.Droid.Views.NewItemPage.xaml.g.cs
@@ -78,10 +83,6 @@ C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\obj\D
 C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\obj\Debug\PatientApp.Droid.Views.MainPageDetail.xaml.g.cs
 C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\obj\Debug\PatientApp.Droid.Views.PatientData.xaml.g.cs
 C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\obj\Debug\PatientApp.Droid.Views.InsightRequests.xaml.g.cs
-C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\bin\Debug\PatientApp.Android.dll
-C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\bin\Debug\PatientApp.Android.pdb
-C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\bin\Debug\com.companyname.PatientApp.apk
-C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\bin\Debug\com.companyname.PatientApp-Signed.apk
 C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\obj\Debug\PatientApp.Android.dll
 C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\obj\Debug\PatientApp.Android.pdb
 C:\Users\Jaycer\Desktop\Hackathon\PatientApp\PatientApp\PatientApp.Android\obj\Debug\android\bin\com.companyname.PatientApp.apk

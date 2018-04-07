@@ -19,7 +19,7 @@
             <Label Grid.Column="3" Text="Approve/deny" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
             <Label Grid.Column="4" Text="Doctor Address" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
         </Grid>
-        <ScrollView Margin="0,0,0,40">
+        <ScrollView x:Name="PendingDataView" Margin="0,0,0,40">
             <Grid x:Name="PendingData"/>
         </ScrollView>
 
@@ -51,5 +51,6 @@
             <Grid x:Name="DeniedData"/>
         </ScrollView>
         <Button x:Name="SaveChanges" Clicked="SaveData" Text="Save Changes" />
+        <Grid x:Name="StatusMessage"></Grid>
     </StackLayout>
 </ContentPage>

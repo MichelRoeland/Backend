@@ -82,31 +82,31 @@ namespace PatientApp.Views
                     { "Deny", false }
                 };
 
-                Picker picker = new Picker { Scale = 0.60, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.Center, WidthRequest = 70 };
+                Picker picker = new Picker { ClassId = "Picker", Scale = 0.60, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.Center, WidthRequest = 70 };
 
                 foreach (string pk in list.Keys)
                 {
                     picker.Items.Add(pk);
                 }
 
-                x.Children.Add(new Label { Text = i.doctorName, FontSize = fz, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand}, 0, r);
-                x.Children.Add(new Label { Text = i.requestDate.ToString(), FontSize = fz, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand }, 1, r);
+                x.Children.Add(new Label { ClassId = "DocName", Text = i.doctorName, FontSize = fz, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand}, 0, r);
+                x.Children.Add(new Label { ClassId = "DateTime", Text = i.requestDate.ToString(), FontSize = fz, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand }, 1, r);
                 if (x == this.PendingData)
                 {
-                    x.Children.Add(new Label { Text = "-", FontSize = fz, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand }, 2, r);
+                    x.Children.Add(new Label {ClassId="IsApproved", Text = "-", FontSize = fz, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand }, 2, r);
                 }
                 else if (x == this.ApprovedData)
                 {
-                    x.Children.Add(new Label { Text = "Yes", FontSize = fz, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand }, 2, r);
+                    x.Children.Add(new Label { ClassId = "IsApproved", Text = "Yes", FontSize = fz, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand }, 2, r);
                     picker.SelectedIndex = 0;
                 }
                 else
                 {
-                    x.Children.Add(new Label { Text = "No", FontSize = fz, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand }, 2, r);
+                    x.Children.Add(new Label { ClassId = "IsApproved", Text = "No", FontSize = fz, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand }, 2, r);
                     picker.SelectedIndex = 1;
                 }
                 x.Children.Add(picker, 3, r);
-                x.Children.Add(new Label { Text = i.doctorAddress, FontSize = fz, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand }, 4, r);
+                x.Children.Add(new Label { ClassId="DoctorAddress", Text = i.doctorAddress, FontSize = fz, VerticalOptions = LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand }, 4, r);
 
                 r++;
             }
@@ -114,10 +114,31 @@ namespace PatientApp.Views
 
         public void SaveData(object sender, EventArgs args)
         {
-            foreach(View x in PendingData.Children)
+
+            // Create a dictionary to store the edited data (in dictionary) in
+            Dictionary<string, Dictionary<string, string>> ChangedData = new Dictionary<string, Dictionary<string, string>>();
+
+            // Create a temp dictionary for the separate insight requests
+            Dictionary<string, string> TempDict = new Dictionary<string, string>();
+
+            foreach (var x in this.PendingData.Children)
             {
-                PendingData.Children.Add( new Label { Text = x.ToString()});
+                string value;
+                if(x.ClassId != "Picker")
+                {
+                    View view = this.PendingData.Children.Where(f => f.ClassId == x.ClassId).FirstOrDefault();
+                    var valueContainer = view as Label;
+                    TempDict.Add(x.ClassId, valueContainer.Text);
+                } else
+                {
+                    View view = this.PendingData.Children.Where(f => f.ClassId == x.ClassId).FirstOrDefault();
+                    var valueContainer = view as Picker;
+                }
+                
+                
+                
             }
+            
         }
 
     }
