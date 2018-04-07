@@ -243,7 +243,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             return result;
         }
 
-        public string PublishMessage(string key, string hexstring)
+        public string PublishMessage(string key, string hexstring, string steamname)
         {
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
@@ -253,7 +253,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
 
-        public string PublishMessage(string key, string fromAddress, string hexstring)
+        public string PublishMessage(string key, string fromAddress, string hexstring, string steamname)
         {
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "

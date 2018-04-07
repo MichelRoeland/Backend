@@ -58,7 +58,7 @@
     <Compile Include="RSACrypt.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Encryption\App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Service\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\StoneyCreek.Services.Blockchain.DataContracts.csproj">

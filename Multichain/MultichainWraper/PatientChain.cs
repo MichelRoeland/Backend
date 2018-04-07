@@ -11,6 +11,8 @@ namespace Stoneycreek.libraries.MultichainWrapper
     {
         private const string authorisation = "authorisation";
         private const string encryption = "encryption";
+        private const string items = "items";
+        private const string access = "access";
 
         private string StreamName = "{0}-{1}-{2}";
         
@@ -59,8 +61,8 @@ namespace Stoneycreek.libraries.MultichainWrapper
             if (verified)
             {
 
-                var itemStreamname = this.GetChainName(patientAddress, physicianAddress, "item");
-                var accessStreamname = this.GetChainName(patientAddress, physicianAddress, "access");
+                var itemStreamname = this.GetChainName(patientAddress, physicianAddress, items);
+                var accessStreamname = this.GetChainName(patientAddress, physicianAddress, access);
 
                 chain.CreateNewStream(true, patientAddress);
                 chain.CreateNewStream(true, accessStreamname);
@@ -79,7 +81,9 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
                 var data = streamitem.data.Any() ? this.DeEncryptHexData(streamitem.data) : string.Empty;
                 data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + physicianAddress);
-                var transactionId = chain.PublishMessage(authorisation, data);
+
+                var transactionkey = this.GetTransactionKey(physicianAddress);
+                var transactionId = chain.PublishMessage(transactionkey, data, authorisation);
 
                 return true;
             }
@@ -103,7 +107,9 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
                 var data = streamitem.data.Any() ? this.DeEncryptHexData(streamitem.data) : string.Empty;
                 data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + physicianAddress);
-                var transactionId = chain.PublishMessage(authorisation, data);
+
+                var transactionkey = this.GetTransactionKey(physicianAddress);
+                var transactionId = chain.PublishMessage(transactionkey, data, authorisation);
 
                 return true;
             }
@@ -132,13 +138,14 @@ namespace Stoneycreek.libraries.MultichainWrapper
                     data = this.EncryptHexData(res);
                 }
 
-                var transactionId = chain.PublishMessage(authorisation, data);
+                var transactionkey = this.GetTransactionKey(physicianAddress);
+                var transactionId = chain.PublishMessage(transactionkey, data, authorisation);
             }
             
             return false;
         }
 
-        public bool CrossStreamCommunication(string patientAddress, string address1, string address2, string messageToPost, string signature, string transactionId = null)
+        public bool CrossStreamCommunicationPost(string patientAddress, string address1, string address2, string messageToPost, string signature, string transactionId = null)
         {
             // Als wij van chain naar chain willen communiceren, dan moeten beide of alle partijen, inzage hebben in alle chains
             // Aangezien dit niet wenselijk is, kunnen wij ook de transaction Id's opslaan.
@@ -162,41 +169,81 @@ namespace Stoneycreek.libraries.MultichainWrapper
             var verified = chain.VerifyMessage(patientAddress, signature, messageToPost) == "true";
             if (verified)
             {
+                var crossStreamName = patientAddress + "-crossstreamcomm";
+                var senderStreamName = this.GetChainName(patientAddress, address1, items);
 
-                if(transactionId != null)
-                {
-                    // blabla
-                }
-                else
-                {
-                    
-                }
-                
-                var result = chain.GetStreamItemByKey(patientAddress + "-crossstreamcomm", authorisation);
-                StreamItem streamitem = new StreamItem();
+                var transactionkey = this.GetTransactionKey(address1);
 
-                if (result.streamitems.Any())
-                {
-                    streamitem = result.streamitems.Last();
-                }
+                var hexdata = this.EncryptHexData(messageToPost);
+                var TxId = chain.PublishMessage(transactionkey, hexdata, senderStreamName);
 
-                var data = streamitem.data.Any() ? this.DeEncryptHexData(streamitem.data) : string.Empty;
-                data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + "");
-                // var transactionId = chain.PublishMessage(authorisation, data);
+                var hexTxId = this.EncryptHexData(TxId + "|" + address1);
+                var TxIdCross = chain.PublishMessage(transactionId ?? TxId, hexTxId, crossStreamName);
             }
 
             return false;
         }
 
-        // doc a stelt vraag aan doc b -> vraag tx ID = 123123123 
-        // doc b geeft antwoord op vraag tx ID 123123123
-        // doc a vraagt info -> tx ID 123123123 (chain)
+        public string[] CrossStreamCommunicationRead(string patientAddress, string transactionId, string signature)
+        {
+            // Als wij van chain naar chain willen communiceren, dan moeten beide of alle partijen, inzage hebben in alle chains
+            // Aangezien dit niet wenselijk is, kunnen wij ook de transaction Id's opslaan.
+            // Stel voor:
+            //              doc A post een vraag -> insert question in stream van doc A
+            //              doc B mag niet lezen in stream van doc A
+            //              vraag van doc A is gepost in stream van doc A (eigen stream, geen cross stream posts)
+            //              doc A -> krijgt transaction Id van vraag -> wordt opgeslagen in streamPatientAddress-crossstreamcomm
+            //              doc B krijgt een melding dat er een 'crossstream' communicatie klaar staat 
+            //              doc B mag vanwege tijdelijke autorisatie op enkel block TxId data lezen in stream van doc A
+            //              doc B geeft antwoord in eigen stream (geen cross stream posts)
+            //              doc B krijgt TxId terug van de post -> dit TxId wordt gepost in streamPatientAddress-crossstreamcomm onder de TxId van de vraag (Key is zelfde TxId van vraag)
+            //              doc A en doc B kunnen historische vraag en antwoord -> van alle posts gekoppeld aan TxId van vraag teruglezen
+            //              wanneer doc A verdere vraag uitzet naar doc C wordt ook die gekoppeld onder zelfde TxId -> doc B kan ook resultaat van doc C lezen
+
+            // Address1 = addres from -> posts question
+            // Address2 = address to -> receives question
+            // patientAddress = adres van patient -> his steams need to be used
+
+            MultiChain chain = new MultiChain();
+            var verified = chain.VerifyMessage(patientAddress, signature, transactionId) == "true";
+            if (verified)
+            {
+                List<string> dataitems = new List<string>();
+
+                var crossStreamName = patientAddress + "-crossstreamcomm";
+                var result = chain.GetStreamItemByKey(crossStreamName, transactionId);
+
+                var data = new List<string>();
+                data.AddRange(result.streamitems.Select(f => this.DeEncryptHexData(f.data)).ToArray());
+
+                foreach(var i in data)
+                {
+                    var TxId = i.Split('|')[0];
+                    var address = i.Split('|')[1];
+
+                    var chainname = this.GetChainName(patientAddress, address, items);
+                    var chaindata = chain.GetStreamItemByKey(chainname, TxId);
+
+                    var originaldata = chaindata.streamitems.Select(f => this.DeEncryptHexData(f.data)).ToArray();
+                    dataitems.AddRange(originaldata);
+                }
+
+                return dataitems.ToArray();
+            }
+
+            return new string[0];
+        }
 
         private string GetChainName(string address1, string address2, string type)
         {
             return string.Format(StreamName, type, address1, address2);
         }
 
+        private string GetTransactionKey(string address1)
+        {
+            string key = "{0}_{1}";
+            return string.Format(StreamName, DateTime.Now.ToString().Replace("-", string.Empty).Replace("/", string.Empty).Replace(":", string.Empty));
+        }
         private string EncryptHexData(string plain)
         {
             byte[] ba = Encoding.Default.GetBytes(plain);
