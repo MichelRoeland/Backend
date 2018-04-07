@@ -17,7 +17,13 @@ namespace Stoneycreek.libraries.MultichainWrapper
 {
     public class MultiChain
     {
-        private Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        #region Private Fields
+
+        private Configuration config;
+
+        #endregion Private Fields
+
+        #region Properties
 
         private string ChainLocation { get; set; }
 
@@ -37,21 +43,16 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         private string SteamName { get; set; }
 
-        public byte[] HexStringToBytes(string hexString)
-        {
-            if (hexString == null) throw new ArgumentNullException("hexString");
-            if (hexString.Length % 2 != 0) throw new ArgumentException("hexString must have an even length", "hexString");
-            var bytes = new byte[hexString.Length / 2];
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                string currentHex = hexString.Substring(i * 2, 2);
-                bytes[i] = Convert.ToByte(currentHex, 16);
-            }
-            return bytes;
-        }
+        public ProcessWrapper processWrapper { get; set; }
 
-        public MultiChain(string streamname = null)
+        #endregion Properties
+
+        #region constructor
+
+        public MultiChain(string streamname = null, ProcessWrapper processWrapper = null)
         {
+            config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
             ChainLocation = config.AppSettings.Settings["ChainLocation"].Value;
             Chainname = config.AppSettings.Settings["Chainname"].Value;
             ChainClone = config.AppSettings.Settings["Chainclonename"].Value;
@@ -67,11 +68,29 @@ namespace Stoneycreek.libraries.MultichainWrapper
             }
             else
             {
-                SteamName = config.AppSettings.Settings["Streamname"].Value;
+                SteamName = config.AppSettings.Settings["Streamname"]?.Value;
             }
-            
 
+
+            this.processWrapper = processWrapper ?? new ProcessWrapper();
             IpAddress = this.GetLocalIPAddress();
+        }
+
+        #endregion constructor
+
+        #region Public Methods
+
+        public byte[] HexStringToBytes(string hexString)
+        {
+            if (hexString == null) throw new ArgumentNullException("hexString");
+            if (hexString.Length % 2 != 0) throw new ArgumentException("hexString must have an even length", "hexString");
+            var bytes = new byte[hexString.Length / 2];
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                string currentHex = hexString.Substring(i * 2, 2);
+                bytes[i] = Convert.ToByte(currentHex, 16);
+            }
+            return bytes;
         }
 
         // https://www.multichain.com/developers/stream-confidentiality/
@@ -88,18 +107,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         public string CreateNewChain(string chainName, double adminConsensus, double createConsensus, int firstBlocks)
         {
-            var outputdir = Path.Combine(ChainLocation, Chainname);
-            if (!Directory.Exists(outputdir))
-            {
-                Directory.CreateDirectory(outputdir);
-            }
-
-            // To create a new blockchain called [chain-name] based on MultiChain’s default blockchain parameters, run:
-            // parameters kunnen worden gewijzigd. -> zie 
-            var command = ChainLocation + UtilName + " create " + chainName; // + " -datadir=" + outputdir;
-
-            config.AppSettings.Settings["Chainname"].Value = chainName;
-            config.Save(ConfigurationSaveMode.Modified);
+            var command = ChainLocation + UtilName + " create " + chainName;
 
             string parameters = string.Format(MultichainUtilParameters.CommandlineParameters.AdminConsensusAdmin, adminConsensus);
             parameters += " " + string.Format(MultichainUtilParameters.CommandlineParameters.AdminConsensusCreate, createConsensus);
@@ -110,15 +118,10 @@ namespace Stoneycreek.libraries.MultichainWrapper
             return ExecuteCommand(command, "Blockchain parameter set was successfully generated.");
         }
 
-        public string CloneChain(string chainname, string clonename)
+        public string CloneChain(string chainName, string cloneName)
         {
-            var outputdir = Path.Combine(ChainLocation, Chainname);
-
             // Alternatively, to create a new blockchain based on the parameters of an existing chain [old-name], run:
-            var command = ChainLocation + UtilName + "multichain-util clone " + Chainname + " " + ChainClone + " -datadir=" + outputdir;
-
-            config.AppSettings.Settings["Chainclonename"].Value = clonename;
-            config.Save(ConfigurationSaveMode.Modified);
+            var command = ChainLocation + UtilName + " clone " + chainName + " " + cloneName;
 
             return ExecuteCommand(command, "Blockchain parameter set was successfully generated.")
                 .Replace("\r", string.Empty)
@@ -130,7 +133,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         {
             // To create a new blockchain called [chain-name] based on MultiChain’s default blockchain parameters, run:
             // parameters kunnen worden gewijzigd. -> zie 
-            var command = ChainLocation + ClientName + Chainname + " -deamon ";
+            var command = ChainLocation + ClientName + " " + Chainname + " -deamon";
 
             return ExecuteCommand(command, "Blockchain parameter set was successfully generated.")
                 .Replace("\r", string.Empty)
@@ -138,12 +141,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             ;
         }
 
-        public string GrantPermisions(
-            string address,
-            MultichainClientCommands.GrantPermissions[] permissions,
-            string comment = null,
-            string commentTo = null,
-            string nativeAmount = null)
+        public string GrantPermisions(string address, MultichainClientCommands.GrantPermissions[] permissions, string comment = null, string commentTo = null, string nativeAmount = null)
         {
             var permissionstring = string.Join(",", permissions.Select(f => f.ToString()).ToArray());
 
@@ -162,12 +160,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             return ExecuteCommand(command, null).Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
 
-        public string RevokePermisions(
-            string address,
-            MultichainClientCommands.GrantPermissions[] permissions,
-            string comment = null,
-            string commentTo = null,
-            string nativeAmount = null)
+        public string RevokePermisions(string address, MultichainClientCommands.GrantPermissions[] permissions, string comment = null, string commentTo = null, string nativeAmount = null)
         {
             var permissionstring = string.Join(",", permissions.Select(f => f.ToString()).ToArray());
 
@@ -237,27 +230,27 @@ namespace Stoneycreek.libraries.MultichainWrapper
             //    }
 
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
-                              + string.Format(MultichainClientCommands.CreateStream, " stream", streamname, isOpenStream ? "true" : "false");
+                              + string.Format(MultichainClientCommands.CreateStream, "stream", streamname, isOpenStream ? "true" : "false");
             var result = ExecuteCommand(commandtext, null);
 
             return result;
         }
 
-        public string PublishMessage(string key, string hexstring, string steamname)
+        public string PublishMessage(string key, string hexstring, string streamName)
         {
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
-                              + string.Format(MultichainClientCommands.Publish, SteamName, "\"" + key + "\"", hexstring);
+                              + string.Format(MultichainClientCommands.Publish, streamName, "\"" + key + "\"", hexstring);
             var result = ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
 
-        public string PublishMessage(string key, string fromAddress, string hexstring, string steamname)
+        public string PublishMessage(string key, string fromAddress, string hexstring, string streamName)
         {
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
-                              + string.Format(MultichainClientCommands.Publishfrom, fromAddress, SteamName, "\"" + key + "\"", hexstring);
+                              + string.Format(MultichainClientCommands.Publishfrom, fromAddress, streamName, "\"" + key + "\"", hexstring);
             var result = ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
@@ -273,11 +266,11 @@ namespace Stoneycreek.libraries.MultichainWrapper
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
 
-        public string UnSubscribe(string streamname)
+        public string UnSubscribe(string streamName)
         {
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
-                              + string.Format(MultichainClientCommands.Unsubscribe, streamname);
+                              + string.Format(MultichainClientCommands.Unsubscribe, streamName);
             var result = ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
@@ -358,7 +351,6 @@ namespace Stoneycreek.libraries.MultichainWrapper
         {
             int exitCode;
             ProcessStartInfo processInfo;
-            Process process;
 
             processInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
             processInfo.CreateNoWindow = true;
@@ -367,20 +359,20 @@ namespace Stoneycreek.libraries.MultichainWrapper
             processInfo.RedirectStandardError = true;
             processInfo.RedirectStandardOutput = true;
 
-            process = Process.Start(processInfo);
-            process.WaitForExit();
+            this.processWrapper.ProcessStart(processInfo); // Process.Start(processInfo);
+            this.processWrapper.WaitForExit();
 
-            string output = process.StandardOutput.ReadToEnd();
-            string error = process.StandardError.ReadToEnd();
+            string output = this.processWrapper.OutputReadToEnd();
+            string error = this.processWrapper.ErrorReadToEnd();
 
             if (containstext != null)
             {
                 var iscorrect = output.Contains(containstext);
-                exitCode = process.ExitCode;
+                exitCode = this.processWrapper.ExitCode;
                 Console.WriteLine("output>>" + (String.IsNullOrEmpty(output) ? "(none)" : output));
                 Console.WriteLine("error>>" + (String.IsNullOrEmpty(error) ? "(none)" : error));
                 Console.WriteLine("ExitCode: " + exitCode.ToString(), "ExecuteCommand");
-                process.Close();
+                this.processWrapper.Close();
             }
 
             return output;
@@ -429,5 +421,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             }
             
         }
+
+        #endregion Public Methods
     }
 }

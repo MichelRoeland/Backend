@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Stoneycreek.libraries.MultichainWrapper.Encryption;
 
-namespace Unit_Tests
+namespace Unit_Tests.MultichainWrapper.Encryption
 {
     [TestClass]
     public class EncryptStreamTests

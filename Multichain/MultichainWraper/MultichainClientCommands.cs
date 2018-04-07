@@ -117,7 +117,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         // Managing stream and asset subscriptions
         public const string Subscribe = "subscribe {0} {1}";
-        public const string Unsubscribe = "unsubscribe  {0}";
+        public const string Unsubscribe = "unsubscribe {0}";
 
         // Querying subscribed assets
         public const string Getassettransaction = "getassettransaction";
