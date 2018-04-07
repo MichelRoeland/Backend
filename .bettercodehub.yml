@@ -8,3 +8,5 @@ exclude:
 - .*/obj/.*
 - .*/deployment/.*
 - .*/bin/.*
+- .*/packages/.*
+- .*/Multichain/TestApplication/.*
