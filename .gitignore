@@ -24,3 +24,6 @@
 /Multichain/TestApplication/obj
 /Multichain/Unit Tests/bin/Debug
 /Multichain/Unit Tests/obj/Debug
+/Multichain/Service/OldServiceImplementation
+/Multichain/Service/ServiceImplementation/bin
+/Multichain/Service/ServiceContracts

@@ -16,21 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F7CFE8A1-8121-42BE-A418-D59E43AE3ABD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stoneycreek.Services.Blockchain.ServiceImplementation", "Service\ServiceImplementation\Stoneycreek.Services.Blockchain.ServiceImplementation.csproj", "{E0D19CDA-7BD6-4F2E-9E2C-3603A01BB1B5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stoneycreek.Services.Blockchain.ServiceContracts", "Service\ServiceContracts\Stoneycreek.Services.Blockchain.ServiceContracts.csproj", "{7BE6A27C-7D14-4505-97C9-6EF21B2B9414}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{F65757A3-2752-4BAD-B8A5-D6993CE6F0F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataContracts", "DataContracts", "{A4FD18DA-B2DB-44D2-BFA1-119015DD23B2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoneyCreek.Services.Blockchain.DataContracts", "Service\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\StoneyCreek.Services.Blockchain.DataContracts.csproj", "{65C5E963-5C40-43B9-87DF-036C75A29F82}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{6F6B45B1-12C8-4513-AD50-A8F71620F407}"
-	ProjectSection(SolutionItems) = preProject
-		Service\Build\BlockChainService.svc = Service\Build\BlockChainService.svc
-		Service\Build\web.config = Service\Build\web.config
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataLogic", "DataLogic", "{82978F2F-AC13-4485-B5EF-187E5ED70BC7}"
 EndProject
@@ -43,6 +33,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit Tests", "Unit Tests\Unit Tests.csproj", "{FD3E7D16-4A5D-4FAC-9F94-B2408C977907}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{37443B95-1467-48B3-861B-C695A04F2AAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceImplementation", "Service\ServiceImplementation\ServiceImplementation.csproj", "{FF1D97F7-0D4E-4635-A702-C05083B0193C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,14 +50,6 @@ Global
 		{0FB41EBB-908E-439E-89BA-5E8293AAED6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FB41EBB-908E-439E-89BA-5E8293AAED6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FB41EBB-908E-439E-89BA-5E8293AAED6E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0D19CDA-7BD6-4F2E-9E2C-3603A01BB1B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0D19CDA-7BD6-4F2E-9E2C-3603A01BB1B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0D19CDA-7BD6-4F2E-9E2C-3603A01BB1B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0D19CDA-7BD6-4F2E-9E2C-3603A01BB1B5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7BE6A27C-7D14-4505-97C9-6EF21B2B9414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7BE6A27C-7D14-4505-97C9-6EF21B2B9414}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7BE6A27C-7D14-4505-97C9-6EF21B2B9414}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7BE6A27C-7D14-4505-97C9-6EF21B2B9414}.Release|Any CPU.Build.0 = Release|Any CPU
 		{65C5E963-5C40-43B9-87DF-036C75A29F82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{65C5E963-5C40-43B9-87DF-036C75A29F82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65C5E963-5C40-43B9-87DF-036C75A29F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -86,6 +70,10 @@ Global
 		{FD3E7D16-4A5D-4FAC-9F94-B2408C977907}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD3E7D16-4A5D-4FAC-9F94-B2408C977907}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD3E7D16-4A5D-4FAC-9F94-B2408C977907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF1D97F7-0D4E-4635-A702-C05083B0193C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF1D97F7-0D4E-4635-A702-C05083B0193C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF1D97F7-0D4E-4635-A702-C05083B0193C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF1D97F7-0D4E-4635-A702-C05083B0193C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,14 +81,12 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C8BD87E1-BEE5-43E6-BA03-11209187D3C7} = {00290DDF-0427-4948-882B-65371C42DFDF}
 		{0FB41EBB-908E-439E-89BA-5E8293AAED6E} = {F7CFE8A1-8121-42BE-A418-D59E43AE3ABD}
-		{E0D19CDA-7BD6-4F2E-9E2C-3603A01BB1B5} = {F65757A3-2752-4BAD-B8A5-D6993CE6F0F4}
-		{7BE6A27C-7D14-4505-97C9-6EF21B2B9414} = {F65757A3-2752-4BAD-B8A5-D6993CE6F0F4}
 		{65C5E963-5C40-43B9-87DF-036C75A29F82} = {A4FD18DA-B2DB-44D2-BFA1-119015DD23B2}
-		{6F6B45B1-12C8-4513-AD50-A8F71620F407} = {F65757A3-2752-4BAD-B8A5-D6993CE6F0F4}
 		{79ACA680-2921-4F9D-9700-6980752867CF} = {82978F2F-AC13-4485-B5EF-187E5ED70BC7}
 		{91BDCFAB-AD66-4A0D-A3F1-3CE76E9E0011} = {00290DDF-0427-4948-882B-65371C42DFDF}
 		{1C7B48BE-C814-49E0-AE1C-FCB60717F9E4} = {F65757A3-2752-4BAD-B8A5-D6993CE6F0F4}
 		{FD3E7D16-4A5D-4FAC-9F94-B2408C977907} = {37443B95-1467-48B3-861B-C695A04F2AAC}
+		{FF1D97F7-0D4E-4635-A702-C05083B0193C} = {F65757A3-2752-4BAD-B8A5-D6993CE6F0F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {60285060-4BA6-4617-8C4F-18EC191CAA9C}

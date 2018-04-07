@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Stoneycreek.Services.Blockchain.SignallRService")]
+[assembly: AssemblyTitle("ServiceImplementation")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Sun Technologies 2017")]
-[assembly: AssemblyProduct("Stoneycreek.Services.Blockchain.SignallRService")]
-[assembly: AssemblyCopyright("Copyright Sun Technologies ©  2017")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ServiceImplementation")]
+[assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1c7b48be-c814-49e0-ae1c-fdb60717f9e4")]
+[assembly: Guid("ff1d97f7-0d4e-4635-a702-c05083b0193c")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,7 +29,7 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers 
+// You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
