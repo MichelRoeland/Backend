@@ -49,6 +49,9 @@
     <Compile Include="Permissions.cs" />
     <Compile Include="Physician.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StreamContracts\NawContracts.cs" />
+    <Compile Include="StreamContracts\Physician.cs" />
+    <Compile Include="StreamContracts\TextData.cs" />
     <Compile Include="StreamItem.cs" />
     <Compile Include="StreamKeys.cs" />
     <Compile Include="Streams.cs" />
