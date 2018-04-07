@@ -22,7 +22,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             var signature = chain.SignMessage(privateKey, physicianAddress);
             return signature;
         }
-
+        
         public bool CreateNewPatientChain(string patientAddress)
         {
             // Create serveral Objects:
@@ -40,6 +40,14 @@ namespace Stoneycreek.libraries.MultichainWrapper
             chain.CreateNewStream(true, patientAddress + "-crossstreamcomm");
             chain.Subscribe(patientAddress);
             
+            return true;
+        }
+
+        public bool GetPatients()
+        {
+            MultiChain chain = new MultiChain();
+            chain.ListStreams();
+
             return true;
         }
 

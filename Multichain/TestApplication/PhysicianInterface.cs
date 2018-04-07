@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stoneycreek.libraries.MultichainWrapper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,12 @@ namespace TestApplication
         public PhysicianInterface()
         {
             InitializeComponent();
+        }
+
+        private void PhysicianInterface_Load(object sender, EventArgs e)
+        {
+            PatientChain patientChain = new PatientChain();
+            patientChain.GetPatients();
         }
     }
 }
