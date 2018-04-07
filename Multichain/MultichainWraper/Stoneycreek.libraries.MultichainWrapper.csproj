@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Encryption\EncryptStream.cs" />
     <Compile Include="MultiChain.cs" />
     <Compile Include="MultichainClientCommands.cs" />
     <Compile Include="MultichainUtilParameters.cs" />
@@ -65,5 +66,6 @@
       <Name>StoneyCreek.Services.Blockchain.DataContracts</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

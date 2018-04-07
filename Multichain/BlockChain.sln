@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FB86A288-63D0-45C6-9353-2135327CB51E}"
 	ProjectSection(SolutionItems) = preProject
@@ -39,6 +39,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stoneycreek.Libraries.Blockchain.SignallR", "Stoneycreek.Libraries.Blockchain.SignallR\Stoneycreek.Libraries.Blockchain.SignallR.csproj", "{91BDCFAB-AD66-4A0D-A3F1-3CE76E9E0011}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stoneycreek.Services.Blockchain.SignallRService", "Service\SignallRService\WindowsService1\Stoneycreek.Services.Blockchain.SignallRService.csproj", "{1C7B48BE-C814-49E0-AE1C-FCB60717F9E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit Tests", "Unit Tests\Unit Tests.csproj", "{FD3E7D16-4A5D-4FAC-9F94-B2408C977907}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{37443B95-1467-48B3-861B-C695A04F2AAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +82,10 @@ Global
 		{1C7B48BE-C814-49E0-AE1C-FCB60717F9E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C7B48BE-C814-49E0-AE1C-FCB60717F9E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C7B48BE-C814-49E0-AE1C-FCB60717F9E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD3E7D16-4A5D-4FAC-9F94-B2408C977907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD3E7D16-4A5D-4FAC-9F94-B2408C977907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD3E7D16-4A5D-4FAC-9F94-B2408C977907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD3E7D16-4A5D-4FAC-9F94-B2408C977907}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,46 +100,9 @@ Global
 		{79ACA680-2921-4F9D-9700-6980752867CF} = {82978F2F-AC13-4485-B5EF-187E5ED70BC7}
 		{91BDCFAB-AD66-4A0D-A3F1-3CE76E9E0011} = {00290DDF-0427-4948-882B-65371C42DFDF}
 		{1C7B48BE-C814-49E0-AE1C-FCB60717F9E4} = {F65757A3-2752-4BAD-B8A5-D6993CE6F0F4}
+		{FD3E7D16-4A5D-4FAC-9F94-B2408C977907} = {37443B95-1467-48B3-861B-C695A04F2AAC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {60285060-4BA6-4617-8C4F-18EC191CAA9C}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 9
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://petandbreakfast.visualstudio.com/
-		SccProjectUniqueName0 = TestApplication\\TestApplication.csproj
-		SccProjectTopLevelParentUniqueName0 = Ethereum.sln
-		SccProjectName0 = TestApplication
-		SccLocalPath0 = TestApplication
-		SccProjectUniqueName1 = MultichainWraper\\Stoneycreek.libraries.MultichainWrapper.csproj
-		SccProjectTopLevelParentUniqueName1 = Ethereum.sln
-		SccProjectName1 = MultichainWraper
-		SccLocalPath1 = MultichainWraper
-		SccProjectUniqueName2 = Service\\ServiceContracts\\Stoneycreek.Services.Blockchain.ServiceContracts.csproj
-		SccProjectTopLevelParentUniqueName2 = Ethereum.sln
-		SccProjectName2 = Service/ServiceContracts
-		SccLocalPath2 = Service\\ServiceContracts
-		SccProjectUniqueName3 = Service\\ServiceImplementation\\Stoneycreek.Services.Blockchain.ServiceImplementation.csproj
-		SccProjectTopLevelParentUniqueName3 = Ethereum.sln
-		SccProjectName3 = Service/ServiceImplementation
-		SccLocalPath3 = Service\\ServiceImplementation
-		SccProjectUniqueName4 = Service\\DataContracts\\StoneyCreek.Services.Blockchain.DataContracts\\StoneyCreek.Services.Blockchain.DataContracts.csproj
-		SccProjectTopLevelParentUniqueName4 = Ethereum.sln
-		SccProjectName4 = Service/DataContracts/StoneyCreek.Services.Blockchain.DataContracts
-		SccLocalPath4 = Service\\DataContracts\\StoneyCreek.Services.Blockchain.DataContracts
-		SccProjectUniqueName5 = Stoneycreek.Services.Blockchain.DataAccess\\Stoneycreek.Services.Blockchain.DataAccess.csproj
-		SccProjectTopLevelParentUniqueName5 = Ethereum.sln
-		SccProjectName5 = Stoneycreek.Services.Blockchain.DataAccess
-		SccLocalPath5 = Stoneycreek.Services.Blockchain.DataAccess
-		SccProjectUniqueName6 = Stoneycreek.Libraries.Blockchain.SignallR\\Stoneycreek.Libraries.Blockchain.SignallR.csproj
-		SccProjectTopLevelParentUniqueName6 = Ethereum.sln
-		SccProjectName6 = Stoneycreek.Libraries.Blockchain.SignallR
-		SccLocalPath6 = Stoneycreek.Libraries.Blockchain.SignallR
-		SccProjectUniqueName7 = Service\\SignallRService\\WindowsService1\\Stoneycreek.Services.Blockchain.SignallRService.csproj
-		SccProjectTopLevelParentUniqueName7 = Ethereum.sln
-		SccProjectName7 = Service/SignallRService/WindowsService1
-		SccLocalPath7 = Service\\SignallRService\\WindowsService1
-		SccLocalPath8 = .
 	EndGlobalSection
 EndGlobal

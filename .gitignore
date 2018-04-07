@@ -1,0 +1,25 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Deployment/Suntech.Services.WcfPushRequestService/Application/bin
+/Multichain/MultichainWraper/bin/Debug
+/Multichain/MultichainWraper/obj
+/Multichain/packages
+/Multichain/Service/DataContracts/StoneyCreek.Services.Blockchain.DataContracts/bin/Debug
+/Multichain/Service/DataContracts/StoneyCreek.Services.Blockchain.DataContracts/obj
+/Multichain/Service/ServiceContracts/obj
+/Multichain/Service/ServiceImplementation/obj
+/Multichain/Service/SignallRService/WindowsService1/bin/Debug
+/Multichain/Service/SignallRService/WindowsService1/obj
+/Multichain/Service/SignalRService/obj
+/Multichain/Stoneycreek.Libraries.Blockchain.Database/obj
+/Multichain/Stoneycreek.Libraries.Blockchain.SignallR/bin/Debug
+/Multichain/Stoneycreek.Libraries.Blockchain.SignallR/obj
+/Multichain/Stoneycreek.Services.Blockchain.DataAccess/bin/Debug
+/Multichain/Stoneycreek.Services.Blockchain.DataAccess/obj
+/Multichain/TestApplication/bin/Debug
+/Multichain/TestApplication/obj
+/Multichain/Unit Tests/bin/Debug
+/Multichain/Unit Tests/obj/Debug
