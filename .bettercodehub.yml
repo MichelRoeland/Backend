@@ -5,3 +5,4 @@ languages:
 exclude:
 - .*/Scripts/.*
 - .*/packages/.*
+- .*/Multichain/TestApplication/.*
