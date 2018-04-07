@@ -1,16 +1,12 @@
-﻿using System;
-using System.Configuration;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Resources;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Stoneycreek.libraries.MultichainWrapper.Properties;
 using Stoneycreek.libraries.MultichainWrapper.Structs;
 using StoneyCreek.Services.Blockchain.DataContracts;
+using System;
+using System.Configuration;
+using System.Diagnostics;
+using System.Linq;
+using System.Resources;
 
 namespace Stoneycreek.libraries.MultichainWrapper
 {
@@ -33,7 +29,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         private string ClientName { get; set; }
 
-        private string IpAddress { get; set; }
+        private string MyIpAddress { get; set; }
 
         private string Portname { get; set; }
 
@@ -59,7 +55,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             MultichainServer = config.AppSettings.Settings["MultichainServer"].Value;
 
             this.processWrapper = processWrapper ?? new ProcessWrapper();
-            IpAddress = this.GetLocalIPAddress();
+            MyIpAddress = IpAddress.GetLocalIPAddress();
         }
 
         #endregion constructor
@@ -77,54 +73,6 @@ namespace Stoneycreek.libraries.MultichainWrapper
                 bytes[i] = Convert.ToByte(currentHex, 16);
             }
             return bytes;
-        }
-
-        // https://www.multichain.com/developers/stream-confidentiality/
-        // https://www.multichain.com/developers/creating-connecting/
-        public string StartServerProcess()
-        {
-            var outputdir = Path.Combine(ChainLocation, Chainname);
-            // Start server
-            var startChain = ChainLocation + MultichainServer + " " + Chainname + "@" + IpAddress + ":" + Portname + " -daemon";
-                // + " -datadir=" + outputdir;
-
-            return ExecuteCommand(startChain, "Blockchain parameter set was successfully cloned.");
-        }
-
-        public string CreateNewChain(NewChainData data)
-        {
-            var command = ChainLocation + UtilName + " create " + data.ChainName;
-
-            string parameters = string.Format(CommandlineParameters.AdminConsensusAdmin, data.AdminConsensus);
-            parameters += " " + string.Format(CultureInfo.InvariantCulture, CommandlineParameters.AdminConsensusCreate, data.CreateConsensus);
-            parameters += " " + string.Format(CultureInfo.InvariantCulture, CommandlineParameters.SetupFirstBlocks, data.FirstBlocks);
-
-            command += " " + parameters;
-
-            return ExecuteCommand(command, "Blockchain parameter set was successfully generated.");
-        }
-
-        public string CloneChain(string chainName, string cloneName)
-        {
-            // Alternatively, to create a new blockchain based on the parameters of an existing chain [old-name], run:
-            var command = ChainLocation + UtilName + " clone " + chainName + " " + cloneName;
-
-            return ExecuteCommand(command, "Blockchain parameter set was successfully generated.")
-                .Replace("\r", string.Empty)
-                .Replace("\n", string.Empty);
-            ;
-        }
-
-        public string StartClientProcess()
-        {
-            // To create a new blockchain called [chain-name] based on MultiChain’s default blockchain parameters, run:
-            // parameters kunnen worden gewijzigd. -> zie 
-            var command = ChainLocation + ClientName + " " + Chainname + " -deamon";
-
-            return ExecuteCommand(command, "Blockchain parameter set was successfully generated.")
-                .Replace("\r", string.Empty)
-                .Replace("\n", string.Empty);
-            ;
         }
 
         public string GrantPermisions(GrantPermisionsData data)
@@ -309,6 +257,20 @@ namespace Stoneycreek.libraries.MultichainWrapper
             return tmp;
         }
 
+        public string GetValidStringdata(string data)
+        {
+            if (data == null)
+            {
+                return string.Empty;
+            }
+
+            return "\"" + data + "\"";
+        }
+
+        #endregion Public Methods
+
+        #region Private Methods
+
         private string ExecuteCommand(string command, string containstext)
         {
             int exitCode;
@@ -340,31 +302,6 @@ namespace Stoneycreek.libraries.MultichainWrapper
             return output;
         }
 
-        public string GetValidStringdata(string data)
-        {
-            if (data == null)
-            {
-                return string.Empty;
-            }
-
-            return "\"" + data + "\"";
-        }
-
-        public string GetLocalIPAddress()
-        {
-            string ipAddress;
-
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            ipAddress = host.AddressList.First(ip => ip.AddressFamily == AddressFamily.InterNetwork).ToString();
-
-            if(ipAddress == null)
-            {
-                throw new Exception("No network adapters with an IPv4 address in the system!");
-            }
-
-            return ipAddress;
-        }
-
-        #endregion Public Methods
+        #endregion Private Methods
     }
 }

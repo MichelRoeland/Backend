@@ -64,6 +64,10 @@
     <Compile Include="MultichainWrapper\Encryption\EncryptStreamTests2.cs" />
     <Compile Include="MultichainWrapper\Encryption\EncryptStreamTests3.cs" />
     <Compile Include="MultichainWrapper\Encryption\EncryptStreamTests1.cs" />
+    <Compile Include="MultichainWrapper\MultiChainProcessTests2.cs" />
+    <Compile Include="MultichainWrapper\MultiChainProcessTests3.cs" />
+    <Compile Include="MultichainWrapper\MultiChainProcessTests1.cs" />
+    <Compile Include="MultichainWrapper\MultiChainProcessTests.cs" />
     <Compile Include="MultichainWrapper\MultiChainTests2.cs" />
     <Compile Include="MultichainWrapper\MultiChainTests3.cs" />
     <Compile Include="MultichainWrapper\MultiChainTests1.cs" />
