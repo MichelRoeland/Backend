@@ -44,11 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GrantPermisionsData.cs" />
+    <Compile Include="GrantPermissions.cs" />
     <Compile Include="KeyPairs.cs" />
+    <Compile Include="MessageData.cs" />
+    <Compile Include="NewChainData.cs" />
     <Compile Include="PatientPhysicians.cs" />
     <Compile Include="Permissions.cs" />
     <Compile Include="Physician.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublishMessageData.cs" />
     <Compile Include="StreamContracts\NawContracts.cs" />
     <Compile Include="StreamContracts\Physician.cs" />
     <Compile Include="StreamContracts\TextData.cs" />

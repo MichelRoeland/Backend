@@ -1,4 +1,4 @@
-﻿namespace Stoneycreek.libraries.MultichainWrapper
+﻿namespace StoneyCreek.Services.Blockchain.DataContracts
 {
     public enum GrantPermissions
     {

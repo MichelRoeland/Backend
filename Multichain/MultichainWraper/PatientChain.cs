@@ -1,4 +1,5 @@
 ﻿using Stoneycreek.libraries.MultichainWrapper.Structs;
+using StoneyCreek.Services.Blockchain.DataContracts;
 using StoneyCreek.Services.Blockchain.DataContracts.StreamContracts;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             var reader = new System.IO.StringWriter();
 
             xml.Serialize(reader, nawcdata);
-            var publishId = chain.PublishMessage(patientnaw, this.EncryptHexData(reader.ToString()), patientAddress);
+            var publishId = chain.PublishMessage(new PublishMessageData { Key = patientnaw, HexString = this.EncryptHexData(reader.ToString()), StreamName = patientAddress });
 
             // generate 
 
@@ -102,7 +103,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             // de abonnementen kunnen worden ingenomen/ ongedaan gemaakt worden
 
             MultiChain chain = new MultiChain();
-            var verified = chain.VerifyMessage(patientBsn, signature, physicianIdentification) == "true";
+            var verified = chain.VerifyMessage(new MessageData { address = patientBsn, signature = signature, message = physicianIdentification }) == "true";
             if (verified)
             {
                 var itemStreamname = this.GetChainName(patientBsn, physicianIdentification, items);
@@ -127,7 +128,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
                 data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + physicianIdentification);
 
                 var transactionkey = this.GetTransactionKey(physicianIdentification);
-                var transactionId = chain.PublishMessage(transactionkey, data, authorisation);
+                var transactionId = chain.PublishMessage(new PublishMessageData { Key = transactionkey, HexString = data, StreamName = authorisation } );
 
                 return true;
             }
@@ -138,7 +139,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         public bool AddPhysicianRights(string patientBsn, string physicianIdentification, string physicianToAdd, string signature)
         {
             MultiChain chain = new MultiChain();
-            var verified = chain.VerifyMessage(patientBsn, signature, physicianIdentification) == "true";
+            var verified = chain.VerifyMessage(new MessageData { address = patientBsn, signature = signature, message = physicianIdentification }) == "true";
             if (verified)
             {
                 var result = chain.GetStreamItemByKey(patientBsn, authorisation);
@@ -153,7 +154,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
                 data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + physicianIdentification);
 
                 var transactionkey = this.GetTransactionKey(physicianIdentification);
-                var transactionId = chain.PublishMessage(transactionkey, data, authorisation);
+                var transactionId = chain.PublishMessage(new PublishMessageData { Key = transactionkey, HexString = data, StreamName = authorisation } );
 
                 return true;
             }
@@ -164,7 +165,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         public bool RemovePhysicianRights(string patientBsn, string physicianIdentification, string physicianToRemove, string signature)
         {
             MultiChain chain = new MultiChain();
-            var verified = chain.VerifyMessage(patientBsn, signature, physicianIdentification) == "true";
+            var verified = chain.VerifyMessage(new MessageData { address = patientBsn, signature = signature, message = physicianIdentification }) == "true";
             if (verified)
             {
                 var result = chain.GetStreamItemByKey(patientBsn, authorisation);
@@ -183,7 +184,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
                 }
 
                 var transactionkey = this.GetTransactionKey(physicianIdentification);
-                var transactionId = chain.PublishMessage(transactionkey, data, authorisation);
+                var transactionId = chain.PublishMessage(new PublishMessageData { Key = transactionkey, HexString = data, StreamName = authorisation } );
             }
             
             return false;
@@ -210,7 +211,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             // patientAddress = adres van patient -> his steams need to be used
 
             MultiChain chain = new MultiChain();
-            var verified = chain.VerifyMessage(patientBsn, signature, messageToPost) == "true";
+            var verified = chain.VerifyMessage(new MessageData { address = patientBsn, signature = signature, message = messageToPost }) == "true";
             if (verified)
             {
                 var crossStreamName = patientBsn + "-crossstreamcomm";
@@ -219,10 +220,10 @@ namespace Stoneycreek.libraries.MultichainWrapper
                 var transactionkey = this.GetTransactionKey(physicianIdentification);
 
                 var hexdata = this.EncryptHexData(messageToPost);
-                var TxId = chain.PublishMessage(transactionkey, hexdata, senderStreamName);
+                var TxId = chain.PublishMessage(new PublishMessageData { Key = transactionkey, HexString = hexdata, StreamName = senderStreamName } );
 
                 var hexTxId = this.EncryptHexData(TxId + "|" + physicianIdentification);
-                var TxIdCross = chain.PublishMessage(transactionId ?? TxId, hexTxId, crossStreamName);
+                var TxIdCross = chain.PublishMessage(new PublishMessageData { Key = transactionId ?? TxId, HexString = hexTxId, StreamName = crossStreamName } );
             }
 
             return false;
@@ -249,7 +250,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             // patientAddress = adres van patient -> his steams need to be used
 
             MultiChain chain = new MultiChain();
-            var verified = chain.VerifyMessage(patientBsn, signature, transactionId) == "true";
+            var verified = chain.VerifyMessage(new MessageData { address = patientBsn, signature = signature, message = transactionId } ) == "true";
             if (verified)
             {
                 List<string> dataitems = new List<string>();

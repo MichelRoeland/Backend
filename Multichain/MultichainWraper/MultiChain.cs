@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Resources;
 using Newtonsoft.Json;
 using Stoneycreek.libraries.MultichainWrapper.Properties;
 using Stoneycreek.libraries.MultichainWrapper.Structs;
+using StoneyCreek.Services.Blockchain.DataContracts;
 
 namespace Stoneycreek.libraries.MultichainWrapper
 {
@@ -108,13 +106,13 @@ namespace Stoneycreek.libraries.MultichainWrapper
             return ExecuteCommand(startChain, "Blockchain parameter set was successfully cloned.");
         }
 
-        public string CreateNewChain(string chainName, double adminConsensus, double createConsensus, int firstBlocks)
+        public string CreateNewChain(NewChainData data)
         {
-            var command = ChainLocation + UtilName + " create " + chainName;
+            var command = ChainLocation + UtilName + " create " + data.ChainName;
 
-            string parameters = string.Format(CommandlineParameters.AdminConsensusAdmin, adminConsensus);
-            parameters += " " + string.Format(CultureInfo.InvariantCulture, CommandlineParameters.AdminConsensusCreate, createConsensus);
-            parameters += " " + string.Format(CultureInfo.InvariantCulture, CommandlineParameters.SetupFirstBlocks, firstBlocks);
+            string parameters = string.Format(CommandlineParameters.AdminConsensusAdmin, data.AdminConsensus);
+            parameters += " " + string.Format(CultureInfo.InvariantCulture, CommandlineParameters.AdminConsensusCreate, data.CreateConsensus);
+            parameters += " " + string.Format(CultureInfo.InvariantCulture, CommandlineParameters.SetupFirstBlocks, data.FirstBlocks);
 
             command += " " + parameters;
 
@@ -144,40 +142,40 @@ namespace Stoneycreek.libraries.MultichainWrapper
             ;
         }
 
-        public string GrantPermisions(string address, GrantPermissions[] permissions, string comment = null, string commentTo = null, string nativeAmount = null)
+        public string GrantPermisions(GrantPermisionsData data)
         {
-            var permissionstring = string.Join(",", permissions.Select(f => f.ToString()).ToArray());
+            var permissionstring = string.Join(",", data.Permissions.Select(f => f.ToString()).ToArray());
 
             var commandtext = ChainLocation + ClientName + " " + Chainname + " " + this.ResourceManager.GetString("Grant");
             var command =
                 string.Format(
                     commandtext,
-                    address,
+                    data.Address,
                     permissionstring,
                     string.Empty,
                     string.Empty,
-                    nativeAmount,
-                    this.GetValidStringdata(comment),
-                    this.GetValidStringdata(commentTo)).Trim();
+                    data.NativeAmount,
+                    this.GetValidStringdata(data.Comment),
+                    this.GetValidStringdata(data.CommentTo)).Trim();
 
             return ExecuteCommand(command, null).Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
 
-        public string RevokePermisions(string address, GrantPermissions[] permissions, string comment = null, string commentTo = null, string nativeAmount = null)
+        public string RevokePermisions(GrantPermisionsData data)
         {
-            var permissionstring = string.Join(",", permissions.Select(f => f.ToString()).ToArray());
+            var permissionstring = string.Join(",", data.Permissions.Select(f => f.ToString()).ToArray());
 
             var commandtext = ChainLocation + ClientName + " " + Chainname + " " + this.ResourceManager.GetString("Revoke");
             var command =
                 string.Format(
                     commandtext,
-                    address,
+                    data.Address,
                     permissionstring,
                     string.Empty,
                     string.Empty,
-                    nativeAmount,
-                    this.GetValidStringdata(comment),
-                    this.GetValidStringdata(commentTo)).Trim();
+                    data.NativeAmount,
+                    this.GetValidStringdata(data.Comment),
+                    this.GetValidStringdata(data.CommentTo)).Trim();
 
             return ExecuteCommand(command, null).Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
@@ -219,26 +217,23 @@ namespace Stoneycreek.libraries.MultichainWrapper
             return result;
         }
 
-        public string PublishMessage(string key, string hexstring, string streamName)
+        public string PublishMessage(PublishMessageData data)
         {
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
-            var commandtext = ChainLocation + ClientName + " " + Chainname + " "
-                              + string.Format(this.ResourceManager.GetString("Publish"), streamName, "\"" + key + "\"", hexstring);
+            var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(this.ResourceManager.GetString("Publish"), data.StreamName, "\"" + data.Key + "\"", data.HexString);
             var result = ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
 
-        public string PublishMessage(string key, string fromAddress, string hexstring, string streamName)
+        public string PublishMessageFrom(PublishMessageData data)
         {
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
-            var commandtext = ChainLocation + ClientName + " " + Chainname + " "
-                              + string.Format(this.ResourceManager.GetString("Publishfrom"), fromAddress, streamName, "\"" + key + "\"", hexstring);
+            var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(this.ResourceManager.GetString("Publishfrom"), data.FromAddress, data.StreamName, "\"" + data.Key + "\"", data.HexString);
             var result = ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
-
         
         public string Subscribe(string streamname)
         {
@@ -311,10 +306,9 @@ namespace Stoneycreek.libraries.MultichainWrapper
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
 
-        public string VerifyMessage(string address, string signature, string message)
+        public string VerifyMessage(MessageData data)
         {
-            var commandtext = ChainLocation + ClientName + " " + Chainname + " "
-                              + string.Format(this.ResourceManager.GetString("Verifymessage"), address, signature, "\"" + message + "\"");
+            var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(this.ResourceManager.GetString("Verifymessage"), data.address, data.signature, "\"" + data.message + "\"");
             var result = ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
