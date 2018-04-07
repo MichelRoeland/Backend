@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -110,8 +111,8 @@ namespace Stoneycreek.libraries.MultichainWrapper
             var command = ChainLocation + UtilName + " create " + chainName;
 
             string parameters = string.Format(MultichainUtilParameters.CommandlineParameters.AdminConsensusAdmin, adminConsensus);
-            parameters += " " + string.Format(MultichainUtilParameters.CommandlineParameters.AdminConsensusCreate, createConsensus);
-            parameters += " " + string.Format(MultichainUtilParameters.CommandlineParameters.SetupFirstBlocks, firstBlocks);
+            parameters += " " + string.Format(CultureInfo.InvariantCulture, MultichainUtilParameters.CommandlineParameters.AdminConsensusCreate, createConsensus);
+            parameters += " " + string.Format(CultureInfo.InvariantCulture, MultichainUtilParameters.CommandlineParameters.SetupFirstBlocks, firstBlocks);
 
             command += " " + parameters;
 

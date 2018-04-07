@@ -135,14 +135,6 @@
       <Project>{65C5E963-5C40-43B9-87DF-036C75A29F82}</Project>
       <Name>StoneyCreek.Services.Blockchain.DataContracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Stoneycreek.Libraries.Blockchain.SignallR\Stoneycreek.Libraries.Blockchain.SignallR.csproj">
-      <Project>{91BDCFAB-AD66-4A0D-A3F1-3CE76E9E0011}</Project>
-      <Name>Stoneycreek.Libraries.Blockchain.SignallR</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Stoneycreek.Services.Blockchain.DataAccess\Stoneycreek.Services.Blockchain.DataAccess.csproj">
-      <Project>{79aca680-2921-4f9d-9700-6980752867cf}</Project>
-      <Name>Stoneycreek.Services.Blockchain.DataAccess</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\question.jpg" />
