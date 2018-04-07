@@ -5,7 +5,7 @@
              Title="Home">
     <StackLayout Padding="20" HorizontalOptions="Center">
         <Grid x:Name="pendingRequests">
-            <Label Grid.Column="0" Text="Pending Insight Requests" Font="Bold,20" Margin="0,0,0,15"/>
+            <Label x:Name="PendingRequestsLabel" Grid.Column="0" Text="Pending Insight Requests" Font="Bold,20" Margin="0,0,0,15"/>
         </Grid>
         <Grid x:Name="headersPendingRequests">
             <Grid.ColumnDefinitions>
@@ -13,10 +13,11 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="Doctor Name" Font="Bold"/>
-            <Label Grid.Column="1" Text="Date" Font="Bold"/>
-            <Label Grid.Column="2" Text="Request approved?" Font="Bold"/>
-            <Label Grid.Column="3" Text="Approve/deny" Font="Bold"/>
+            <Label Grid.Column="0" Text="Doctor Name" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Column="1" Text="Date" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Column="2" Text="Request approved?" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Column="3" Text="Approve/deny" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Column="4" Text="Doctor Address" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
         </Grid>
         <ScrollView Margin="0,0,0,40">
             <Grid x:Name="PendingData"/>
@@ -26,10 +27,11 @@
             <Label Grid.Column="0" Text="Approved Insight Requests" Font="Bold,20" Margin="0,0,0,15"/>
         </Grid>
         <Grid x:Name="headersApprovedRequests">
-            <Label Grid.Column="0" Text="Doctor Name" Font="Bold"/>
-            <Label Grid.Column="1" Text="Date" Font="Bold"/>
-            <Label Grid.Column="2" Text="Request approved?" Font="Bold"/>
-            <Label Grid.Column="3" Text="Approve/deny" Font="Bold"/>
+            <Label Grid.Column="0" Text="Doctor Name" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Column="1" Text="Date" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Column="2" Text="Request approved?" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Column="3" Text="Approve/deny" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Column="4" Text="Doctor Address" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
         </Grid>
         <ScrollView Margin="0,0,0,40">
             <Grid x:Name="ApprovedData"/>
@@ -39,14 +41,15 @@
             <Label Grid.Column="0" Text="Denied Insight Requests" Font="Bold,20" Margin="0,0,0,15"/>
         </Grid>
         <Grid x:Name="headersDeniedRequests">
-            <Label Grid.Column="0" Text="Doctor Name" Font="Bold"/>
-            <Label Grid.Column="1" Text="Date" Font="Bold"/>
-            <Label Grid.Column="2" Text="Request approved?" Font="Bold"/>
-            <Label Grid.Column="3" Text="Approve/deny" Font="Bold"/>
+            <Label Grid.Column="0" Text="Doctor Name" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Column="1" Text="Date" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Column="2" Text="Request approved?" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Column="3" Text="Approve/deny" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Column="4" Text="Doctor Address" Font="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
         </Grid>
         <ScrollView Margin="0,0,0,40">
             <Grid x:Name="DeniedData"/>
         </ScrollView>
-        <Button Text="Save Changes" />
+        <Button x:Name="SaveChanges" Clicked="SaveData" Text="Save Changes" />
     </StackLayout>
 </ContentPage>
