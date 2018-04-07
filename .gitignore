@@ -4,6 +4,7 @@
 
 /.vs
 /Deployment/Suntech.Services.WcfPushRequestService/Application/bin
+/Multichain/.vs
 /Multichain/MultichainWraper/bin/Debug
 /Multichain/MultichainWraper/obj
 /Multichain/packages
