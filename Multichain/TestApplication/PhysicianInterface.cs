@@ -1,6 +1,7 @@
 ﻿using Stoneycreek.libraries.MultichainWrapper;
 using StoneyCreek.Services.Blockchain.DataContracts.StreamContracts;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace TestApplication
@@ -16,7 +17,7 @@ namespace TestApplication
         private void PhysicianInterface_Load(object sender, EventArgs e)
         {
             PatientChain patientChain = new PatientChain();
-            NawContracts[] patients = patientChain.GetPatients();
+            patients = patientChain.GetPatients();
             foreach(var i in patients)
             {
                 ListViewItem lvi = new ListViewItem(i.Firstname);
@@ -52,7 +53,19 @@ namespace TestApplication
         private void patientView_SelectedIndexChanged(object sender, EventArgs e)
         {
             PatientChain patientChain = new PatientChain();
-            // patientChain.
+            var patientstreams = patients.Where(f => f.BsnNumber == patientView.SelectedItems[0].SubItems[2].Text);
+            if (patientstreams.Any())
+            {
+                var mainstream = patientstreams.First();
+                foreach (var i in mainstream.ItemsList)
+                {
+                    var lv = new ListViewItem(i.DateTimeMutation.ToString());
+                    lv.SubItems.Add(i.PhysicianIdentification);
+                    lv.SubItems.Add(i.DataBlocks.ToString());
+                    Streams.Items.Add(lv);
+                }
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)

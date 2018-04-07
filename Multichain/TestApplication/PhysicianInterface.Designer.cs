@@ -36,10 +36,22 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.Streams = new System.Windows.Forms.ListView();
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
             this.bsnnumber = new System.Windows.Forms.TextBox();
@@ -57,18 +69,6 @@
             this.lastname = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.firstname = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Streams = new System.Windows.Forms.ListView();
-            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.docId = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
@@ -153,6 +153,69 @@
             this.tabPage1.Text = "Mijn toevoegingen";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(345, 217);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(67, 13);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "To physician";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(418, 210);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(191, 20);
+            this.textBox2.TabIndex = 8;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(345, 3);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(264, 201);
+            this.textBox1.TabIndex = 7;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(534, 232);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Post";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // Streams
+            // 
+            this.Streams.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader10,
+            this.columnHeader11,
+            this.columnHeader12});
+            this.Streams.FullRowSelect = true;
+            this.Streams.Location = new System.Drawing.Point(14, 3);
+            this.Streams.Name = "Streams";
+            this.Streams.Size = new System.Drawing.Size(325, 252);
+            this.Streams.TabIndex = 5;
+            this.Streams.UseCompatibleStateImageBehavior = false;
+            this.Streams.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Datum";
+            this.columnHeader10.Width = 78;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Dokter";
+            this.columnHeader11.Width = 94;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Aantal toevoegingen";
+            this.columnHeader12.Width = 113;
+            // 
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -195,6 +258,35 @@
             this.tabPage7.Text = "Physician";
             this.tabPage7.UseVisualStyleBackColor = true;
             this.tabPage7.Click += new System.EventHandler(this.tabPage7_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9});
+            this.listView1.FullRowSelect = true;
+            this.listView1.Location = new System.Drawing.Point(251, 322);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(619, 284);
+            this.listView1.TabIndex = 4;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Date / time";
+            this.columnHeader7.Width = 78;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Data type";
+            this.columnHeader8.Width = 78;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Content";
+            this.columnHeader9.Width = 439;
             // 
             // tabPage8
             // 
@@ -349,98 +441,6 @@
             this.firstname.Name = "firstname";
             this.firstname.Size = new System.Drawing.Size(196, 20);
             this.firstname.TabIndex = 1;
-            // 
-            // listView1
-            // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9});
-            this.listView1.FullRowSelect = true;
-            this.listView1.Location = new System.Drawing.Point(251, 322);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(619, 284);
-            this.listView1.TabIndex = 4;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Date / time";
-            this.columnHeader7.Width = 78;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Data type";
-            this.columnHeader8.Width = 78;
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Content";
-            this.columnHeader9.Width = 439;
-            // 
-            // Streams
-            // 
-            this.Streams.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader10,
-            this.columnHeader11,
-            this.columnHeader12});
-            this.Streams.FullRowSelect = true;
-            this.Streams.Location = new System.Drawing.Point(14, 3);
-            this.Streams.Name = "Streams";
-            this.Streams.Size = new System.Drawing.Size(325, 252);
-            this.Streams.TabIndex = 5;
-            this.Streams.UseCompatibleStateImageBehavior = false;
-            this.Streams.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader10
-            // 
-            this.columnHeader10.Text = "Datum";
-            this.columnHeader10.Width = 78;
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.Text = "Dokter";
-            this.columnHeader11.Width = 94;
-            // 
-            // columnHeader12
-            // 
-            this.columnHeader12.Text = "Aantal toevoegingen";
-            this.columnHeader12.Width = 113;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(534, 232);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(345, 3);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(264, 201);
-            this.textBox1.TabIndex = 7;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(418, 210);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(191, 20);
-            this.textBox2.TabIndex = 8;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(345, 217);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(67, 13);
-            this.label10.TabIndex = 5;
-            this.label10.Text = "To physician";
             // 
             // label11
             // 

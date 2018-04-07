@@ -345,7 +345,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             ProcessStartInfo processInfo;
 
             processInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
-            processInfo.CreateNoWindow = false;
+            processInfo.CreateNoWindow = true;
             processInfo.UseShellExecute = false;
             // *** Redirect the output ***
             processInfo.RedirectStandardError = true;
