@@ -11,6 +11,8 @@ namespace Stoneycreek.libraries.MultichainWrapper.Encryption
 
         public byte[] Key { get; set; }
 
+        public byte[] Iv { get; private set; }
+
         #endregion Properties
 
         #region Public Methods
@@ -22,11 +24,11 @@ namespace Stoneycreek.libraries.MultichainWrapper.Encryption
 
         public string Encrypt(string message)
         {
-            var iv = GenerateRandomNumber(16);
+            this.Iv = GenerateRandomNumber(16);
 
-            var encrypted = Encrypt(Encoding.UTF8.GetBytes(message), Key, iv);
+            var encrypted = Encrypt(Encoding.UTF8.GetBytes(message));
 
-            var hexString = BitConverter.ToString(iv).Replace("-", string.Empty).Replace(" ", string.Empty);
+            var hexString = BitConverter.ToString(this.Iv).Replace("-", string.Empty).Replace(" ", string.Empty);
             hexString += BitConverter.ToString(encrypted).Replace("-", string.Empty).Replace(" ", string.Empty);
 
             return hexString;
@@ -36,12 +38,12 @@ namespace Stoneycreek.libraries.MultichainWrapper.Encryption
         {
             var size = (encrypted.Length - 32) / 2;
 
-            byte[] iv = new byte[16];
+            this.Iv = new byte[16];
             byte[] encryptedBytes = new byte[size];
 
             for (int i = 0; i < 32; i += 2)
             {
-                iv[i / 2] = Convert.ToByte(encrypted.Substring(i, 2), 16);
+                this.Iv[i / 2] = Convert.ToByte(encrypted.Substring(i, 2), 16);
             }
 
             for (int i = 32; i < encrypted.Length; i += 2)
@@ -49,7 +51,7 @@ namespace Stoneycreek.libraries.MultichainWrapper.Encryption
                 encryptedBytes[(i - 32) / 2] = Convert.ToByte(encrypted.Substring(i, 2), 16);
             }
 
-            var decrypted = Decrypt(encryptedBytes, Key, iv);
+            var decrypted = Decrypt(encryptedBytes);
 
             return Encoding.UTF8.GetString(decrypted);
         }
@@ -69,18 +71,14 @@ namespace Stoneycreek.libraries.MultichainWrapper.Encryption
             }
         }
 
-        private byte[] Encrypt(byte[] dataToEncrypt, byte[] key, byte[] iv)
+        private byte[] Encrypt(byte[] dataToEncrypt)
         {
             using (var aes = new AesCryptoServiceProvider())
             {
-                aes.Mode = CipherMode.CBC;
-                aes.Padding = PaddingMode.PKCS7;
-
-                aes.Key = key;
-                aes.IV = iv;
-
                 using (var memoryStream = new MemoryStream())
                 {
+                    this.SetFields(aes);
+
                     var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(), CryptoStreamMode.Write);
 
                     cryptoStream.Write(dataToEncrypt, 0, dataToEncrypt.Length);
@@ -91,18 +89,14 @@ namespace Stoneycreek.libraries.MultichainWrapper.Encryption
             }
         }
 
-        private byte[] Decrypt(byte[] dataToDecrypt, byte[] key, byte[] iv)
+        private byte[] Decrypt(byte[] dataToDecrypt)
         {
             using (var aes = new AesCryptoServiceProvider())
             {
-                aes.Mode = CipherMode.CBC;
-                aes.Padding = PaddingMode.PKCS7;
-
-                aes.Key = key;
-                aes.IV = iv;
-
                 using (var memoryStream = new MemoryStream())
                 {
+                    this.SetFields(aes);
+
                     var cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(), CryptoStreamMode.Write);
 
                     cryptoStream.Write(dataToDecrypt, 0, dataToDecrypt.Length);
@@ -111,6 +105,15 @@ namespace Stoneycreek.libraries.MultichainWrapper.Encryption
                     return memoryStream.ToArray();
                 }
             }
+        }
+
+        private void SetFields(AesCryptoServiceProvider aes)
+        {
+            aes.Mode = CipherMode.CBC;
+            aes.Padding = PaddingMode.PKCS7;
+
+            aes.Key = this.Key;
+            aes.IV = this.Iv;
         }
 
         #endregion Private Methods

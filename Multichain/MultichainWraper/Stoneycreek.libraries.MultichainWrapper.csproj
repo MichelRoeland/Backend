@@ -51,8 +51,11 @@
   <ItemGroup>
     <Compile Include="CommandlineParameters.cs" />
     <Compile Include="Encryption\EncryptStream.cs" />
+    <Compile Include="CommandExecuter.cs" />
+    <Compile Include="IpAddress.cs" />
     <Compile Include="MultiChain.cs" />
-    <Compile Include="GrantIdentifier.cs" />
+    <Compile Include="MultiChainBase.cs" />
+    <Compile Include="MultiChainProcess.cs" />
     <Compile Include="MultichainUtilParameters.cs" />
     <Compile Include="PatientChain.cs" />
     <Compile Include="ProcessWrapper.cs" />
