@@ -181,7 +181,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
                 }
 
                 var data = streamitem.data.Any() ? this.DeEncryptHexData(streamitem.data) : string.Empty;
-                data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + physicianAddress);
+                data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + "");
                 // var transactionId = chain.PublishMessage(authorisation, data);
             }
 
