@@ -4,58 +4,17 @@ using Stoneycreek.libraries.MultichainWrapper.Structs;
 using StoneyCreek.Services.Blockchain.DataContracts;
 using System;
 using System.Configuration;
-using System.Diagnostics;
 using System.Linq;
 using System.Resources;
 
 namespace Stoneycreek.libraries.MultichainWrapper
 {
-    public class MultiChain
+    public class MultiChain : MultiChainBase
     {
-        #region Private Fields
-
-        private Configuration config;
-        private readonly ResourceManager ResourceManager;
-
-        #endregion Private Fields
-
-        #region Properties
-
-        private string ChainLocation { get; set; }
-
-        private string Chainname { get; set; }
-
-        private string UtilName { get; set; }
-
-        private string ClientName { get; set; }
-
-        private string MyIpAddress { get; set; }
-
-        private string Portname { get; set; }
-
-        private string MultichainServer { get; set; }
-
-        public ProcessWrapper processWrapper { get; set; }
-
-        #endregion Properties
-
         #region constructor
 
-        public MultiChain(string streamname = null, ProcessWrapper processWrapper = null)
+        public MultiChain(string streamname = null, ProcessWrapper processWrapper = null) : base(streamname, processWrapper)
         {
-            config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            this.ResourceManager = Resources.ResourceManager;
-
-            ChainLocation = config.AppSettings.Settings["ChainLocation"].Value;
-            Chainname = config.AppSettings.Settings["Chainname"].Value;
-
-            UtilName = config.AppSettings.Settings["UtilName"].Value;
-            ClientName = config.AppSettings.Settings["ClientName"].Value;
-            Portname = config.AppSettings.Settings["ChainPort"].Value;
-            MultichainServer = config.AppSettings.Settings["MultichainServer"].Value;
-
-            this.processWrapper = processWrapper ?? new ProcessWrapper();
-            MyIpAddress = IpAddress.GetLocalIPAddress();
         }
 
         #endregion constructor
@@ -77,46 +36,20 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         public string GrantPermisions(GrantPermisionsData data)
         {
-            var permissionstring = string.Join(",", data.Permissions.Select(f => f.ToString()).ToArray());
-
             var commandtext = ChainLocation + ClientName + " " + Chainname + " " + this.ResourceManager.GetString("Grant");
-            var command =
-                string.Format(
-                    commandtext,
-                    data.Address,
-                    permissionstring,
-                    string.Empty,
-                    string.Empty,
-                    data.NativeAmount,
-                    this.GetValidStringdata(data.Comment),
-                    this.GetValidStringdata(data.CommentTo)).Trim();
-
-            return ExecuteCommand(command, null).Replace("\r", string.Empty).Replace("\n", string.Empty);
+            return FormatAndExecute(data, commandtext);
         }
 
         public string RevokePermisions(GrantPermisionsData data)
         {
-            var permissionstring = string.Join(",", data.Permissions.Select(f => f.ToString()).ToArray());
-
             var commandtext = ChainLocation + ClientName + " " + Chainname + " " + this.ResourceManager.GetString("Revoke");
-            var command =
-                string.Format(
-                    commandtext,
-                    data.Address,
-                    permissionstring,
-                    string.Empty,
-                    string.Empty,
-                    data.NativeAmount,
-                    this.GetValidStringdata(data.Comment),
-                    this.GetValidStringdata(data.CommentTo)).Trim();
-
-            return ExecuteCommand(command, null).Replace("\r", string.Empty).Replace("\n", string.Empty);
+            return FormatAndExecute(data, commandtext);
         }
 
         public Permissions ListPermissions()
         {
             var commandtext = ChainLocation + ClientName + " " + Chainname + " " + this.ResourceManager.GetString("Listpermissions");
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
                 //.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("[", string.Empty).Replace("[", string.Empty).Replace("{", string.Empty);
 
             result = "{\"permissions\" : " + result + "}";
@@ -127,7 +60,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         public Streams ListStreams()
         {
             var commandtext = ChainLocation + ClientName + " " + Chainname + " " + this.ResourceManager.GetString("Liststreams");
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
 
             result = "{\"streams\" : " + result + "}";
             var tmp = JsonConvert.DeserializeObject<Streams>(result);
@@ -137,7 +70,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         public string CreateNewAddress()
         {
             var command = ChainLocation + ClientName + " " + Chainname + " " + this.ResourceManager.GetString("Getnewaddress");
-            var info = ExecuteCommand(command, "");
+            var info = this.CommandExecuter.ExecuteCommand(command, "");
             return info.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
 
@@ -145,7 +78,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         {
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
                               + string.Format(this.ResourceManager.GetString("CreateStream"), "stream", streamname, isOpenStream ? "true" : "false");
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
 
             return result;
         }
@@ -154,7 +87,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         {
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
             var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(this.ResourceManager.GetString("Publish"), data.StreamName, "\"" + data.Key + "\"", data.HexString);
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
@@ -163,7 +96,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         {
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
             var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(this.ResourceManager.GetString("Publishfrom"), data.FromAddress, data.StreamName, "\"" + data.Key + "\"", data.HexString);
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
@@ -173,7 +106,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
                               + string.Format(this.ResourceManager.GetString("Subscribe"), streamname, "true");
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
@@ -183,7 +116,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
                               + string.Format(this.ResourceManager.GetString("Unsubscribe"), streamName);
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
@@ -193,7 +126,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
                               + string.Format(this.ResourceManager.GetString("Liststreamkeys"), streamname);
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
 
             result = "{\"streamkeys\" : " + result + "}";
             var tmp = JsonConvert.DeserializeObject<StreamKey>(result);
@@ -205,7 +138,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         {
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
                               + string.Format(this.ResourceManager.GetString("Getstreamitem"), streamname, transactionId);
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
             var tmp = JsonConvert.DeserializeObject<StreamItem>(result);
             return tmp;
         }
@@ -213,7 +146,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         public StreamItems GetStreamItemByKey(string streamname, string key)
         {
             var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(this.ResourceManager.GetString("Liststreamkeyitems"), streamname, key);
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
 
             result = "{\"streamitems\" : " + result + "}";
 
@@ -223,7 +156,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         public string SignMessage(string privatekey, string message)
         {
             var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(this.ResourceManager.GetString("Signmessage"), privatekey, "\"" + message + "\"");
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
@@ -231,7 +164,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         public string VerifyMessage(MessageData data)
         {
             var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(this.ResourceManager.GetString("Verifymessage"), data.address, data.signature, "\"" + data.message + "\"");
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
@@ -240,7 +173,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         {
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
                               + string.Format(this.ResourceManager.GetString("Importprivkey"), privatekey);
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
             ;
@@ -249,7 +182,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         public KeyPairs CreateKeys()
         {
             var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(this.ResourceManager.GetString("Createkeypairs"));
-            var result = ExecuteCommand(commandtext, null);
+            var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
 
             result = "{\"keypairs\" : " + result + "}";
             var tmp = JsonConvert.DeserializeObject<KeyPairs>(result);
@@ -271,35 +204,21 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         #region Private Methods
 
-        private string ExecuteCommand(string command, string containstext)
+        private string FormatAndExecute(GrantPermisionsData data, string commandtext)
         {
-            int exitCode;
-            ProcessStartInfo processInfo;
+            var permissionstring = string.Join(",", data.Permissions.Select(f => f.ToString()).ToArray());
 
-            processInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
-            processInfo.CreateNoWindow = true;
-            processInfo.UseShellExecute = false;
-            // *** Redirect the output ***
-            processInfo.RedirectStandardError = true;
-            processInfo.RedirectStandardOutput = true;
+            var command = string.Format(
+                    commandtext,
+                    data.Address,
+                    permissionstring,
+                    string.Empty,
+                    string.Empty,
+                    data.NativeAmount,
+                    this.GetValidStringdata(data.Comment),
+                    this.GetValidStringdata(data.CommentTo)).Trim();
 
-            this.processWrapper.ProcessStart(processInfo); // Process.Start(processInfo);
-            this.processWrapper.WaitForExit();
-
-            string output = this.processWrapper.OutputReadToEnd();
-            string error = this.processWrapper.ErrorReadToEnd();
-
-            if (containstext != null)
-            {
-                var iscorrect = output.Contains(containstext);
-                exitCode = this.processWrapper.ExitCode;
-                Console.WriteLine("output>>" + (String.IsNullOrEmpty(output) ? "(none)" : output));
-                Console.WriteLine("error>>" + (String.IsNullOrEmpty(error) ? "(none)" : error));
-                Console.WriteLine("ExitCode: " + exitCode.ToString(), "ExecuteCommand");
-                this.processWrapper.Close();
-            }
-
-            return output;
+            return this.CommandExecuter.ExecuteCommand(command, null).Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
 
         #endregion Private Methods
