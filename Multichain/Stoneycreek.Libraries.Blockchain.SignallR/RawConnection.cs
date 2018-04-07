@@ -66,21 +66,10 @@ namespace Stoneycreek.Libraries.Blockchain.SignallR
             switch (message.Type)
             {
                 case MessageType.Broadcast:
-                    Connection.Broadcast(new
-                    {
-                        type = MessageType.Broadcast.ToString(),
-                        from = GetUser(connectionId),
-                        data = message.Value
-                    });
+                    this.BroAddParameters(connectionId, message.Value);
                     break;
                 case MessageType.BroadcastExceptMe:
-                    Connection.Broadcast(new
-                    {
-                        type = MessageType.Broadcast.ToString(),
-                        from = GetUser(connectionId),
-                        data = message.Value
-                    },
-                        connectionId);
+                    this.BroAddParameters(connectionId, message.Value, connectionId);
                     break;
                 case MessageType.Send:
                     Connection.Send(connectionId, new
@@ -184,6 +173,16 @@ namespace Stoneycreek.Libraries.Blockchain.SignallR
         {
             object value;
             return env.TryGetValue(key, out value) ? (T)value : default(T);
+        }
+
+        private void BroAddParameters(string connectionId, object message, string connectionID = null)
+        {
+            Connection.Broadcast(new
+            {
+                type = MessageType.Broadcast.ToString(),
+                from = this.GetUser(connectionId),
+                data = message
+            }, connectionID);
         }
     }
 }

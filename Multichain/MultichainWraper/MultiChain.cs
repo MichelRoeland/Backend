@@ -35,8 +35,6 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         private string MultichainServer { get; set; }
 
-        private string SteamName { get; set; }
-
         public byte[] HexStringToBytes(string hexString)
         {
             if (hexString == null) throw new ArgumentNullException("hexString");
@@ -63,11 +61,11 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
             if (streamname != null)
             {
-                SteamName = streamname;
+                streamname = streamname;
             }
             else
             {
-                SteamName = config.AppSettings.Settings["Streamname"].Value;
+                streamname = config.AppSettings.Settings["Streamname"].Value;
             }
             
 
@@ -216,29 +214,9 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         public string CreateNewStream(bool isOpenStream, string streamname)
         {
-            //Arguments:
-            //  1. "entity-type"                    (string, required) stream
-            //  2. "stream-name"                    (string, required) Stream name, if not "" should be unique.
-            //  3. open                             (boolean, required ) Allow anyone to publish in this stream
-            //  4  custom-fields                    (object, optional)  a json object with custom fields
-            //    {
-            //      "param-name": "param-value"   (strings, required) The key is the parameter name, the value is parameter value
-            //      ,...
-            //    }
-            //  or
-            //  1. "entity-type"                    (string, required) upgrade
-            //  2. "upgrade-name"                   (string, required) Upgrade name, if not "" should be unique.
-            //  3. open                             (boolean, required ) Should be false
-            //  4  custom-fields                    (object, required)  a json object with custom fields
-            //    {
-            //      "protocol-version": version   (numeric, required) Protocol version to upgrade to
-            //      "startblock": block           (numeric, optional, default 0) Block to apply from
-            //      ,...
-            //    }
+            var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(MultichainClientCommands.CreateStream, " stream", streamname, isOpenStream ? "true" : "false");
 
-            var commandtext = ChainLocation + ClientName + " " + Chainname + " "
-                              + string.Format(MultichainClientCommands.CreateStream, " stream", streamname, isOpenStream ? "true" : "false");
-            var result = ExecuteCommand(commandtext, null);
+            var result = ExecuteCommand(commandtext, null).Replace("\r\n", string.Empty);
 
             return result;
         }
@@ -247,7 +225,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         {
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
-                              + string.Format(MultichainClientCommands.Publish, SteamName, "\"" + key + "\"", hexstring);
+                              + string.Format(MultichainClientCommands.Publish, steamname, "\"" + key + "\"", hexstring);
             var result = ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
@@ -257,12 +235,13 @@ namespace Stoneycreek.libraries.MultichainWrapper
         {
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
-                              + string.Format(MultichainClientCommands.Publishfrom, fromAddress, SteamName, "\"" + key + "\"", hexstring);
+                              + string.Format(MultichainClientCommands.Publishfrom, fromAddress, steamname, "\"" + key + "\"", hexstring);
             var result = ExecuteCommand(commandtext, null);
 
             return result.Replace("\r", string.Empty).Replace("\n", string.Empty);
         }
 
+        
         public string Subscribe(string streamname)
         {
             // multichain - cli mytestchain publish test "hello world" 48656C6C6F20576F726C64210A
@@ -312,8 +291,18 @@ namespace Stoneycreek.libraries.MultichainWrapper
             var result = ExecuteCommand(commandtext, null);
 
             result = "{\"streamitems\" : " + result + "}";
-            var tmp = JsonConvert.DeserializeObject<StreamItems>(result);
-            return tmp;
+
+            try
+            {
+                var tmp = JsonConvert.DeserializeObject<StreamItems>(result);
+                return tmp;
+            }
+            catch(Exception ex)
+            {
+                // log4net -> do something
+            }
+
+            return null;
         }
 
         public string SignMessage(string privatekey, string message)
@@ -361,7 +350,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             Process process;
 
             processInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
-            processInfo.CreateNoWindow = true;
+            processInfo.CreateNoWindow = false;
             processInfo.UseShellExecute = false;
             // *** Redirect the output ***
             processInfo.RedirectStandardError = true;
