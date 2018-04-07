@@ -20,6 +20,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             var signature = chain.SignMessage(privateKey, physicianAddress);
             return signature;
         }
+
         public bool CreateNewPatientChain(string patientAddress)
         {
             // Create serveral Objects:
@@ -33,6 +34,8 @@ namespace Stoneycreek.libraries.MultichainWrapper
             // Create stream client
             MultiChain chain = new MultiChain();
             chain.CreateNewStream(true, patientAddress);
+
+            chain.CreateNewStream(true, patientAddress + "-crossstreamcomm");
             chain.Subscribe(patientAddress);
             
             return true;
@@ -48,7 +51,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             // de streams waarop hij/zij toegang heeft zijn abonnementen
             // de abonnementen kunnen worden ingenomen/ ongedaan gemaakt worden
 
-            // de stappen
+  
             // Create stream client
 
             MultiChain chain = new MultiChain();
@@ -132,6 +135,56 @@ namespace Stoneycreek.libraries.MultichainWrapper
                 var transactionId = chain.PublishMessage(authorisation, data);
             }
             
+            return false;
+        }
+
+        public bool CrossStreamCommunication(string patientAddress, string address1, string address2, string messageToPost, string signature, string transactionId = null)
+        {
+            // Als wij van chain naar chain willen communiceren, dan moeten beide of alle partijen, inzage hebben in alle chains
+            // Aangezien dit niet wenselijk is, kunnen wij ook de transaction Id's opslaan.
+            // Stel voor:
+            //              doc A post een vraag -> insert question in stream van doc A
+            //              doc B mag niet lezen in stream van doc A
+            //              vraag van doc A is gepost in stream van doc A (eigen stream, geen cross stream posts)
+            //              doc A -> krijgt transaction Id van vraag -> wordt opgeslagen in streamPatientAddress-crossstreamcomm
+            //              doc B krijgt een melding dat er een 'crossstream' communicatie klaar staat 
+            //              doc B mag vanwege tijdelijke autorisatie op enkel block TxId data lezen in stream van doc A
+            //              doc B geeft antwoord in eigen stream (geen cross stream posts)
+            //              doc B krijgt TxId terug van de post -> dit TxId wordt gepost in streamPatientAddress-crossstreamcomm onder de TxId van de vraag (Key is zelfde TxId van vraag)
+            //              doc A en doc B kunnen historische vraag en antwoord -> van alle posts gekoppeld aan TxId van vraag teruglezen
+            //              wanneer doc A verdere vraag uitzet naar doc C wordt ook die gekoppeld onder zelfde TxId -> doc B kan ook resultaat van doc C lezen
+
+            // Address1 = addres from -> posts question
+            // Address2 = address to -> receives question
+            // patientAddress = adres van patient -> his steams need to be used
+
+            MultiChain chain = new MultiChain();
+            var verified = chain.VerifyMessage(patientAddress, signature, messageToPost) == "true";
+            if (verified)
+            {
+
+                if(transactionId != null)
+                {
+
+                }
+                else
+                {
+                    
+                }
+                
+                var result = chain.GetStreamItemByKey(patientAddress + "-crossstreamcomm", authorisation);
+                StreamItem streamitem = new StreamItem();
+
+                if (result.streamitems.Any())
+                {
+                    streamitem = result.streamitems.Last();
+                }
+
+                var data = streamitem.data.Any() ? this.DeEncryptHexData(streamitem.data) : string.Empty;
+                data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + physicianAddress);
+                // var transactionId = chain.PublishMessage(authorisation, data);
+            }
+
             return false;
         }
 
