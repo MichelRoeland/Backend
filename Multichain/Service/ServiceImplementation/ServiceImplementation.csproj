@@ -72,7 +72,16 @@
     <Compile Include="BlockChainApi.svc.cs">
       <DependentUpon>BlockChainApi.svc</DependentUpon>
     </Compile>
+    <Compile Include="Model\ContentData.cs" />
+    <Compile Include="Model\ContentItems.cs" />
+    <Compile Include="Model\DataItem.cs" />
+    <Compile Include="Model\DataItemToStore.cs" />
     <Compile Include="Model\KeyPairs.cs" />
+    <Compile Include="Model\LinkingPhysicianRequest.cs" />
+    <Compile Include="Model\Patient.cs" />
+    <Compile Include="Model\PatientsResponse.cs" />
+    <Compile Include="Model\SignRequest.cs" />
+    <Compile Include="Model\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
@@ -88,6 +97,10 @@
     <ProjectReference Include="..\..\MultichainWraper\Stoneycreek.libraries.MultichainWrapper.csproj">
       <Project>{c8bd87e1-bee5-43e6-ba03-11209187d3c7}</Project>
       <Name>Stoneycreek.libraries.MultichainWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataContracts\StoneyCreek.Services.Blockchain.DataContracts\StoneyCreek.Services.Blockchain.DataContracts.csproj">
+      <Project>{65C5E963-5C40-43B9-87DF-036C75A29F82}</Project>
+      <Name>StoneyCreek.Services.Blockchain.DataContracts</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
