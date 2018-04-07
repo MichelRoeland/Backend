@@ -51,8 +51,8 @@
   <ItemGroup>
     <Compile Include="Encryption\EncryptStream.cs" />
     <Compile Include="MultiChain.cs" />
-    <Compile Include="MultichainClientCommands.cs" />
-    <Compile Include="MultichainUtilParameters.cs" />
+    <Compile Include="Properties\MultichainClientCommands.cs" />
+    <Compile Include="Properties\MultichainUtilParameters.cs" />
     <Compile Include="PatientChain.cs" />
     <Compile Include="ProcessWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

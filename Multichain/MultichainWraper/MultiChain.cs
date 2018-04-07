@@ -65,7 +65,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
             if (streamname != null)
             {
-                streamname = streamname;
+                SteamName = streamname;
             }
             else
             {

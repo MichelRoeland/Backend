@@ -30,7 +30,7 @@ namespace TestApplication
         private void button1_Click(object sender, EventArgs e)
         {
             PatientChain patientChain = new PatientChain();
-            patientChain.CreateNewPatientChain(new StoneyCreek.Services.Blockchain.DataContracts.StreamContracts.NawContracts
+            patientChain.CreateNewPatientChain(new NawContracts
             {
                 Address = null,
                 BsnNumber = bsnnumber.Text,

@@ -50,12 +50,15 @@ namespace Stoneycreek.libraries.MultichainWrapper
             xml.Serialize(reader, nawcdata);
             var publishId = chain.PublishMessage(patientnaw, this.EncryptHexData(reader.ToString()), patientAddress);
 
+            // generate 
+
+
             var myId = chain.CreateNewStream(true, patientAddress + "-css");
             var mysubscribtionId = chain.Subscribe(patientAddress);
             
             return true;
         }
-
+        
         public NawContracts[] GetPatients()
         {
             MultiChain chain = new MultiChain();
