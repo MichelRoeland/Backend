@@ -1,33 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stoneycreek.libraries.MultichainWrapper
 {
     public class MultichainUtilParameters
-    {
-        public class CommandlineParameters
-        {
-            public const string SetupFirstBlocks = "-setup-first-blocks={0}";
-            public const string AdminConsensusAdmin = "-admin-consensus-admin={0}";
-            public const string AdminConsensusCreate = "-admin-consensus-create={0}";
-        }
-
-        public enum Protocol
-        {
-            Bitcoin,
-            Multichain
-        }
-
-        public enum RootStream
-        {
-            Root,
-            None
-        }
-        
+    {        
         // Basic chain parameters
         public Protocol ChainProtocol { get; set; }                 // bitcoin or multichain
         public string ChainDescription {get; set; }                 // MultiChain blafiets2

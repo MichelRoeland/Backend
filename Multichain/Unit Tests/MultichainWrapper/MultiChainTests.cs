@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Stoneycreek.libraries.MultichainWrapper;
-using static Stoneycreek.libraries.MultichainWrapper.MultichainClientCommands;
+using StoneyCreek.Services.Blockchain.DataContracts;
 
 namespace Unit_Tests.MultichainWrapper
 {
@@ -64,7 +64,7 @@ namespace Unit_Tests.MultichainWrapper
             var chain = new MultiChain(null, processWrapper);
 
             // Test
-            var str = chain.CreateNewChain("Test01", 1.0, 1.1, 1234);
+            var str = chain.CreateNewChain(new NewChainData { ChainName = "Test01", AdminConsensus = 1.0, CreateConsensus = 1.1, FirstBlocks = 1234 } );
 
             // Check
             Assert.AreEqual("Blockchain test", str);
@@ -109,7 +109,7 @@ namespace Unit_Tests.MultichainWrapper
             var chain = new MultiChain(null, processWrapper);
 
             // Test
-            var str = chain.GrantPermisions("Test01", new[] { GrantPermissions.activate }, "test02", "test03", "0.1");
+            var str = chain.GrantPermisions(new GrantPermisionsData { Address = "Test01", Permissions = new[] { GrantPermissions.activate }, Comment = "test02", CommentTo = "test03", NativeAmount = "0.1" } );
 
             // Check
             Assert.AreEqual("Blockchain test", str);
@@ -124,7 +124,7 @@ namespace Unit_Tests.MultichainWrapper
             var chain = new MultiChain(null, processWrapper);
 
             // Test
-            var str = chain.RevokePermisions("Test01", new[] { GrantPermissions.activate }, "test02", "test03", "0.1");
+            var str = chain.RevokePermisions(new GrantPermisionsData { Address = "Test01", Permissions = new[] { GrantPermissions.activate }, Comment = "test02", CommentTo = "test03", NativeAmount = "0.1" } );
 
             // Check
             Assert.AreEqual("Blockchain test", str);
@@ -213,7 +213,7 @@ namespace Unit_Tests.MultichainWrapper
             var chain = new MultiChain(null, processWrapper);
 
             // Test
-            var str = chain.PublishMessage("KEY01", "A1B2C3E4F5", "Test01");
+            var str = chain.PublishMessage(new PublishMessageData { Key = "KEY01", HexString = "A1B2C3E4F5", StreamName = "Test01" } );
 
             // Check
             Assert.AreEqual("Blockchain test", str);
@@ -228,7 +228,7 @@ namespace Unit_Tests.MultichainWrapper
             var chain = new MultiChain(null, processWrapper);
 
             // Test
-            var str = chain.PublishMessage("KEY01", "V3d45S", "A1B2C3E4F5", "Test01");
+            var str = chain.PublishMessage(new PublishMessageData { Key = "KEY01", FromAddress = "V3d45S", HexString = "A1B2C3E4F5", StreamName = "Test01" } );
 
             // Check
             Assert.AreEqual("Blockchain test", str);
@@ -349,7 +349,7 @@ namespace Unit_Tests.MultichainWrapper
             var chain = new MultiChain(null, processWrapper);
 
             // Test
-            var str = chain.VerifyMessage("1234", "A1B2C3E4F5", "Test01");
+            var str = chain.VerifyMessage(new MessageData { address = "1234", signature = "A1B2C3E4F5", message = "Test01" } );
 
             // Check
             Assert.AreEqual("Blockchain test", str);
