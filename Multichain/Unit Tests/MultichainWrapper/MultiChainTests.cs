@@ -68,7 +68,7 @@ namespace Unit_Tests.MultichainWrapper
 
             // Check
             Assert.AreEqual("Blockchain test", str);
-            Assert.AreEqual(@"/c D:\Development\Eigenbouw\bc\MultiChain\multichain-util.exe create Test01 -admin-consensus-admin=1 -admin-consensus-create=1,1 -setup-first-blocks=1234", processWrapper.ProcessInfo.Arguments);
+            Assert.AreEqual(@"/c D:\Development\Eigenbouw\bc\MultiChain\multichain-util.exe create Test01 -admin-consensus-admin=1 -admin-consensus-create=1.1 -setup-first-blocks=1234", processWrapper.ProcessInfo.Arguments);
         }
 
         [TestMethod]

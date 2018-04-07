@@ -209,8 +209,6 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         public string CreateNewStream(bool isOpenStream, string streamname)
         {
-            var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(MultichainClientCommands.CreateStream, " stream", streamname, isOpenStream ? "true" : "false");
-
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
                               + string.Format(MultichainClientCommands.CreateStream, "stream", streamname, isOpenStream ? "true" : "false");
             var result = ExecuteCommand(commandtext, null);
@@ -346,7 +344,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             ProcessStartInfo processInfo;
 
             processInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
-            processInfo.CreateNoWindow = false;
+            processInfo.CreateNoWindow = true;
             processInfo.UseShellExecute = false;
             // *** Redirect the output ***
             processInfo.RedirectStandardError = true;
