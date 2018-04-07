@@ -29,8 +29,6 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         private string Chainname { get; set; }
 
-        private string ChainClone { get; set; }
-
         private string UtilName { get; set; }
 
         private string ClientName { get; set; }
@@ -40,8 +38,6 @@ namespace Stoneycreek.libraries.MultichainWrapper
         private string Portname { get; set; }
 
         private string MultichainServer { get; set; }
-
-        private string SteamName { get; set; }
 
         public ProcessWrapper processWrapper { get; set; }
 
@@ -56,22 +52,11 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
             ChainLocation = config.AppSettings.Settings["ChainLocation"].Value;
             Chainname = config.AppSettings.Settings["Chainname"].Value;
-            ChainClone = config.AppSettings.Settings["Chainclonename"].Value;
 
             UtilName = config.AppSettings.Settings["UtilName"].Value;
             ClientName = config.AppSettings.Settings["ClientName"].Value;
             Portname = config.AppSettings.Settings["ChainPort"].Value;
             MultichainServer = config.AppSettings.Settings["MultichainServer"].Value;
-
-            if (streamname != null)
-            {
-                SteamName = streamname;
-            }
-            else
-            {
-                SteamName = config.AppSettings.Settings["Streamname"]?.Value;
-            }
-
 
             this.processWrapper = processWrapper ?? new ProcessWrapper();
             IpAddress = this.GetLocalIPAddress();
@@ -279,23 +264,12 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         public StreamItems GetStreamItemByKey(string streamname, string key)
         {
-            var commandtext = ChainLocation + ClientName + " " + Chainname + " "
-                              + string.Format(this.ResourceManager.GetString("Liststreamkeyitems"), streamname, key);
+            var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(this.ResourceManager.GetString("Liststreamkeyitems"), streamname, key);
             var result = ExecuteCommand(commandtext, null);
 
             result = "{\"streamitems\" : " + result + "}";
 
-            try
-            {
-                var tmp = JsonConvert.DeserializeObject<StreamItems>(result);
-                return tmp;
-            }
-            catch(Exception ex)
-            {
-                // log4net -> do something
-            }
-
-            return null;
+            return JsonConvert.DeserializeObject<StreamItems>(result);
         }
 
         public string SignMessage(string privatekey, string message)
@@ -366,18 +340,6 @@ namespace Stoneycreek.libraries.MultichainWrapper
             return output;
         }
 
-        public T DeserializeFile<T>(string fileName, Func<string, T> customDeserialization = null)
-        {
-            string resourceName = fileName;
-
-            using (StreamReader reader = new StreamReader(resourceName))
-            {
-                string json = reader.ReadToEnd();
-                return customDeserialization == null ? JsonConvert.DeserializeObject<T>(json) : customDeserialization(json);
-            }
-
-        }
-
         public string GetValidStringdata(string data)
         {
             if (data == null)
@@ -390,24 +352,17 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         public string GetLocalIPAddress()
         {
-            try
-            {
-                var host = Dns.GetHostEntry(Dns.GetHostName());
-                foreach (var ip in host.AddressList)
-                {
-                    if (ip.AddressFamily == AddressFamily.InterNetwork)
-                    {
-                        return ip.ToString();
-                    }
-                }
+            string ipAddress;
 
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            ipAddress = host.AddressList.First(ip => ip.AddressFamily == AddressFamily.InterNetwork).ToString();
+
+            if(ipAddress == null)
+            {
                 throw new Exception("No network adapters with an IPv4 address in the system!");
             }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
-            
+
+            return ipAddress;
         }
 
         #endregion Public Methods

@@ -228,7 +228,7 @@ namespace Unit_Tests.MultichainWrapper
             var chain = new MultiChain(null, processWrapper);
 
             // Test
-            var str = chain.PublishMessage(new PublishMessageData { Key = "KEY01", FromAddress = "V3d45S", HexString = "A1B2C3E4F5", StreamName = "Test01" } );
+            var str = chain.PublishMessageFrom(new PublishMessageData { Key = "KEY01", FromAddress = "V3d45S", HexString = "A1B2C3E4F5", StreamName = "Test01" } );
 
             // Check
             Assert.AreEqual("Blockchain test", str);
@@ -387,6 +387,26 @@ namespace Unit_Tests.MultichainWrapper
             Assert.AreEqual("Test02", keys.keypairs[0].pubkey);
             Assert.AreEqual("Test03", keys.keypairs[0].privkey);
             Assert.AreEqual("/c D:\\Development\\Eigenbouw\\bc\\MultiChain\\multichain-cli.exe testchain createkeypairs", processWrapper.ProcessInfo.Arguments);
+        }
+
+        [TestMethod]
+        public void TestMultiChainGetValidStringdata()
+        {
+            // Setup
+            var processWrapper = new ProcessWrapper { Mock = true, ReplyMessage = "Test" };
+            var chain = new MultiChain(null, processWrapper);
+
+            // Test
+            var data = chain.GetValidStringdata("Test");
+
+            // Check
+            Assert.AreEqual("\"Test\"", data);
+
+            // Test
+            data = chain.GetValidStringdata(null);
+
+            // Check
+            Assert.AreEqual("", data);
         }
     }
 }
