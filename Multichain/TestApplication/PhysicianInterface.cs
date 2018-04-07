@@ -54,7 +54,6 @@ namespace TestApplication
 
         private void patientView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PatientChain patientChain = new PatientChain();
             var patientstreams = patients.Where(f => f.BsnNumber == patientView.SelectedItems[0].SubItems[2].Text);
             if (patientstreams.Any())
             {
@@ -78,6 +77,50 @@ namespace TestApplication
             var address = config.AppSettings.Settings["address"].Value;
 
             patientChain.AddPhysician(address, docId.Text, patientView.SelectedItems[0].SubItems[2].Text, patientChain.SignMessage(privatekey, docId.Text));
+        }
+
+        private void Streams_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PatientChain patientChain = new PatientChain();
+
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var privatekey = config.AppSettings.Settings["privkey"].Value;
+
+            var result = patientChain.GetChainData(new PatientChain.ParameterClass
+            {
+                DataToStore = ToevoegingInStream.Text,
+                Streamname = Streams.SelectedItems[0].SubItems[1].Text,
+                PhysicianId = docId.Text,
+                Signature = patientChain.SignMessage(privatekey, docId.Text),
+                Address = config.AppSettings.Settings["address"].Value,
+                PatientId = patientView.SelectedItems[0].SubItems[2].Text
+            });
+
+            foreach (var i in result)
+            {
+                var lv = new ListViewItem("-");
+                lv.SubItems.Add("-");
+                lv.SubItems.Add(i);
+                content.Items.Add(lv);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            PatientChain patientChain = new PatientChain();
+
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var privatekey = config.AppSettings.Settings["privkey"].Value;
+
+            patientChain.SetChainData(new PatientChain.ParameterClass
+            {
+                DataToStore = ToevoegingInStream.Text,
+                Streamname = Streams.SelectedItems[0].SubItems[1].Text,
+                PhysicianId = docId.Text,
+                Signature = patientChain.SignMessage(privatekey, docId.Text),
+                Address = config.AppSettings.Settings["address"].Value,
+                PatientId = patientView.SelectedItems[0].SubItems[2].Text
+            });
         }
     }
 }

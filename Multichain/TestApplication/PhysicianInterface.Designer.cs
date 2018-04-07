@@ -48,7 +48,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.content = new System.Windows.Forms.ListView();
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -71,6 +71,7 @@
             this.firstname = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.docId = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -140,10 +141,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.textBox2);
             this.tabPage1.Controls.Add(this.ToevoegingInStream);
-            this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.Streams);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -179,11 +180,11 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(534, 232);
+            this.button2.Location = new System.Drawing.Point(731, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(139, 23);
             this.button2.TabIndex = 6;
-            this.button2.Text = "Post";
+            this.button2.Text = "Create physician stream";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -200,6 +201,7 @@
             this.Streams.TabIndex = 5;
             this.Streams.UseCompatibleStateImageBehavior = false;
             this.Streams.View = System.Windows.Forms.View.Details;
+            this.Streams.SelectedIndexChanged += new System.EventHandler(this.Streams_SelectedIndexChanged);
             // 
             // columnHeader10
             // 
@@ -247,10 +249,11 @@
             // 
             // tabPage7
             // 
-            this.tabPage7.Controls.Add(this.listView1);
+            this.tabPage7.Controls.Add(this.content);
             this.tabPage7.Controls.Add(this.label1);
             this.tabPage7.Controls.Add(this.tabControl1);
             this.tabPage7.Controls.Add(this.patientView);
+            this.tabPage7.Controls.Add(this.button2);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Size = new System.Drawing.Size(891, 618);
@@ -259,19 +262,19 @@
             this.tabPage7.UseVisualStyleBackColor = true;
             this.tabPage7.Click += new System.EventHandler(this.tabPage7_Click);
             // 
-            // listView1
+            // content
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.content.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader7,
             this.columnHeader8,
             this.columnHeader9});
-            this.listView1.FullRowSelect = true;
-            this.listView1.Location = new System.Drawing.Point(251, 322);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(619, 284);
-            this.listView1.TabIndex = 4;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.content.FullRowSelect = true;
+            this.content.Location = new System.Drawing.Point(255, 322);
+            this.content.Name = "content";
+            this.content.Size = new System.Drawing.Size(619, 284);
+            this.content.TabIndex = 4;
+            this.content.UseCompatibleStateImageBehavior = false;
+            this.content.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader7
             // 
@@ -460,6 +463,16 @@
             this.docId.TabIndex = 6;
             this.docId.Text = "12456789";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(534, 235);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "Post";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // PhysicianInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -519,7 +532,7 @@
         private System.Windows.Forms.TextBox bsnnumber;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox country;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView content;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
@@ -533,5 +546,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label docId;
+        private System.Windows.Forms.Button button3;
     }
 }

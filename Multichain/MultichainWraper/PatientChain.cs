@@ -15,7 +15,18 @@ namespace Stoneycreek.libraries.MultichainWrapper
 {
     public class PatientChain
     {
-        private const string authorisation = "authorisation";
+        public class ParameterClass
+        {
+            public string Streamname { get; set; }
+            public string PhysicianId { get; set; }
+            public string DataToStore { get; set; }
+            public string Signature { get; set; }
+
+            public string Address { get; set; }
+            public string PatientId { get; set; }
+        }
+
+        private const string authorisation = "auth";
         private const string encryption = "encryption";
         private const string items = "items";
         private const string access = "access";
@@ -52,18 +63,65 @@ namespace Stoneycreek.libraries.MultichainWrapper
             var reader = new System.IO.StringWriter();
 
             xml.Serialize(reader, nawcdata);
-            fix
-            var publishId = chain.PublishMessage(new PublishMessageData { Key = patientnaw, HexString = this.EncryptHexData(reader.ToString()), StreamName = patientAddress });
 
             var datalocation = this.CreateFileBackup(reader.ToString());
-            chain.PublishMessage(patientnaw, this.EncryptHexData(datalocation + "|" + ("NogGeenKey").Replace("-", string.Empty).Replace(" ", string.Empty)), patientAddress);
+            chain.PublishMessage(new PublishMessageData { Key = patientnaw, HexString = this.EncryptHexData(datalocation + "|" + ("NogGeenKey").Replace("-", string.Empty).Replace(" ", string.Empty)), StreamName = patientAddress });
 
             chain.CreateNewStream(true, patientAddress + "-css");
             chain.Subscribe(patientAddress);
             
             return true;
         }
-        
+
+        public string[] GetChainData(ParameterClass data)
+        {
+            MultiChain chain = new MultiChain();
+            var verified = chain.VerifyMessage(new MessageData { address = data.Address, signature = data.Signature, message = data.PhysicianId }) == "true";
+            if (verified)
+            {
+                var res = chain.GetStreamKeys(data.Streamname);
+
+                var autorisatieStream = this.GetChainName(data.PatientId, data.PhysicianId, authorisation); 
+                var result = chain.GetStreamItemByKey(autorisatieStream, authorisation).streamitems.ToArray();
+
+                if (result.Any() && this.DeEncryptHexData(result.Last().data).Split(';').Select(f => data.PhysicianId)
+                        .ToArray().Any())
+                {
+                    var linkarray = new List<string>();
+                    foreach (var i in res.streamkeys)
+                    {
+                        linkarray.AddRange(chain.GetStreamItemByKey(data.Streamname, i.key).streamitems.Select(f => this.DeEncryptHexData(f.data)).ToArray());
+                    }
+
+                    var datalist = linkarray.Select(f => File.ReadAllText(f.Split('|')[0])).ToArray();
+
+                    return datalist.ToArray();
+                }
+            }
+
+            return null;
+        }
+
+        public string[] SetChainData(ParameterClass data)
+        {
+            MultiChain chain = new MultiChain();
+            var verified = chain.VerifyMessage(new MessageData { address = data.Address, signature = data.Signature, message = data.PhysicianId }) == "true";
+            if (verified)
+            {
+                var datalocation = this.CreateFileBackup(data.DataToStore);
+                chain.PublishMessage(new PublishMessageData
+                {
+                    Key = patientnaw,
+                    HexString = this.EncryptHexData(datalocation + "|" +
+                                                    ("NogGeenKey").Replace("-", string.Empty)
+                                                    .Replace(" ", string.Empty)),
+                    StreamName = data.Streamname
+                });
+            }
+
+            return null;
+        }
+
         public NawContracts[] GetPatients()
         {
             MultiChain chain = new MultiChain();
@@ -73,7 +131,9 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
             foreach(var patient in patients.streams)
             {
+                chain.Subscribe(patient.name);
                 var result = chain.GetStreamItemByKey(patient.name, patientnaw);
+
                 NawContracts deserialized = null;
                 if (result != null && result.streamitems.Any())
                 {
@@ -93,14 +153,9 @@ namespace Stoneycreek.libraries.MultichainWrapper
                     }
                 }
 
-                if(deserialized != null && patient.name.Contains("-items"))
+                if(patient.name.Contains("-items"))
                 {
-                    if(deserialized.ItemsList == null)
-                    {
-                        deserialized.ItemsList = new List<Items>();
-                    }
-
-                    deserialized.ItemsList.Add(new Items { PhysicianIdentification = patient.name.Split('-')[0], DataBlocks = patient.items });
+                    patientsContracts.Last().ItemsList = new List<Items>{new Items { DataBlocks = patient.items, PhysicianIdentification = patient.name }  };
                 }
             }
 
@@ -118,20 +173,23 @@ namespace Stoneycreek.libraries.MultichainWrapper
             // de abonnementen kunnen worden ingenomen/ ongedaan gemaakt worden
 
             MultiChain chain = new MultiChain();
-            var verified = chain.VerifyMessage(new MessageData { address = patientBsn, signature = signature, message = physicianIdentification }) == "true";
+            var verified = chain.VerifyMessage(new MessageData { address = psysicianAddress, signature = signature, message = physicianIdentification }) == "true";
             if (verified)
             {
                 var itemStreamname = this.GetChainName(clientBsn, physicianIdentification, items);
                 var accessStreamname = this.GetChainName(clientBsn, physicianIdentification, access);
+                var authorisationStreamname = this.GetChainName(clientBsn, physicianIdentification, authorisation);
 
                 chain.CreateNewStream(true, itemStreamname);
                 chain.CreateNewStream(true, accessStreamname);
+                chain.CreateNewStream(true, authorisationStreamname);
 
                 chain.Subscribe(itemStreamname);
                 chain.Subscribe(accessStreamname);
-
+                chain.Subscribe(authorisation);
+                
                 // toevoegen authorisatie arts
-                var result = chain.GetStreamItemByKey(psysicianAddress, authorisation);
+                var result = chain.GetStreamItemByKey(authorisationStreamname, authorisation);
                 StreamItem streamitem = new StreamItem {data = string.Empty };
 
                 if (result != null && result.streamitems.Any())
@@ -142,12 +200,8 @@ namespace Stoneycreek.libraries.MultichainWrapper
                 var data = streamitem.data.Any() ? this.DeEncryptHexData(streamitem.data) : string.Empty;
                 data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + physicianIdentification);
 
-                var transactionkey = this.GetTransactionKey(physicianIdentification);
-
                 var datalocation = this.CreateFileBackup(data);
-                chain.PublishMessage(transactionkey, this.EncryptHexData(datalocation + "|" + ("NogGeenKey").Replace("-", string.Empty).Replace(" ", string.Empty)), clientBsn);
-                
-                var transactionId = chain.PublishMessage(transactionkey, data, authorisation);
+                chain.PublishMessage(new PublishMessageData {Key = authorisation, HexString = this.EncryptHexData(datalocation + "|" + ("NogGeenKey").Replace("-", string.Empty).Replace(" ", string.Empty)) , StreamName = authorisationStreamname });
 
                 return true;
             }
@@ -306,7 +360,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         private string GetTransactionKey(string address1)
         {
             string key = "{0}_{1}";
-            return string.Format(StreamName, DateTime.Now.ToString().Replace("-", string.Empty).Replace("/", string.Empty).Replace(":", string.Empty));
+            return string.Format(key, address1, DateTime.Now.ToString().Replace("-", string.Empty).Replace("/", string.Empty).Replace(":", string.Empty).Replace(" ", string.Empty));
         }
         private string EncryptHexData(string plain)
         {
