@@ -2,10 +2,13 @@
 using StoneyCreek.Services.Blockchain.DataContracts.StreamContracts;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Stoneycreek.libraries.MultichainWrapper.Encryption;
 
 namespace Stoneycreek.libraries.MultichainWrapper
 {
@@ -22,7 +25,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
         public string SignMessage(string privateKey, string physicianAddress)
         {
             MultiChain chain = new MultiChain();
-            
+
             var signature = chain.SignMessage(privateKey, physicianAddress);
             return signature;
         }
@@ -42,19 +45,18 @@ namespace Stoneycreek.libraries.MultichainWrapper
             var patientAddress = nawcdata.BsnNumber;
 
             MultiChain chain = new MultiChain();
-            var TxId = chain.CreateNewStream(true, patientAddress);
+            chain.CreateNewStream(true, patientAddress);
 
             var xml = new XmlSerializer(typeof(NawContracts));
             var reader = new System.IO.StringWriter();
 
             xml.Serialize(reader, nawcdata);
-            var publishId = chain.PublishMessage(patientnaw, this.EncryptHexData(reader.ToString()), patientAddress);
 
-            // generate 
+            var datalocation = this.CreateFileBackup(reader.ToString());
+            chain.PublishMessage(patientnaw, this.EncryptHexData(datalocation + "|" + ("NogGeenKey").Replace("-", string.Empty).Replace(" ", string.Empty)), patientAddress);
 
-
-            var myId = chain.CreateNewStream(true, patientAddress + "-css");
-            var mysubscribtionId = chain.Subscribe(patientAddress);
+            chain.CreateNewStream(true, patientAddress + "-css");
+            chain.Subscribe(patientAddress);
             
             return true;
         }
@@ -72,9 +74,20 @@ namespace Stoneycreek.libraries.MultichainWrapper
                 NawContracts deserialized = null;
                 if (result != null && result.streamitems.Any())
                 {
-                    var xml = new XmlSerializer(typeof(NawContracts));
-                    deserialized = (NawContracts)xml.Deserialize(new System.IO.StringReader(this.DeEncryptHexData(result.streamitems.Last().data)));
-                    patientsContracts.Add(deserialized);
+                    try
+                    {
+                        var locationAndKey = this.DeEncryptHexData(result.streamitems.Last().data);
+                        var filedata = File.ReadAllText(locationAndKey.Split('|')[0]);
+
+                        var xml = new XmlSerializer(typeof(NawContracts));
+                        deserialized = (NawContracts)xml.Deserialize(new StringReader(filedata));
+
+                        patientsContracts.Add(deserialized);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
                 }
 
                 if(deserialized != null && patient.name.Contains("-items"))
@@ -91,7 +104,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             return patientsContracts.ToArray();
         }
 
-        public bool AddPhysician(string patientBsn, string physicianIdentification, string signature)
+        public bool AddPhysician(string psysicianAddress, string physicianIdentification, string clientBsn, string signature)
         {
             // Create serveral Objects:
             //      Authorisation stream
@@ -102,23 +115,23 @@ namespace Stoneycreek.libraries.MultichainWrapper
             // de abonnementen kunnen worden ingenomen/ ongedaan gemaakt worden
 
             MultiChain chain = new MultiChain();
-            var verified = chain.VerifyMessage(patientBsn, signature, physicianIdentification) == "true";
+            var verified = chain.VerifyMessage(psysicianAddress, signature, physicianIdentification) == "true";
             if (verified)
             {
-                var itemStreamname = this.GetChainName(patientBsn, physicianIdentification, items);
-                var accessStreamname = this.GetChainName(patientBsn, physicianIdentification, access);
+                var itemStreamname = this.GetChainName(clientBsn, physicianIdentification, items);
+                var accessStreamname = this.GetChainName(clientBsn, physicianIdentification, access);
 
-                chain.CreateNewStream(true, patientBsn);
+                chain.CreateNewStream(true, itemStreamname);
                 chain.CreateNewStream(true, accessStreamname);
 
-                chain.Subscribe(patientBsn);
+                chain.Subscribe(itemStreamname);
                 chain.Subscribe(accessStreamname);
 
                 // toevoegen authorisatie arts
-                var result = chain.GetStreamItemByKey(patientBsn, authorisation);
-                StreamItem streamitem = new StreamItem();
+                var result = chain.GetStreamItemByKey(psysicianAddress, authorisation);
+                StreamItem streamitem = new StreamItem {data = string.Empty };
 
-                if (result.streamitems.Any())
+                if (result != null && result.streamitems.Any())
                 {
                     streamitem = result.streamitems.Last();
                 }
@@ -127,11 +140,15 @@ namespace Stoneycreek.libraries.MultichainWrapper
                 data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + physicianIdentification);
 
                 var transactionkey = this.GetTransactionKey(physicianIdentification);
+
+                var datalocation = this.CreateFileBackup(data);
+                chain.PublishMessage(transactionkey, this.EncryptHexData(datalocation + "|" + ("NogGeenKey").Replace("-", string.Empty).Replace(" ", string.Empty)), clientBsn);
+                
                 var transactionId = chain.PublishMessage(transactionkey, data, authorisation);
 
                 return true;
             }
-
+            
             return false;
         }
 
@@ -280,7 +297,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         private string GetChainName(string address1, string address2, string type)
         {
-            return string.Format(StreamName, type, address1, address2);
+            return string.Format(StreamName, address1, address2, type);
         }
 
         private string GetTransactionKey(string address1)
@@ -301,6 +318,31 @@ namespace Stoneycreek.libraries.MultichainWrapper
             var data = chain.HexStringToBytes(encrypted);
             var data2string = Encoding.Default.GetString(data);
             return data2string;
+        }
+
+        private byte[] ToByteArray(string value)
+        {
+            byte[] iv = new byte[16];
+            for (int i = 0; i < 32; i += 2)
+            {
+                iv[i / 2] = Convert.ToByte(value.Substring(i, 2), 16);
+            }
+
+            return iv;
+        }
+
+        private string CreateFileBackup(string data)
+        {
+            var guid = Guid.NewGuid();
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var datalocation = Path.Combine(config.AppSettings.Settings["FileRepo"].Value, guid.ToString());
+
+            var encryptdata = new EncryptStream();
+            encryptdata.GenerateNewKey();
+
+            File.WriteAllText(datalocation, data);
+
+            return datalocation;
         }
     }
 }

@@ -38,7 +38,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.ToevoegingInStream = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.Streams = new System.Windows.Forms.ListView();
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -142,7 +142,7 @@
             // 
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.textBox2);
-            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Controls.Add(this.ToevoegingInStream);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.Streams);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -169,13 +169,13 @@
             this.textBox2.Size = new System.Drawing.Size(191, 20);
             this.textBox2.TabIndex = 8;
             // 
-            // textBox1
+            // ToevoegingInStream
             // 
-            this.textBox1.Location = new System.Drawing.Point(345, 3);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(264, 201);
-            this.textBox1.TabIndex = 7;
+            this.ToevoegingInStream.Location = new System.Drawing.Point(345, 3);
+            this.ToevoegingInStream.Multiline = true;
+            this.ToevoegingInStream.Name = "ToevoegingInStream";
+            this.ToevoegingInStream.Size = new System.Drawing.Size(264, 201);
+            this.ToevoegingInStream.TabIndex = 7;
             // 
             // button2
             // 
@@ -529,7 +529,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader12;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox ToevoegingInStream;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label docId;

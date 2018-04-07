@@ -1,6 +1,8 @@
 ﻿using Stoneycreek.libraries.MultichainWrapper;
 using StoneyCreek.Services.Blockchain.DataContracts.StreamContracts;
 using System;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -71,7 +73,11 @@ namespace TestApplication
         private void button2_Click(object sender, EventArgs e)
         {
             PatientChain patientChain = new PatientChain();
-            patientChain.AddPhysician(patientView.SelectedItems[0].SubItems[2].Text, docId.Text, patientChain.SignMessage("", docId.Text));
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var privatekey = config.AppSettings.Settings["privkey"].Value;
+            var address = config.AppSettings.Settings["address"].Value;
+
+            patientChain.AddPhysician(address, docId.Text, patientView.SelectedItems[0].SubItems[2].Text, patientChain.SignMessage(privatekey, docId.Text));
         }
     }
 }
