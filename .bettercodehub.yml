@@ -8,5 +8,6 @@ exclude:
 - .*/obj/.*
 - .*/deployment/.*
 - .*/bin/.*
-- .*/packages/.*
-- .*/Multichain/TestApplication/.*
+- /Multichain/TestApplication/.*
+- /Multichain/Unit Tests/.*
+- .*/Resource.designer.cs
