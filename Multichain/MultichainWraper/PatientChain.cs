@@ -21,7 +21,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
             public string PhysicianId { get; set; }
             public string DataToStore { get; set; }
             public string Signature { get; set; }
-
+            public string PhysicianSecondId { get; set; }
             public string Address { get; set; }
             public string PatientId { get; set; }
         }

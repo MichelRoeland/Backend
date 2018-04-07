@@ -10,3 +10,4 @@ exclude:
 - .*/bin/.*
 - .*/TestApplication/.*
 - .*/Resource.designer.cs
+- .*/FrontEndPackage/.*
