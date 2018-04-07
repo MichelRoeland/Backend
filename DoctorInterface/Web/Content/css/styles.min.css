@@ -1,0 +1,82 @@
+body .pagecontainer {
+  height: 100%; }
+
+body .main .top-bar {
+  max-height: 90px;
+  margin: 0rem; }
+  body .main .top-bar .top-bar-text {
+    display: inline-block; }
+  body .main .top-bar .top-bar-user {
+    display: inline-block;
+    line-height: 1;
+    float: right; }
+    body .main .top-bar .top-bar-user p {
+      margin-bottom: 5px; }
+    body .main .top-bar .top-bar-user .user {
+      display: inline-block; }
+    body .main .top-bar .top-bar-user .icon {
+      margin-left: 15px;
+      display: inline-block; }
+      body .main .top-bar .top-bar-user .icon i {
+        font-size: 30px !important; }
+
+body .left-menu .logocontainer {
+  border: thin, 1px, black;
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(10, 10, 10, 0.5); }
+
+body .left-menu .main-menu {
+  margin: 15px; }
+  body .left-menu .main-menu ul {
+    list-style-type: none;
+    list-style-position: inside; }
+
+/*.paperpage{
+    margin-left: 10px;
+    margin-right: 10px;
+}*/
+.log-in-form {
+  border: 1px solid #cacaca;
+  padding: 1rem;
+  border-radius: 0; }
+
+.loginpage .loginlogo {
+  margin: 0 auto;
+  margin-top: 75px;
+  max-width: 250px; }
+  @media screen and (max-width: 39.9375em) {
+    .loginpage .loginlogo {
+      margin-top: 30px; } }
+  .loginpage .loginlogo label {
+    font-weight: 600; }
+  @media screen and (min-width: 1600px) {
+    .loginpage .loginlogo {
+      margin-right: 200px; } }
+  @media screen and (min-width: 1800px) {
+    .loginpage .loginlogo {
+      margin-right: 300px; } }
+
+.loginpage .loginlabel {
+  font-weight: 600; }
+
+.loginpage .login-container {
+  margin-top: 200px; }
+  @media screen and (min-width: 40em) {
+    .loginpage .login-container {
+      max-width: 400px; } }
+  @media screen and (max-width: 39.9375em) {
+    .loginpage .login-container {
+      margin-top: 50px; } }
+
+.indexview {
+  padding-top: 20px; }
+  .indexview .patientoverview {
+    margin-top: 10px;
+    margin-bottom: 25px; }
+
+.searchpatient-container {
+  border: 1px thin black;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(10, 10, 10, 0.5); }
+  .searchpatient-container td a {
+    display: block; }

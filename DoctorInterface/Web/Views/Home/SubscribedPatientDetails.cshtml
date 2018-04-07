@@ -1,0 +1,62 @@
+﻿@model Web.Models.PatientViewModel
+
+@{
+    ViewBag.Title = "Patienten";
+    ViewBag.Streams = Model.patient.Streams;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var patientAddress = Model.patient.PatientAddress.Street + " " + Model.patient.PatientAddress.HouseNumber;
+}
+
+<div class="patientview">
+    <div class="row">
+        <div class="column">
+            <div class="patientoverview">
+                <h2>Patient Details</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 medium-7 large-9 columns">
+            <div class="patient-details">
+                <table class="hover patient-details-table">
+                    <thead>
+                        <tr>
+                            <th width="200"></th>
+                            <th width="200"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Html.LabelFor(m => m.patient.Name)</td>
+                            <td>@Model.patient.Name</td>
+                        </tr>
+                        <tr>
+                            <td>Adres</td>
+                            <td>@patientAddress</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.LabelFor(m => m.patient.PatientAddress.City)</td>
+                            <td>@Model.patient.PatientAddress</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.LabelFor(m => m.patient.PatientAddress.PhoneNumber)</td>
+                            <td>@Model.patient.PatientAddress.PhoneNumber</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <div class="small-12 medium-5 large-3 columns ">
+            <div class="container-padded searchpatient-container">
+                <label>Add Entry</label>
+                <p><button class="button" data-open="newEntryModal">New Logbook Entry</button></p>
+            </div>
+        </div>
+        <hr>
+        <div>
+            @Html.Action("_NewEntryModal", "Home")
+        </div>
+    </div>
+</div>

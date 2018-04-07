@@ -1,0 +1,65 @@
+﻿@model Web.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+    ViewBag.CurrentUser = Model.CurrentUser;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="indexview">
+    <div class="row">
+        <div class="column">
+            <div class="patientoverview">
+                <h2>Uw Patienten</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 medium-7 large-9 columns">
+            
+            <div class="patient-table">
+                <table class="hover">
+                    <thead>
+                        <tr>
+                            <th width="200">Naam</th>
+                            <th width="200">Woonplaats</th>
+                            <th width="150">Info3</th>
+                            <th width="150">Info4</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*@foreach (var subscribedPatient in Model.SubscribedPatients)
+                        {
+                        <tr>
+                            <td>@Html.ActionLink(subscribedPatient.Name, "SubscribedPatient", "Home", new { userViewModel = Model } )</td>
+                            <td>@Html.ActionLink(subscribedPatient.PatientAddress.City, "SubscribedPatient", "Home", new { userViewModel = Model } )</td>
+                            <td>@Html.ActionLink("Content", "SubscribedPatient", "Home", new { userViewModel = Model })</td>
+                            <td>@Html.ActionLink("Content", "SubscribedPatient", "Home", new { userViewModel = Model })</td>
+                        </tr>
+                        }*@
+                    <tr>
+                        
+                        <td><a href="#">Mr. B.</a></td>
+                        <td><a href="#">Gouda</a></td>
+                        <td><a href="#">Content</a></td>
+                        <td><a href="#">Content</a></td>
+                    </tr>
+                    <tr>
+                        <td>Mr. M.</td>
+                        <td>Zutphen</td>
+                        <td>Content</td>
+                        <td>Content</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="small-12 medium-5 large-3 columns ">
+            <div class="container-padded searchpatient-container">
+                @Html.Action("_SearchPatient", "Home")
+            </div>
+        </div>
+    <hr>
+   </div>
+</div>

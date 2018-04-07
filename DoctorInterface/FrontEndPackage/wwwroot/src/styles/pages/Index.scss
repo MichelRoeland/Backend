@@ -1,0 +1,21 @@
+﻿.indexview
+{
+    padding-top: 20px;
+
+    .patientoverview
+        {
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+}
+
+
+.searchpatient-container {
+    border: 1px thin black;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(10,10,10,.5);
+
+    td a {
+        display: block;
+    }
+}

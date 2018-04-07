@@ -1,0 +1,61 @@
+﻿body {
+
+    .pagecontainer {
+        height: 100%;
+    }
+
+    .main {
+        .top-bar {
+            max-height: 90px;
+            margin: 0rem;
+
+            .top-bar-text {
+                display: inline-block;
+            }
+
+            .top-bar-user {
+                display: inline-block;
+                line-height: 1;
+                float: right;
+
+                p {
+                    margin-bottom: 5px;
+                }
+
+                .user {
+                    display: inline-block
+                }
+
+                .icon {
+                    margin-left: 15px;
+                    display: inline-block;
+
+                    i {
+                        font-size:30px !important;
+                    }
+                }
+            }
+        }
+    }
+
+
+    .left-menu {
+        .logocontainer {
+            border: thin, 1px, black;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(10,10,10,.5);
+        }
+
+        .main-menu {
+            margin: 15px;
+
+            ul {
+                list-style-type: none;
+                list-style-position: inside;
+
+                li {
+                }
+            }
+        }
+    }
+}

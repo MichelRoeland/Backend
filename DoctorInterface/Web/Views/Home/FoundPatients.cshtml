@@ -1,0 +1,44 @@
+﻿@model Web.Models.FoundPatientsViewModel
+
+@{
+    ViewBag.Title = "FoundPatients";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="foundpatientsview">
+    <div class="row">
+        <div class="column">
+            <div class="patientoverview">
+                <h2>Found Patients</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 column">
+
+            <div class="patient-table">
+                <table class="hover">
+                    <thead>
+                        <tr>
+                            <th width="200">Last name</th>
+                            <th width="200">First name</th>
+                            <th width="150">BSN</th>
+                            <th width="100">Request Access</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var subscribedPatient in Model.FoundPatients)
+                        {
+                            <tr>
+                                <td>@subscribedPatient.LastName</td>
+                                <td>@subscribedPatient.FirstName</td>
+                                <td>@subscribedPatient.BSN</td>
+                                <td><button></button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+﻿@model Web.Models.EntryViewModel
+<div class="reveal" id="newEntryModal" data-reveal>
+    <h2>New Entry Modal</h2>
+    <div>
+        @using (Html.BeginForm("NewEntry", "Home", FormMethod.Post, new { @class = "new-entry-form" }))
+        {
+            <h4 class="text-center">New Logbook Entry</h4>
+            @Html.TextBoxFor(m => m.Entry.EntryString, new { placeholder = "Entry" })
+            <p><input type="submit" class="button expanded" value="Submit Entry"></input></p>
+        }
+    </div>
+    <button class="close-button" data-close aria-label="Close reveal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+

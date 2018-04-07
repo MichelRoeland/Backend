@@ -1,0 +1,63 @@
+﻿body {
+    font-size: 1em;
+    line-height: 20px;
+    text-align: left;
+    color: #000;
+   
+    font-weight: 200;
+    font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+   
+    font-weight: 700;
+}
+
+form {
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    font-style: normal;
+    color: #222;
+    text-align: center;
+    line-height: 1.2em;
+    margin: 0 auto 0 auto;
+    padding: 0;
+}
+
+a:hover {
+    color: green;
+}
+
+textarea {
+    resize: none;
+}
+
+h1 {
+    font-size: rem-calc(42);
+    font-weight: 800;
+    text-transform: uppercase;
+
+    .top {
+        font-size: rem-calc(45);
+
+        @include breakpoint(small only) {
+            font-size: rem-calc(20);
+        }
+    }
+
+    @include breakpoint(small only) {
+        font-size: rem-calc(25);
+    }
+}
+
+h3 {
+    font-size: rem-calc(24);
+}
+
+
+.hidden {
+    display: none !important;
+}

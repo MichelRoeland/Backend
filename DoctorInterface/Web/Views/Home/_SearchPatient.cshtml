@@ -1,0 +1,8 @@
+﻿@model Web.Models.SearchPatientViewModel
+
+@using (Html.BeginForm("SearchPatient", "Home", FormMethod.Post, new { @class = "searchpatient" }))
+{
+    <h4>Zoek een patient</h4>
+    @Html.TextBoxFor(m => m.Name, new { @class = "searchpatient-txt" })
+    <p><input type="submit" class="button expanded" value="Zoek Patient"></input></p>
+}

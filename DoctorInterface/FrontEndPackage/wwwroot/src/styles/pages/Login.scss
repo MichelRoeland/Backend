@@ -1,0 +1,50 @@
+﻿.log-in-form {
+    border: 1px solid $medium-gray;
+    padding: $form-spacing;
+    border-radius: $global-radius;
+}
+
+.loginpage {
+
+
+    .loginlogo {
+        margin: 0 auto;
+        margin-top: 75px;
+        max-width: 250px;
+
+        @include breakpoint(small only) {
+            margin-top: 30px;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        @media screen and (min-width: 1600px) {
+            margin-right: 200px
+        }
+
+        @media screen and (min-width: 1800px) {
+            margin-right: 300px
+        }
+    }
+
+
+
+
+    .loginlabel {
+        font-weight: 600;
+    }
+
+    .login-container {
+        @include breakpoint(medium up) {
+            max-width: 400px;
+        }
+
+        margin-top: 200px;
+
+        @include breakpoint(small only) {
+            margin-top: 50px;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+﻿@model Web.Models.LoginViewModel
+
+<div class="loginpage">
+    <div class="row column align-center medium-6 large-4 container-padded">
+
+
+
+        <div class="login-container">
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "log-in-form" }))
+        {
+            <h4 class="text-center">Please log in here</h4>
+
+            @Html.TextBoxFor(m => m.UserName, new { placeholder = "your username" })
+            @Html.TextBoxFor(m => m.Password, new { placeholder = "your password" })
+
+
+            <p><input type="submit" class="button expanded" value="Log in"></input></p>
+            <p class="text-center"><a href="#">Forgot your password?</a></p>
+    }
+
+        </div>
+        <div class="loginlogo align-center">
+            <label>Powered by:</label>
+            <img src="~/Content/image/logo/stoneycreekfull.png" />
+        </div>
+    </div>
+</div>

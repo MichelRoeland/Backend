@@ -1,0 +1,6 @@
+D:\Z - Workplace\BlockChaingers\FrontEndPackage\Logic\bin\Debug\Logic.dll
+D:\Z - Workplace\BlockChaingers\FrontEndPackage\Logic\bin\Debug\Logic.pdb
+D:\Z - Workplace\BlockChaingers\FrontEndPackage\Logic\obj\Debug\Logic.csprojResolveAssemblyReference.cache
+D:\Z - Workplace\BlockChaingers\FrontEndPackage\Logic\obj\Debug\Logic.csproj.CoreCompileInputs.cache
+D:\Z - Workplace\BlockChaingers\FrontEndPackage\Logic\obj\Debug\Logic.dll
+D:\Z - Workplace\BlockChaingers\FrontEndPackage\Logic\obj\Debug\Logic.pdb
