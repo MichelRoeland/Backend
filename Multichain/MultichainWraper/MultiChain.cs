@@ -210,8 +210,6 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         public string CreateNewStream(bool isOpenStream, string streamname)
         {
-            var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(MultichainClientCommands.CreateStream, " stream", streamname, isOpenStream ? "true" : "false");
-
             var commandtext = ChainLocation + ClientName + " " + Chainname + " "
                               + string.Format(MultichainClientCommands.CreateStream, "stream", streamname, isOpenStream ? "true" : "false");
             var result = ExecuteCommand(commandtext, null);
