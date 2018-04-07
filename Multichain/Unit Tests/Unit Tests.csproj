@@ -61,8 +61,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MultichainWrapper\Encryption\EncryptStreamTests2.cs" />
+    <Compile Include="MultichainWrapper\Encryption\EncryptStreamTests3.cs" />
+    <Compile Include="MultichainWrapper\Encryption\EncryptStreamTests1.cs" />
+    <Compile Include="MultichainWrapper\MultiChainTests2.cs" />
+    <Compile Include="MultichainWrapper\MultiChainTests3.cs" />
+    <Compile Include="MultichainWrapper\MultiChainTests1.cs" />
     <Compile Include="MultichainWrapper\MultiChainTests.cs" />
     <Compile Include="MultichainWrapper\Encryption\EncryptStreamTests.cs" />
+    <Compile Include="MultichainWrapper\MultichainUtilParametersTests2.cs" />
+    <Compile Include="MultichainWrapper\MultichainUtilParametersTests3.cs" />
+    <Compile Include="MultichainWrapper\MultichainUtilParametersTests1.cs" />
     <Compile Include="MultichainWrapper\MultichainUtilParametersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
