@@ -11,3 +11,4 @@ exclude:
 - .*/TestApplication/.*
 - .*/Resource.designer.cs
 - .*/FrontEndPackage/.*
+- .*/Web/.*
