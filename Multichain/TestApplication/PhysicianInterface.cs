@@ -57,10 +57,14 @@ namespace TestApplication
 
         private void patientView_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (patientView.SelectedItems.Count == 0)
+                return;
+
             var patientstreams = patients.Where(f => f.BsnNumber == patientView.SelectedItems[0].SubItems[2].Text);
             if (patientstreams.Any())
             {
                 var mainstream = patientstreams.First();
+                Streams.Items.Clear();
                 foreach (var i in mainstream.ItemsList)
                 {
                     var lv = new ListViewItem(i.DateTimeMutation.ToString());
@@ -69,7 +73,6 @@ namespace TestApplication
                     Streams.Items.Add(lv);
                 }
             }
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -84,7 +87,7 @@ namespace TestApplication
 
         private void Streams_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (patientView.SelectedItems.Count == 0)
+            if (patientView.SelectedItems.Count == 0 || Streams.SelectedItems.Count == 0)
                 return;
 
 
@@ -103,6 +106,8 @@ namespace TestApplication
                 PatientId = patientView.SelectedItems[0].SubItems[2].Text
             });
 
+            content.Items.Clear();
+
             if (result != null)
             {
                 foreach (var i in result)
@@ -112,6 +117,12 @@ namespace TestApplication
                     lv.SubItems.Add(i);
                     content.Items.Add(lv);
                 }
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Er is voor deze patient geen medische informatie of u bent niet geautoriseerd om medische stromen te zien voor deze patient.",
+                    "Medical streams", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -155,6 +166,7 @@ namespace TestApplication
             if (patientView.SelectedItems.Count == 0 || Streams.SelectedItems.Count == 0)
                 return;
 
+            content.Items.Clear();
             PatientChain patientChain = new PatientChain();
 
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -191,8 +203,34 @@ namespace TestApplication
         {
             if (content.SelectedItems.Count > 0)
             {
-                FullTextview.Rtf = content.SelectedItems[0].SubItems[2].Text;
+                if (type.Text == "Items")
+                {
+                    FullTextview.Text = content.SelectedItems[0].SubItems[2].Text;
+                }
+                else
+                {
+                    FullTextview.Rtf = content.SelectedItems[0].SubItems[2].Text;
+                }
+                
             }
+        }
+
+        private void docId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            content.Items.Clear();
+            Streams.SelectedItems.Clear();
+            FullTextview.Text = "";
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            PatientChain patientChain = new PatientChain();
+
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var privatekey = config.AppSettings.Settings["privkey"].Value;
+
+            patientChain.AddPhysicianRights(patientView.SelectedItems[0].SubItems[2].Text, docId.Text,
+                patientChain.SignMessage(privatekey, docId.Text));
         }
     }
 }

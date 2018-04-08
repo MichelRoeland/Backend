@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace ServiceImplementation.Model
@@ -7,6 +8,6 @@ namespace ServiceImplementation.Model
     public class PatientsResponse
     {
         [DataMember]
-        public List<Patient> Patients { get; set; }
+        public Patient[] Patients { get; set; }
     }
 }

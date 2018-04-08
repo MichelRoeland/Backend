@@ -31,3 +31,8 @@
 /Multichain/Service/DataContracts/StoneyCreek.Services.Blockchain.DataContracts/bin/Release
 /Multichain/TestApplication/bin/Release
 /Multichain/Unit Tests/obj/Release
+/Multichain/MultichainWraper/bin
+/Multichain/Service/DataContracts/StoneyCreek.Services.Blockchain.DataContracts/bin
+/Multichain/TestApplication/bin
+/Multichain/Unit Tests/bin/x64/Release
+/Multichain/Unit Tests/obj

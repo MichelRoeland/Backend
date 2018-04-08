@@ -88,27 +88,24 @@ namespace Stoneycreek.libraries.MultichainWrapper
         {
             MultiChain chain = new MultiChain();
             var verified = chain.VerifyMessage(new MessageData { address = data.Address, signature = data.Signature, message = data.PhysicianId }) == "true";
-            if (verified)
+            var res = chain.GetStreamKeys(data.Streamname);
+
+            var autorisatieStream = this.GetChainName(data.PatientId, data.PhysicianId, authorisation);
+            var streamitems = chain.GetStreamItemByKey(autorisatieStream, authorisation);
+            var result = streamitems == null ? new StreamItem[0] : streamitems.streamitems.ToArray();
+
+            if (result.Any() && this.DeEncryptHexData(result.Last().data).Split(';').Select(f => data.PhysicianId)
+                    .ToArray().Any())
             {
-                var res = chain.GetStreamKeys(data.Streamname);
-
-                var autorisatieStream = this.GetChainName(data.PatientId, data.PhysicianId, authorisation);
-                var streamitems = chain.GetStreamItemByKey(autorisatieStream, authorisation);
-                var result = streamitems == null ? new StreamItem[0] : streamitems.streamitems.ToArray();
-
-                if (result.Any() && this.DeEncryptHexData(result.Last().data).Split(';').Select(f => data.PhysicianId)
-                        .ToArray().Any())
+                var linkarray = new List<string>();
+                foreach (var i in res.streamkeys)
                 {
-                    var linkarray = new List<string>();
-                    foreach (var i in res.streamkeys)
-                    {
-                        linkarray.AddRange(chain.GetStreamItemByKey(data.Streamname, i.key).streamitems.Select(f => this.DeEncryptHexData(f.data)).ToArray());
-                    }
-
-                    var datalist = linkarray.Select(f => File.ReadAllText(f.Split('|')[0])).ToArray();
-
-                    return datalist.ToArray();
+                    linkarray.AddRange(chain.GetStreamItemByKey(data.Streamname, i.key).streamitems.Select(f => this.DeEncryptHexData(f.data)).ToArray());
                 }
+
+                var datalist = linkarray.Select(f => File.ReadAllText(f.Split('|')[0])).ToArray();
+
+                return datalist.ToArray();
             }
 
             return null;
@@ -118,18 +115,15 @@ namespace Stoneycreek.libraries.MultichainWrapper
         {
             MultiChain chain = new MultiChain();
             var verified = chain.VerifyMessage(new MessageData { address = data.Address, signature = data.Signature, message = data.PhysicianId }) == "true";
-            if (verified)
+            var datalocation = this.CreateFileBackup(data.DataToStore);
+            chain.PublishMessage(new PublishMessageData
             {
-                var datalocation = this.CreateFileBackup(data.DataToStore);
-                chain.PublishMessage(new PublishMessageData
-                {
-                    Key = "entry",
-                    HexString = this.EncryptHexData(datalocation + "|" +
-                                                    ("NogGeenKey").Replace("-", string.Empty)
-                                                    .Replace(" ", string.Empty)),
-                    StreamName = data.Streamname
-                });
-            }
+                Key = "entry",
+                HexString = this.EncryptHexData(datalocation + "|" +
+                                                ("NogGeenKey").Replace("-", string.Empty)
+                                                .Replace(" ", string.Empty)),
+                StreamName = data.Streamname
+            });
 
             return null;
         }
@@ -186,63 +180,56 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
             MultiChain chain = new MultiChain();
             var verified = chain.VerifyMessage(new MessageData { address = psysicianAddress, signature = signature, message = physicianIdentification }) == "true";
-            if (verified)
-            {
-                var itemStreamname = this.GetChainName(clientBsn, physicianIdentification, items);
-                var accessStreamname = this.GetChainName(clientBsn, physicianIdentification, access);
-                var authorisationStreamname = this.GetChainName(clientBsn, physicianIdentification, authorisation);
+            var itemStreamname = this.GetChainName(clientBsn, physicianIdentification, items);
+            var accessStreamname = this.GetChainName(clientBsn, physicianIdentification, access);
+            var authorisationStreamname = this.GetChainName(clientBsn, physicianIdentification, authorisation);
 
-                chain.CreateNewStream(true, itemStreamname);
-                chain.CreateNewStream(true, accessStreamname);
-                chain.CreateNewStream(true, authorisationStreamname);
+            chain.CreateNewStream(true, itemStreamname);
+            chain.CreateNewStream(true, accessStreamname);
+            chain.CreateNewStream(true, authorisationStreamname);
 
-                chain.Subscribe(itemStreamname);
-                chain.Subscribe(accessStreamname);
-                chain.Subscribe(authorisation);
+            chain.Subscribe(itemStreamname);
+            chain.Subscribe(accessStreamname);
+            chain.Subscribe(authorisation);
                 
-                // toevoegen authorisatie arts
-                var result = chain.GetStreamItemByKey(authorisationStreamname, authorisation);
-                StreamItem streamitem = new StreamItem {data = string.Empty };
+            // toevoegen authorisatie arts
+            var result = chain.GetStreamItemByKey(authorisationStreamname, authorisation);
+            StreamItem streamitem = new StreamItem {data = string.Empty };
 
-                if (result != null && result.streamitems.Any())
-                {
-                    streamitem = result.streamitems.Last();
-                }
-
-                var data = streamitem.data.Any() ? this.DeEncryptHexData(streamitem.data) : string.Empty;
-                data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + physicianIdentification);
-
-                var datalocation = this.CreateFileBackup(data);
-                chain.PublishMessage(new PublishMessageData {Key = authorisation, HexString = this.EncryptHexData(datalocation + "|" + ("NogGeenKey").Replace("-", string.Empty).Replace(" ", string.Empty)) , StreamName = authorisationStreamname });
-
-                return true;
+            if (result != null && result.streamitems.Any())
+            {
+                streamitem = result.streamitems.Last();
             }
-            
-            return false;
+
+            var data = streamitem.data.Any() ? this.DeEncryptHexData(streamitem.data) : string.Empty;
+            data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + physicianIdentification);
+
+            var datalocation = this.CreateFileBackup(data);
+            chain.PublishMessage(new PublishMessageData {Key = authorisation, HexString = this.EncryptHexData(datalocation + "|" + ("NogGeenKey").Replace("-", string.Empty).Replace(" ", string.Empty)) , StreamName = authorisationStreamname });
+
+            return true;
         }
 
-        public bool AddPhysicianRights(string patientBsn, string physicianIdentification, string physicianToAdd, string signature)
+        public bool AddPhysicianRights(string patientBsn, string physicianIdentification, string signature)
         {
             MultiChain chain = new MultiChain();
             var verified = chain.VerifyMessage(new MessageData { address = patientBsn, signature = signature, message = physicianIdentification }) == "true";
-            if (verified)
+
+            var result = chain.GetStreamItemByKey(patientBsn, authorisation);
+            StreamItem streamitem = new StreamItem();
+
+            if (result.streamitems.Any())
             {
-                var result = chain.GetStreamItemByKey(patientBsn, authorisation);
-                StreamItem streamitem = new StreamItem();
-
-                if (result.streamitems.Any())
-                {
-                    streamitem = result.streamitems.Last();
-                }
-
-                var data = streamitem.data.Any() ? this.DeEncryptHexData(streamitem.data) : string.Empty;
-                data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + physicianIdentification);
-
-                var transactionkey = this.GetTransactionKey(physicianIdentification);
-                var transactionId = chain.PublishMessage(new PublishMessageData { Key = transactionkey, HexString = data, StreamName = authorisation } );
-
-                return true;
+                streamitem = result.streamitems.Last();
             }
+
+            var data = streamitem.data.Any() ? this.DeEncryptHexData(streamitem.data) : string.Empty;
+            data += this.EncryptHexData((data.Any() ? ";" : string.Empty) + physicianIdentification);
+
+            var transactionkey = this.GetTransactionKey(physicianIdentification);
+            var transactionId = chain.PublishMessage(new PublishMessageData { Key = authorisation, HexString = data, StreamName = authorisation } );
+
+            return true;
 
             return false;
         }

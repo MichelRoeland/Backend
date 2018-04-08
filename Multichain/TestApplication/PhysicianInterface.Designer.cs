@@ -36,6 +36,8 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label12 = new System.Windows.Forms.Label();
+            this.type = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -73,13 +75,14 @@
             this.label11 = new System.Windows.Forms.Label();
             this.docId = new System.Windows.Forms.ComboBox();
             this.FullTextview = new System.Windows.Forms.RichTextBox();
-            this.type = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -158,6 +161,29 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Mijn toevoegingen";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(11, 15);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(34, 13);
+            this.label12.TabIndex = 9;
+            this.label12.Text = "Type:";
+            // 
+            // type
+            // 
+            this.type.FormattingEnabled = true;
+            this.type.Items.AddRange(new object[] {
+            "Items",
+            "Log",
+            "Authentication",
+            "Patient details"});
+            this.type.Location = new System.Drawing.Point(92, 7);
+            this.type.Name = "type";
+            this.type.Size = new System.Drawing.Size(247, 21);
+            this.type.TabIndex = 9;
+            this.type.SelectedIndexChanged += new System.EventHandler(this.type_SelectedIndexChanged);
             // 
             // button3
             // 
@@ -256,7 +282,7 @@
             // 
             this.tabControl2.Controls.Add(this.tabPage7);
             this.tabControl2.Controls.Add(this.tabPage8);
-            this.tabControl2.Location = new System.Drawing.Point(12, 12);
+            this.tabControl2.Location = new System.Drawing.Point(12, 107);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(899, 644);
@@ -464,7 +490,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(501, 8);
+            this.label11.Location = new System.Drawing.Point(670, 103);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(57, 13);
             this.label11.TabIndex = 5;
@@ -486,50 +512,50 @@
             "36474654",
             "77867679",
             "34667677"});
-            this.docId.Location = new System.Drawing.Point(564, 0);
+            this.docId.Location = new System.Drawing.Point(733, 95);
             this.docId.Name = "docId";
             this.docId.Size = new System.Drawing.Size(178, 21);
             this.docId.TabIndex = 7;
+            this.docId.SelectedIndexChanged += new System.EventHandler(this.docId_SelectedIndexChanged);
             // 
             // FullTextview
             // 
             this.FullTextview.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.FullTextview.Location = new System.Drawing.Point(913, 34);
+            this.FullTextview.Location = new System.Drawing.Point(913, 129);
             this.FullTextview.Name = "FullTextview";
             this.FullTextview.Size = new System.Drawing.Size(528, 622);
             this.FullTextview.TabIndex = 8;
             this.FullTextview.Text = "";
             this.FullTextview.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
-            // type
+            // pictureBox1
             // 
-            this.type.FormattingEnabled = true;
-            this.type.Items.AddRange(new object[] {
-            "Items",
-            "Log",
-            "Authentication",
-            "Patient details"});
-            this.type.Location = new System.Drawing.Point(92, 7);
-            this.type.Name = "type";
-            this.type.Size = new System.Drawing.Size(247, 21);
-            this.type.TabIndex = 9;
-            this.type.SelectedIndexChanged += new System.EventHandler(this.type_SelectedIndexChanged);
+            this.pictureBox1.BackgroundImage = global::TestApplication.Properties.Resources.stonedcreek;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(304, 95);
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
             // 
-            // label12
+            // button4
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(11, 15);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(34, 13);
-            this.label12.TabIndex = 9;
-            this.label12.Text = "Type:";
+            this.button4.Location = new System.Drawing.Point(917, 95);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 21);
+            this.button4.TabIndex = 10;
+            this.button4.Text = "Autoriseren";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
             // 
             // PhysicianInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1453, 663);
+            this.ClientSize = new System.Drawing.Size(1453, 758);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.FullTextview);
             this.Controls.Add(this.docId);
             this.Controls.Add(this.label11);
@@ -548,6 +574,7 @@
             this.tabPage7.PerformLayout();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -602,5 +629,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox type;
         private System.Windows.Forms.RichTextBox FullTextview;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button button4;
     }
 }

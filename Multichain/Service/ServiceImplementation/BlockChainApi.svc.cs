@@ -1,6 +1,7 @@
 ﻿using ServiceImplementation.Model;
 using Stoneycreek.libraries.MultichainWrapper;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ServiceImplementation
 {
@@ -37,23 +38,17 @@ namespace ServiceImplementation
                     DateLastMutation = patient.DateLastMutation,
                 };
 
-                foreach (var item in patient.ItemsList)
+                p.ItemsList = patient.ItemsList.Select(f => new ContentItems
                 {
-                    if(p.ItemsList == null)
-                        p.ItemsList = new List<ContentItems>();
-
-                    p.ItemsList.Add(new ContentItems
-                    {
-                        ContentId = item.PhysicianIdentification,
-                        DateTimeMutation = item.DateTimeMutation,
-                        DataBlockCount = item.DataBlocks
-                    });
-                }
+                    ContentId = f.PhysicianIdentification,
+                    //DateTimeMutation = f.DateTimeMutation,
+                    DataBlockCount = f.DataBlocks
+                }).ToArray();
 
                 myPatients.Add(p);
             }
 
-            return new PatientsResponse { Patients = myPatients };
+            return new PatientsResponse { Patients = myPatients.ToArray() };
         }
 
         public string LinkPhysicianToPatient(LinkingPhysicianRequest request)
