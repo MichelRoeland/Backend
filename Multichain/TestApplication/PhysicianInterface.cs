@@ -27,6 +27,9 @@ namespace TestApplication
                 lvi.SubItems.Add(i.BsnNumber);
                 patientView.Items.Add(lvi);
             }
+
+            docId.SelectedIndex = 0;
+            type.SelectedIndex = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -49,7 +52,7 @@ namespace TestApplication
 
         private void tabPage7_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void patientView_SelectedIndexChanged(object sender, EventArgs e)
@@ -81,6 +84,10 @@ namespace TestApplication
 
         private void Streams_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (patientView.SelectedItems.Count == 0)
+                return;
+
+
             PatientChain patientChain = new PatientChain();
 
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -96,6 +103,76 @@ namespace TestApplication
                 PatientId = patientView.SelectedItems[0].SubItems[2].Text
             });
 
+            if (result != null)
+            {
+                foreach (var i in result)
+                {
+                    var lv = new ListViewItem("-");
+                    lv.SubItems.Add("-");
+                    lv.SubItems.Add(i);
+                    content.Items.Add(lv);
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (patientView.SelectedItems.Count == 0 || Streams.SelectedItems.Count == 0)
+                return;
+
+
+            PatientChain patientChain = new PatientChain();
+
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var privatekey = config.AppSettings.Settings["privkey"].Value;
+
+            patientChain.SetChainData(new PatientChain.ParameterClass
+            {
+                DataToStore = ToevoegingInStream.Text,
+                Streamname = Streams.SelectedItems[0].SubItems[1].Text.Replace("-items", string.Empty) + "-" + type.Text,
+                PhysicianId = docId.Text,
+                Signature = patientChain.SignMessage(privatekey, docId.Text),
+                Address = config.AppSettings.Settings["address"].Value,
+                PatientId = patientView.SelectedItems[0].SubItems[2].Text
+            });
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            PatientChain patientChain = new PatientChain();
+            patientChain.CreateNewPatientChain(new NawContracts()
+            {
+                Address = "Logboek",
+                BsnNumber = "",
+                City = "",
+                Country = "",
+                DateLastMutation = new DateTime()
+            });
+        }
+
+        private void type_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (patientView.SelectedItems.Count == 0 || Streams.SelectedItems.Count == 0)
+                return;
+
+            PatientChain patientChain = new PatientChain();
+
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var privatekey = config.AppSettings.Settings["privkey"].Value;
+
+            var result = patientChain.GetChainData(new PatientChain.ParameterClass
+            {
+                DataToStore = ToevoegingInStream.Text,
+                Streamname = Streams.SelectedItems[0].SubItems[1].Text.Replace("-items", string.Empty) + "-" + type.Text,
+                PhysicianId = docId.Text,
+                Signature = patientChain.SignMessage(privatekey, docId.Text),
+                Address = config.AppSettings.Settings["address"].Value,
+                PatientId = patientView.SelectedItems[0].SubItems[2].Text,
+                StreamType = type.Text == @"Items" ? PatientChain.ParameterClass.type.Items : PatientChain.ParameterClass.type.Log
+            });
+
+            content.Items.Clear();
+
             foreach (var i in result)
             {
                 var lv = new ListViewItem("-");
@@ -105,22 +182,17 @@ namespace TestApplication
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            PatientChain patientChain = new PatientChain();
 
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            var privatekey = config.AppSettings.Settings["privkey"].Value;
+        }
 
-            patientChain.SetChainData(new PatientChain.ParameterClass
+        private void content_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (content.SelectedItems.Count > 0)
             {
-                DataToStore = ToevoegingInStream.Text,
-                Streamname = Streams.SelectedItems[0].SubItems[1].Text,
-                PhysicianId = docId.Text,
-                Signature = patientChain.SignMessage(privatekey, docId.Text),
-                Address = config.AppSettings.Settings["address"].Value,
-                PatientId = patientView.SelectedItems[0].SubItems[2].Text
-            });
+                FullTextview.Rtf = content.SelectedItems[0].SubItems[2].Text;
+            }
         }
     }
 }

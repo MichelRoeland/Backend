@@ -32,16 +32,12 @@ namespace Stoneycreek.libraries.MultichainWrapper
 
         public MultiChainBase(string streamname = null, ProcessWrapper processWrapper = null)
         {
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var config = ConfigurationManager.AppSettings;
             this.ResourceManager = Resources.ResourceManager;
 
-            ChainLocation = config.AppSettings.Settings["ChainLocation"].Value;
-            Chainname = config.AppSettings.Settings["Chainname"].Value;
-
-            UtilName = config.AppSettings.Settings["UtilName"].Value;
-            ClientName = config.AppSettings.Settings["ClientName"].Value;
-            Portname = config.AppSettings.Settings["ChainPort"].Value;
-            MultichainServer = config.AppSettings.Settings["MultichainServer"].Value;
+            ChainLocation = config.Get("ChainLocation");
+            Chainname = config.Get("Chainname");
+            ClientName = config.Get("ClientName");
 
             this.CommandExecuter = new CommandExecuter(processWrapper);
             MyIpAddress = IpAddress.GetLocalIPAddress();

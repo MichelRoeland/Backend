@@ -17,6 +17,15 @@ namespace Stoneycreek.libraries.MultichainWrapper
     {
         public class ParameterClass
         {
+            public enum type
+            {
+                Log,
+                Items,
+                Authentication,
+                Encryption,
+                PatientNaw
+            }
+
             public string Streamname { get; set; }
             public string PhysicianId { get; set; }
             public string DataToStore { get; set; }
@@ -24,6 +33,8 @@ namespace Stoneycreek.libraries.MultichainWrapper
             public string PhysicianSecondId { get; set; }
             public string Address { get; set; }
             public string PatientId { get; set; }
+
+            public type StreamType { get; set; }
         }
 
         private const string authorisation = "auth";
@@ -81,8 +92,9 @@ namespace Stoneycreek.libraries.MultichainWrapper
             {
                 var res = chain.GetStreamKeys(data.Streamname);
 
-                var autorisatieStream = this.GetChainName(data.PatientId, data.PhysicianId, authorisation); 
-                var result = chain.GetStreamItemByKey(autorisatieStream, authorisation).streamitems.ToArray();
+                var autorisatieStream = this.GetChainName(data.PatientId, data.PhysicianId, authorisation);
+                var streamitems = chain.GetStreamItemByKey(autorisatieStream, authorisation);
+                var result = streamitems == null ? new StreamItem[0] : streamitems.streamitems.ToArray();
 
                 if (result.Any() && this.DeEncryptHexData(result.Last().data).Split(';').Select(f => data.PhysicianId)
                         .ToArray().Any())
@@ -111,7 +123,7 @@ namespace Stoneycreek.libraries.MultichainWrapper
                 var datalocation = this.CreateFileBackup(data.DataToStore);
                 chain.PublishMessage(new PublishMessageData
                 {
-                    Key = patientnaw,
+                    Key = "entry",
                     HexString = this.EncryptHexData(datalocation + "|" +
                                                     ("NogGeenKey").Replace("-", string.Empty)
                                                     .Replace(" ", string.Empty)),

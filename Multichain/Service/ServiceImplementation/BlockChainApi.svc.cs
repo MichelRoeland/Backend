@@ -39,6 +39,9 @@ namespace ServiceImplementation
 
                 foreach (var item in patient.ItemsList)
                 {
+                    if(p.ItemsList == null)
+                        p.ItemsList = new List<ContentItems>();
+
                     p.ItemsList.Add(new ContentItems
                     {
                         ContentId = item.PhysicianIdentification,

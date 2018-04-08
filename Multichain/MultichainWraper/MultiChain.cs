@@ -148,7 +148,11 @@ namespace Stoneycreek.libraries.MultichainWrapper
             var commandtext = ChainLocation + ClientName + " " + Chainname + " " + string.Format(this.ResourceManager.GetString("Liststreamkeyitems"), streamname, key);
             var result = this.CommandExecuter.ExecuteCommand(commandtext, null);
 
-            result = "{\"streamitems\" : " + result + "}";
+            if (result.Any())
+            {
+                result = "{\"streamitems\" : " + result + "}";
+            }
+
 
             return JsonConvert.DeserializeObject<StreamItems>(result);
         }

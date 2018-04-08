@@ -36,16 +36,17 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.ToevoegingInStream = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.Streams = new System.Windows.Forms.ListView();
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.content = new System.Windows.Forms.ListView();
@@ -70,8 +71,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.firstname = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.docId = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.docId = new System.Windows.Forms.ComboBox();
+            this.FullTextview = new System.Windows.Forms.RichTextBox();
+            this.type = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -141,6 +144,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label12);
+            this.tabPage1.Controls.Add(this.type);
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.textBox2);
@@ -153,6 +158,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Mijn toevoegingen";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(534, 235);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "Post";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label10
             // 
@@ -178,16 +193,6 @@
             this.ToevoegingInStream.Size = new System.Drawing.Size(264, 201);
             this.ToevoegingInStream.TabIndex = 7;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(731, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(139, 23);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Create physician stream";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // Streams
             // 
             this.Streams.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -195,9 +200,9 @@
             this.columnHeader11,
             this.columnHeader12});
             this.Streams.FullRowSelect = true;
-            this.Streams.Location = new System.Drawing.Point(14, 3);
+            this.Streams.Location = new System.Drawing.Point(14, 34);
             this.Streams.Name = "Streams";
-            this.Streams.Size = new System.Drawing.Size(325, 252);
+            this.Streams.Size = new System.Drawing.Size(325, 221);
             this.Streams.TabIndex = 5;
             this.Streams.UseCompatibleStateImageBehavior = false;
             this.Streams.View = System.Windows.Forms.View.Details;
@@ -237,6 +242,16 @@
             this.tabPage3.Text = "Mijn verzoeken";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(731, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(139, 23);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Create physician stream";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // tabControl2
             // 
             this.tabControl2.Controls.Add(this.tabPage7);
@@ -271,10 +286,11 @@
             this.content.FullRowSelect = true;
             this.content.Location = new System.Drawing.Point(255, 322);
             this.content.Name = "content";
-            this.content.Size = new System.Drawing.Size(619, 284);
+            this.content.Size = new System.Drawing.Size(615, 284);
             this.content.TabIndex = 4;
             this.content.UseCompatibleStateImageBehavior = false;
             this.content.View = System.Windows.Forms.View.Details;
+            this.content.SelectedIndexChanged += new System.EventHandler(this.content_SelectedIndexChanged);
             // 
             // columnHeader7
             // 
@@ -448,7 +464,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(793, 9);
+            this.label11.Location = new System.Drawing.Point(501, 8);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(57, 13);
             this.label11.TabIndex = 5;
@@ -456,29 +472,65 @@
             // 
             // docId
             // 
-            this.docId.AutoSize = true;
-            this.docId.Location = new System.Drawing.Point(856, 9);
+            this.docId.FormattingEnabled = true;
+            this.docId.Items.AddRange(new object[] {
+            "12456789",
+            "41231233",
+            "59238429",
+            "24828838",
+            "12341241",
+            "12314312",
+            "64674564",
+            "45674564",
+            "34647364",
+            "36474654",
+            "77867679",
+            "34667677"});
+            this.docId.Location = new System.Drawing.Point(564, 0);
             this.docId.Name = "docId";
-            this.docId.Size = new System.Drawing.Size(55, 13);
-            this.docId.TabIndex = 6;
-            this.docId.Text = "12456789";
+            this.docId.Size = new System.Drawing.Size(178, 21);
+            this.docId.TabIndex = 7;
             // 
-            // button3
+            // FullTextview
             // 
-            this.button3.Location = new System.Drawing.Point(534, 235);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "Post";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.FullTextview.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.FullTextview.Location = new System.Drawing.Point(913, 34);
+            this.FullTextview.Name = "FullTextview";
+            this.FullTextview.Size = new System.Drawing.Size(528, 622);
+            this.FullTextview.TabIndex = 8;
+            this.FullTextview.Text = "";
+            this.FullTextview.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            // 
+            // type
+            // 
+            this.type.FormattingEnabled = true;
+            this.type.Items.AddRange(new object[] {
+            "Items",
+            "Log",
+            "Authentication",
+            "Patient details"});
+            this.type.Location = new System.Drawing.Point(92, 7);
+            this.type.Name = "type";
+            this.type.Size = new System.Drawing.Size(247, 21);
+            this.type.TabIndex = 9;
+            this.type.SelectedIndexChanged += new System.EventHandler(this.type_SelectedIndexChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(11, 15);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(34, 13);
+            this.label12.TabIndex = 9;
+            this.label12.Text = "Type:";
             // 
             // PhysicianInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(918, 663);
+            this.ClientSize = new System.Drawing.Size(1453, 663);
+            this.Controls.Add(this.FullTextview);
             this.Controls.Add(this.docId);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.tabControl2);
@@ -486,7 +538,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "PhysicianInterface";
-            this.Text = "PhysicianInterface";
+            this.Text = "Admin Interface Blockchain";
             this.Load += new System.EventHandler(this.PhysicianInterface_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -545,7 +597,10 @@
         private System.Windows.Forms.TextBox ToevoegingInStream;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label docId;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox docId;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox type;
+        private System.Windows.Forms.RichTextBox FullTextview;
     }
 }
