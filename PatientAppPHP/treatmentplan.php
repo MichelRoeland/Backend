@@ -9,7 +9,7 @@
     <div class="wrapper">
         <div class="sidebar" data-color="red" data-image="../assets/img/sidebar-1.jpg">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
+                <a href="#" class="simple-text">
                     StoneyCreek
                 </a>
             </div>
