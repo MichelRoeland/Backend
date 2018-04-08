@@ -31,15 +31,6 @@ namespace Logic.Models
         }
     }
 
-
-    public class SearchPatient
-    {
-        public string BSN { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-    }
-
-
     public class PatientStream
     {
         public int Id { get; set; }

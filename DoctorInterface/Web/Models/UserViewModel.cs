@@ -10,6 +10,7 @@ namespace Web.Models
     {
         public User CurrentUser { get; set; }
 
-        public IEnumerable <SubscribedPatient> SubscribedPatients { get; set; }
+        public List<BlockChainPatient> SubscribedPatients { get; set; }
+        //public List<SubscribedPatient> SubscribedPatients { get; set; }
     }
 }

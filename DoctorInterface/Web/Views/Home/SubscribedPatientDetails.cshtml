@@ -2,10 +2,10 @@
 
 @{
     ViewBag.Title = "Patienten";
-    ViewBag.Streams = Model.patient.Streams;
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var patientAddress = Model.patient.PatientAddress.Street + " " + Model.patient.PatientAddress.HouseNumber;
+    var patientName = Model.patient.Initials + " " + Model.patient.Lastname;
+    var patientAddress = Model.patient.Streetname + " " + Model.patient.Housenumber;
 }
 
 <div class="patientview">
@@ -28,20 +28,20 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>@Html.LabelFor(m => m.patient.Name)</td>
-                            <td>@Model.patient.Name</td>
+                            <td><b>Naam</b></td>
+                            <td>@patientName</td>
                         </tr>
                         <tr>
-                            <td>Adres</td>
+                            <td><b>Adres</b></td>
                             <td>@patientAddress</td>
                         </tr>
                         <tr>
-                            <td>@Html.LabelFor(m => m.patient.PatientAddress.City)</td>
-                            <td>@Model.patient.PatientAddress</td>
+                            <td class="bold"><b>@Html.LabelFor(m => m.patient.City)</b></td>
+                            <td>@Model.patient.City</td>
                         </tr>
                         <tr>
-                            <td>@Html.LabelFor(m => m.patient.PatientAddress.PhoneNumber)</td>
-                            <td>@Model.patient.PatientAddress.PhoneNumber</td>
+                            <td class="bold"><b>@Html.LabelFor(m => m.patient.BsnNumber)</b></td>
+                            <td>@Model.patient.BsnNumber</td>
                         </tr>
                     </tbody>
 

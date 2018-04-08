@@ -8,13 +8,17 @@ namespace Web.Models
 {
     public class LoginViewModel
     {
+        public int Id { get; set; }
+
         [Required]
-        [Display(Name = "Gebruikersnaam")]
+        [Display(Name = "Username")]
         public string UserName { get; set; }
 
         [Required]
-        [Display(Name = "Wachtwoord")]
+        [Display(Name = "Username")]
         public string Password { get; set; }
+
+        public string AccessKey { get; set; }
 
     }
 }

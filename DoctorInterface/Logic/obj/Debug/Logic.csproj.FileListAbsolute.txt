@@ -4,3 +4,12 @@ D:\Z - Workplace\BlockChaingers\FrontEndPackage\Logic\obj\Debug\Logic.csprojReso
 D:\Z - Workplace\BlockChaingers\FrontEndPackage\Logic\obj\Debug\Logic.csproj.CoreCompileInputs.cache
 D:\Z - Workplace\BlockChaingers\FrontEndPackage\Logic\obj\Debug\Logic.dll
 D:\Z - Workplace\BlockChaingers\FrontEndPackage\Logic\obj\Debug\Logic.pdb
+D:\Z - Workplace\BlockChaingers\fullrepo\DoctorInterface\Logic\bin\Debug\Logic.dll
+D:\Z - Workplace\BlockChaingers\fullrepo\DoctorInterface\Logic\bin\Debug\Logic.pdb
+D:\Z - Workplace\BlockChaingers\fullrepo\DoctorInterface\Logic\obj\Debug\Logic.csprojResolveAssemblyReference.cache
+D:\Z - Workplace\BlockChaingers\fullrepo\DoctorInterface\Logic\obj\Debug\Logic.csproj.CoreCompileInputs.cache
+D:\Z - Workplace\BlockChaingers\fullrepo\DoctorInterface\Logic\obj\Debug\Logic.dll
+D:\Z - Workplace\BlockChaingers\fullrepo\DoctorInterface\Logic\obj\Debug\Logic.pdb
+D:\Z - Workplace\BlockChaingers\fullrepo\DoctorInterface\Logic\bin\Debug\Logic.dll.config
+D:\Z - Workplace\BlockChaingers\fullrepo\DoctorInterface\Logic\bin\Debug\Newtonsoft.Json.dll
+D:\Z - Workplace\BlockChaingers\fullrepo\DoctorInterface\Logic\bin\Debug\Newtonsoft.Json.xml

@@ -69,7 +69,8 @@ body .left-menu .main-menu {
       margin-top: 50px; } }
 
 .indexview {
-  padding-top: 20px; }
+  padding-top: 20px;
+  height: 700px; }
   .indexview .patientoverview {
     margin-top: 10px;
     margin-bottom: 25px; }
@@ -80,3 +81,13 @@ body .left-menu .main-menu {
   box-shadow: 0 0 10px rgba(10, 10, 10, 0.5); }
   .searchpatient-container td a {
     display: block; }
+
+.patient-table td p {
+  margin-bottom: 0px !important;
+  margin-top: 5px; }
+
+.bold {
+  font-weight: 600; }
+
+#my-info {
+  height: 700px; }

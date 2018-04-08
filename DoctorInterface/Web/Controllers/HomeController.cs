@@ -37,11 +37,15 @@ namespace Web.Controllers
            
         }
 
-        public ActionResult SubscribedPatientDetails(UserViewModel userViewModel)
+        public ActionResult SubscribedPatientDetails(BlockChainPatient patient)
         {
-            if(userViewModel != null)
-            { 
-                return View();
+            if(patient != null)
+            {
+                var patientViewModel = new PatientViewModel();
+
+                patientViewModel.patient = patient;
+
+                return View(patientViewModel);
             }
             else
             {
@@ -62,9 +66,9 @@ namespace Web.Controllers
         public PartialViewResult _NewEntryModal()
         {
 
-            var searchPatientViewModel = new SearchPatientViewModel();
+            var entryViewModel = new EntryViewModel();
 
-            return PartialView(searchPatientViewModel);
+            return PartialView(entryViewModel);
         }
 
 
@@ -77,22 +81,30 @@ namespace Web.Controllers
 
         public ActionResult SearchPatient(SearchPatientViewModel searchPatientViewModel)
         {
-            //Search for patient
-            var foundPatients = new List<SearchPatient>();
+            //search for all patients
+            var blockChainApiService = new Logic.Services.BlockChainService();
+            var foundPatients = blockChainApiService.GetAllPatients();
+            var foundPatientsViewModel = new FoundPatientsViewModel();
+            foundPatientsViewModel.FoundPatients = foundPatients;
 
-            if(foundPatients.Count() < 1)
+            if (foundPatients.Count() < 1)
             {
                 return RedirectToAction("NoPatientsFound", "Home");
             }
             else
             {
-                return RedirectToAction("FoundPatients", "Home", new { foundPatientsViewModel = searchPatientViewModel });
+                return RedirectToAction("FoundPatients", "Home", new { foundPatientsViewModel = foundPatientsViewModel });
             }
         }
 
         public ActionResult FoundPatients(FoundPatientsViewModel foundPatientsViewModel)
         {
-            return View(foundPatientsViewModel);
+            var blockChainApiService = new Logic.Services.BlockChainService();
+            var foundPatients = blockChainApiService.GetAllPatients();
+            var foundPatientsViewModel2 = new FoundPatientsViewModel();
+            foundPatientsViewModel2.FoundPatients = foundPatients;
+
+            return View(foundPatientsViewModel2);
         }
 
         public ActionResult NoPatientsFound()
