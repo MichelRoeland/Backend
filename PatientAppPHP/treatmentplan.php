@@ -35,38 +35,50 @@
                         <div class="col-md-12">
                             <div class="card card-plain">
                                 <div class="card-header" data-background-color="red">
-                                    <h4 class="title">Treatment Plan for: A zere teen</h4>
-                                    <p class="category">Here is your treatment plan for a zere teen.</p>
+                                    <h4 class="title">Treatment Plan for: Last van uitvallend haar</h4>
+                                    <p class="category">The details of your treatment plan for "uitvallend haar"</p>
                                 </div>
                                 <div class="card-content table-responsive">
                                     <table class="table table-hover">
                                         <thead>
-                                            <th width="12%">Step</th>
-                                            <th width="30%">Action</th>
-                                            <th width="20%">Duration</th>
-                                            <th width="18%">End Date</th>
-                                            <th style="text-align:center" width="20%">Finished?</th>
+                                            <th width="45%">Type</th>
+                                            <th width="45%">Duration</th>
+                                            <th style="text-align:center" width="10%">Finished?</th>
                                         </thead>
                                         <tbody>
 											<tr>
-												<td>1</td>
-												<td>Practice stretching your toe</td>
-												<td>Two Days</td>
-												<td>03-03-2018</td>
+												<td>Complaints</td>
+												<td>Patient has a cold head, unused combs and gel past the expiration date</td>
 												<td style="text-align:center"><input checked type="checkbox" /></td>
 											</tr>
 											<tr>
-												<td>2</td>
-												<td>Put a little bit of pressure on your toe</td>
-												<td>One Time</td>
-												<td>08-03-2018</td>
+												<td>Short term solution</td>
+												<td>Wig and/or hair piece</td>
+												<td style="text-align:center"><input checked type="checkbox" /></td>
+											</tr>
+											<tr>
+												<td>Long term solution</td>
+												<td>Patien will grow hair on own strength</td>
 												<td style="text-align:center"><input type="checkbox" /></td>
 											</tr>
 											<tr>
-												<td>3</td>
-												<td>Let mommy put a kiss on it</td>
-												<td>As long as you like, you sick individual</td>
-												<td>12-03-2018</td>
+												<td>Treatment 1</td>
+												<td>Acceptance and awareness sessions</td>
+												<td style="text-align:center"><input type="checkbox" /></td>
+											</tr>
+											<tr>
+												<td>Treatment 2</td>
+												<td>Dealing with dissappointment</td>
+												<td style="text-align:center"><input type="checkbox" /></td>
+											</tr>
+											<tr>
+												<td>Treatment payed by</td>
+												<td>Customer</td>
+												<td style="text-align:center"><input type="checkbox" /></td>
+											</tr>
+											<tr>
+												<td>Treatment plan session duration</td>
+												<td>45 minutes</td>
 												<td style="text-align:center"><input type="checkbox" /></td>
 											</tr>
 										</tbody>
@@ -77,7 +89,7 @@
                     </div>
 					<div class="row">
 						<div class="col-md-12">
-							 <center><input name="save" value="Save Data" type="submit" /></center>
+							 <center><input name="save" value="Save Progress" type="submit" /></center>
 						</div>
 					</div>
                 </div>
