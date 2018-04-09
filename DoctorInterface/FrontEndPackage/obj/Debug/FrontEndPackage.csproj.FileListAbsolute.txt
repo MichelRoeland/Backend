@@ -1,8 +1,0 @@
-D:\Z - Workplace\BlockChaingers\FrontEndPackage\FrontEndPackage\bin\FrontEndPackage.dll
-D:\Z - Workplace\BlockChaingers\FrontEndPackage\FrontEndPackage\bin\FrontEndPackage.pdb
-D:\Z - Workplace\BlockChaingers\FrontEndPackage\FrontEndPackage\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-D:\Z - Workplace\BlockChaingers\FrontEndPackage\FrontEndPackage\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\Z - Workplace\BlockChaingers\FrontEndPackage\FrontEndPackage\obj\Debug\FrontEndPackage.csprojResolveAssemblyReference.cache
-D:\Z - Workplace\BlockChaingers\FrontEndPackage\FrontEndPackage\obj\Debug\FrontEndPackage.csproj.CoreCompileInputs.cache
-D:\Z - Workplace\BlockChaingers\FrontEndPackage\FrontEndPackage\obj\Debug\FrontEndPackage.dll
-D:\Z - Workplace\BlockChaingers\FrontEndPackage\FrontEndPackage\obj\Debug\FrontEndPackage.pdb

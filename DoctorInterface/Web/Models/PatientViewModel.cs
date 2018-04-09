@@ -8,6 +8,6 @@ namespace Web.Models
 {
     public class PatientViewModel
     {
-        public SubscribedPatient patient { get; set; }
+        public BlockChainPatient patient { get; set; }
     }
 }

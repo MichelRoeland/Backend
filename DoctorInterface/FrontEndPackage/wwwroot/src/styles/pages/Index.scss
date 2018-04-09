@@ -1,6 +1,7 @@
 ﻿.indexview
 {
     padding-top: 20px;
+    height: 700px;
 
     .patientoverview
         {
@@ -19,3 +20,20 @@
         display: block;
     }
 }
+
+.patient-table
+{
+    td p{
+        margin-bottom: 0px !important;
+        margin-top: 5px;
+    }
+}
+
+.bold{
+    font-weight: 600;
+}
+
+#my-info{
+    height: 700px;
+}
+

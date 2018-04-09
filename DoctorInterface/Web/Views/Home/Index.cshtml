@@ -22,23 +22,21 @@
                 <table class="hover">
                     <thead>
                         <tr>
-                            <th width="200">Naam</th>
-                            <th width="200">Woonplaats</th>
-                            <th width="150">Info3</th>
-                            <th width="150">Info4</th>
+                            <th width="200">Initials</th>
+                            <th width="200">Lastname</th>
+                            <th width="150">City</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @*@foreach (var subscribedPatient in Model.SubscribedPatients)
+                        @foreach (var subscribedPatient in Model.SubscribedPatients)
                         {
                         <tr>
-                            <td>@Html.ActionLink(subscribedPatient.Name, "SubscribedPatient", "Home", new { userViewModel = Model } )</td>
-                            <td>@Html.ActionLink(subscribedPatient.PatientAddress.City, "SubscribedPatient", "Home", new { userViewModel = Model } )</td>
-                            <td>@Html.ActionLink("Content", "SubscribedPatient", "Home", new { userViewModel = Model })</td>
-                            <td>@Html.ActionLink("Content", "SubscribedPatient", "Home", new { userViewModel = Model })</td>
+                            <td>@Html.ActionLink(subscribedPatient.Initials, "SubscribedPatientDetails", "Home", new { subscribedPatient })</td>
+                            <td>@Html.ActionLink(subscribedPatient.Lastname, "SubscribedPatientDetails", "Home", new { subscribedPatient })</td>
+                            <td>@Html.ActionLink(subscribedPatient.City, "SubscribedPatientDetails", "Home", new { subscribedPatient })</td>
                         </tr>
-                        }*@
-                    <tr>
+                        }
+                    @*<tr>
                         
                         <td><a href="#">Mr. B.</a></td>
                         <td><a href="#">Gouda</a></td>
@@ -50,7 +48,7 @@
                         <td>Zutphen</td>
                         <td>Content</td>
                         <td>Content</td>
-                    </tr>
+                    </tr>*@
                     </tbody>
                 </table>
             </div>
@@ -60,6 +58,5 @@
                 @Html.Action("_SearchPatient", "Home")
             </div>
         </div>
-    <hr>
    </div>
 </div>

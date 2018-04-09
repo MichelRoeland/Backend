@@ -23,18 +23,19 @@
                             <th width="200">Last name</th>
                             <th width="200">First name</th>
                             <th width="150">BSN</th>
-                            <th width="100">Request Access</th>
+                            <th width="120">Request Access</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var subscribedPatient in Model.FoundPatients)
+                        @foreach (var foundpatients in Model.FoundPatients)
                         {
-                            <tr>
-                                <td>@subscribedPatient.LastName</td>
-                                <td>@subscribedPatient.FirstName</td>
-                                <td>@subscribedPatient.BSN</td>
-                                <td><button></button></td>
-                            </tr>
+                        <tr>
+
+                            <td>@foundpatients.Initials</td>
+                            <td>@foundpatients.Lastname</td>
+                            <td>@foundpatients.BsnNumber</td>
+                            <td><p><input type="button" class="button" value="Request Access"></input></p></td>
+                        </tr>
                         }
                     </tbody>
                 </table>
