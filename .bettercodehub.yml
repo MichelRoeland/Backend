@@ -12,3 +12,4 @@ exclude:
 - .*/Resource.designer.cs
 - .*/FrontEndPackage/.*
 - .*/Web/.*
+- .*/assets/.*
